@@ -15,8 +15,14 @@ angular.module('SpaceJam', ['spotify'])
         }        
         
         $scope.searchArtist = function () {
-            Spotify.search($scope.SearchArtist, 'artist').then(function (data) {
+            Spotify.search($scope.Artist, 'artist').then(function (data) {
                 $scope.artists = data;
+                console.log(data);
+            })
+        }
+
+        $scope.searchAlbum = function() {
+            Spotify.search($scope.Album, 'album').then(function(data) {
                 console.log(data);
             })
         }
