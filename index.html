@@ -25,7 +25,7 @@
             <a class="media" ng-href="{{artist.external_urls.spotify}}" target="_blank">
                 <img ng-src="{{artist.images[0].url}}" alt="">
                 <div class="media-details">
-                    {{ artist.artists.items.name }}
+                    {{ artist.artists.items[0].name }}
                 </div>
             </a>
         </li>
