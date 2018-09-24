@@ -47,7 +47,7 @@
             <li ng-repeat="album in albums">
                 <a class="media" ng-href="{{ album.albums.items.external_urls.spotify }}">
                     <div class='media-details'>
-                        {{ album.albums.items.name }}
+                        {{ album.albums.items[0].name }}
                         <br>
                         {{ album.albums.items.artists.name }}
                     </div>
