@@ -14,12 +14,12 @@
 
 
 <body ng-app="SpaceJam" ng-controller="MainController"> 
-    <h1>Website</h1>
-
     <button ng-click="login()">Login To Spotify</button>
-
-    <input type="text" ng-model="SearchArtist" ng-change="searchArtist()" placholder="Search for an artist">
-    <h5>Artist</h5>
+    <br>
+    
+    <h5>Search By Artist</h5>
+    <input type="text" ng-model="SearchArtist" placholder="Search for an artist">
+    <button ng-click="searchArtists()">Search</button>
     <ul>
         <li ng-repeat="artist in artists">
             <a class="media" ng-href="{{artist.artists.items[0].external_urls.spotify}}" target="_blank">
