@@ -18,8 +18,8 @@
     <br>
     
     <h5>Search By Artist</h5>
-    <input type="text" ng-model="SearchArtist" placholder="Search for an artist">
-    <button ng-click="searchArtist()">Search</button>
+    <input class="form-control" type="text" ng-model="SearchArtist" placholder="Search for an artist">
+    <button class="btn btn-primary" ng-click="searchArtist()">Search</button>
     <ul>
         <li ng-repeat="artist in artists">
             <a class="media" ng-href="{{artist.artists.items[0].external_urls.spotify}}" target="_blank">
