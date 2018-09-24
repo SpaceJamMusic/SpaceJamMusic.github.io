@@ -22,8 +22,8 @@
     <h5>Artist</h5>
     <ul>
         <li ng-repeat="artist in artists">
-            <a class="media" ng-href="{{artist.external_urls.spotify}}" target="_blank">
-                <img ng-src="{{artist.images[0].url}}" alt="">
+            <a class="media" ng-href="{{artist.artists.items[0].external_urls.spotify}}" target="_blank">
+                <img ng-src="{{artist.artists.items[0].images[0].url}}" alt="">
                 <div class="media-details">
                     {{ artist.artists.items[0].name }}
                 </div>
