@@ -43,13 +43,13 @@
         <button class="btn btn-primary" ng-click="searchAlbum()">Search</button>
         <br>
         <br>
-        <ul>
-            <li ng-repeat="album in albums">
-                <a class="media" ng-href="{{ album.albums.items.external_urls.spotify }}">
+        <ul ng-repeat="album in albums">
+            <li ng-repeat="item in album.albums.items">
+                <a class="media" ng-href="{{ item.external_urls.spotify }}">
                     <div class='media-details'>
-                        {{ album.albums.items[0].name }}
+                        {{ item.name }}
                         <br>
-                        {{ album.albums.items.artists.name }}
+                        {{ item.name }}
                     </div>
                 </a>
             </li>
