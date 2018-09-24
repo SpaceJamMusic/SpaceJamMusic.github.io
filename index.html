@@ -25,7 +25,7 @@
         <button class="btn btn-primary" ng-click="searchArtist()">Search</button>
         <br>
         <ul>
-            <li ng-repeat="artist in artists">
+            <li ng-repeat="artist in artists.items">
                 <a class="media" ng-href="{{artist.external_urls.spotify}}" target="_blank">
                     <img ng-src="{{artist.images[2].url}}" alt="">
                     <div class="media-details">
