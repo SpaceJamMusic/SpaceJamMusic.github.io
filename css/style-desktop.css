@@ -1,0 +1,17 @@
+ul {
+    list-style: none;
+}
+.media {
+    display: table;
+    width: 100%;
+}
+.media img {
+    display: table-cell;
+    max-width: 100%;
+}
+.media-details {
+    padding-left: 1em;
+    vertical-align: middle;
+    display: table-cell;
+    width: 90%;
+}

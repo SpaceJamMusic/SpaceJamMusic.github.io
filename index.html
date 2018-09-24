@@ -19,7 +19,16 @@
     <button ng-click="login()">Login To Spotify</button>
 
     <input type="text" ng-model="SearchArtist" ng-change="searchArtist()" placholder="Search for an artist">
-
+    <ul>
+        <li ng-repeat="artist in artists">
+            <a class="media" ng-href="{{artist.external_urls.spotify}}" target="_blank">
+                <img ng-src="{{artist.images[0].url}}" alt="">
+                <div class="media-details">
+                    {{ artist.name }}
+                </div>
+            </a>
+        </li>
+    </ul>
 
 
 
