@@ -28,7 +28,15 @@ angular.module('SpaceJam', ['spotify'])
                 $scope.albums = data;
                 console.log(data);
             }, function() {
-                $scope.artists = '';
+                $scope.albums = '';
+            })
+        }
+
+        $scope.getTrack = function() {
+            Spotify.getTrackAudioFeatures($scope.Track, 'track').then(function(data) {
+                console.log(data);
+            }, function() {
+                $scope.track = '';
             })
         }
     }])
