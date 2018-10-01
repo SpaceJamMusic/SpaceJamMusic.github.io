@@ -33,7 +33,7 @@ angular.module('SpaceJam', ['spotify'])
         }
 
         $scope.getTrack = function() {
-            Spotify.getTrackAudioFeatures($scope.Track, 'track').then(function(data) {
+            Spotify.getTrackAudioFeatures($scope.Track).then(function(data) {
                 console.log(data);
             }, function() {
                 $scope.track = '';

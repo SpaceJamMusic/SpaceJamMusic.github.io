@@ -15,18 +15,50 @@
 
 
 <body ng-app="SpaceJam" ng-controller="MainController">
-    <div class="wrapper">
-        <div class="sidebar">
+    <div class="container-fluid">
+        <button class="btn btn-primary" ng-click="login()">Login To Spotify</button>
+        <br>
+        <br>
 
-        </div>
-        <div class="content">
-            <div class="main">
-
-            </div>
-            <div class="bottombar">
-
-            </div>
-        </div>
+        <h5>Search By Artist</h5>
+        <input class="form-control" type="text" ng-model="Artist" placeholder="Search for an artist">
+        <button class="btn btn-primary" ng-click="searchArtist()">Search</button>
+        <br>
+        <br>
+        <ul>
+            <li ng-repeat="artist in artists">
+                <a class="media" ng-href="{{artist.artists.items[0].external_urls.spotify}}" target="_blank">
+                    <img ng-src="{{artist.artists.items[0].images[2].url}}" alt="">
+                    <div class="media-details">
+                        {{ artist.artists.items[0].name }}
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <br>
+        <br>
+        <br>
+        <h5>Search By Album</h5>
+        <input class="form-control" type="text" ng-model="Album" placeholder="Search For an Album">
+        <button class="btn btn-primary" ng-click="searchAlbum()">Search</button>
+        <br>
+        <br>
+        <ul ng-repeat="album in albums">
+            <li ng-repeat="item in album.albums.items">
+                <a class="media" ng-href="{{ item.external_urls.spotify }}">
+                    <div class='media-details'>
+                        {{ item.name }}: {{ item.artists[0].name }}
+                    </div>
+                </a>
+                <br>
+            </li>
+        </ul>
+        <br>
+        <br>
+        <br>
+        <h5>Search By Track</h5>
+        <input class="form-control" type="text" ng-model="Track" placeholder="Search For a Track">
+        <button class="btn btn-primary" ng-click="getTrack()">Search</button>
     </div>
 
 
