@@ -16,15 +16,18 @@ ul {
     width: 90%;
 }
 
+.container-fluid {
+    padding: 0;
+    margin: 0;
+}
+
 .wrapper {
-    background-color: red;
     color: #000;
     height: 100vh;
     display: flex;
 }
 
 .sidebar {
-    background-color: blue;
     color: #FFF;
     width: 25%;
     height: 100vh;
@@ -32,15 +35,12 @@ ul {
 
 .content { 
     height: 100%;
-    background-color: green;
 }
 
 .main {
     height: 75%;
-    background-color: orange;
 }
 
 .bottombar {
     height: 25%;
-    background-color: purple;
 }
