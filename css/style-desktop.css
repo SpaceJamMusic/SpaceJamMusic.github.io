@@ -19,21 +19,27 @@ ul {
 .wrapper {
     background-color: red;
     color: #000;
+    height: 100vh;
+    display: flex;
 }
 
 .sidebar {
     background-color: blue;
     color: #FFF;
+    height: 100vh;
 }
 
 .content { 
+    height: 100%;
     background-color: green;
 }
 
 .main {
+    height: 75%;
     background-color: orange;
 }
 
 .bottombar {
+    height: 25%;
     background-color: purple;
 }
