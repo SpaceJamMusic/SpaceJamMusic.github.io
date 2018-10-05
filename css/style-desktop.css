@@ -26,6 +26,7 @@ ul {
 .sidebar {
     background-color: blue;
     color: #FFF;
+    width: 25%;
     height: 100vh;
 }
 
