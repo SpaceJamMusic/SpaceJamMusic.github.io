@@ -15,3 +15,25 @@ ul {
     display: table-cell;
     width: 90%;
 }
+
+.wrapper {
+    background-color: red;
+    color: #000;
+}
+
+.sidebar {
+    background-color: blue;
+    color: #FFF;
+}
+
+.content { 
+    background-color: green;
+}
+
+.main {
+    background-color: orange;
+}
+
+.bottombar {
+    background-color: purple;
+}
