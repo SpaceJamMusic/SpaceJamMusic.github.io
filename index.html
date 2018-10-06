@@ -16,7 +16,26 @@
 
 
 <body ng-app="SpaceJam" ng-controller="MainController">
-    <div class="wrapper">
+    <div class="logInView" ng-if="isLoggedIn == false">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="login-section">
+                        <h2><b>Welcome to SpaceJam</b></h2>
+                        <br>
+                        <br>
+                        <br>
+                        <h4>Please Log into your Spotify Account</h4>
+                        <br>
+                        <button class="btn" ng-click="login()">Connect Spotify</button>
+                        <h6 style="margin-top: 200px;">By connecting spotify you are accepting their Terms & Conditions for use</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper" ng-if="isLoggedIn == true">
         <div class="container-fluid">
             <div class="sidebar">
 
@@ -57,7 +76,7 @@
 
 
     </script>
-    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
