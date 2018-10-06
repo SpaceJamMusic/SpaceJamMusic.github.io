@@ -67,13 +67,40 @@
 
  
 
-
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <script type="text/javascript">
-        
+
+
+
+         window.onSpotifyWebPlaybackSDKReady = () => {
+            const token = $('[ng-controller="TestController"]').scope().token;
+
+            const player = new Spotify.Player({
+                name: 'Space Jam Player',
+                getOAuthToken: cb => { cb(token); }
+            });
+
+            player.addListener('initialization_error', ({ message }) => { console.error(message); });
+            player.addListener('authentication_error', ({ message }) => { console.error(message); });
+            player.addListener('account_error', ({ message }) => { console.error(message); });
+            player.addListener('playback_error', ({ message }) => { console.error(message); });
+
+            player.addListener('player_state_changed', state => { console.log(state); });
+            player.addListener('ready', ({ device_id }) => {
+                console.log('Ready with Device ID', device_id);
+            });
+
+            player.addListener('not_ready', ({ device_id }) => {
+                console.log('Device ID has gone offline', device_id);
+            });
+
+            plater.connect();
+
+        }
 
 
     </script>
-    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
