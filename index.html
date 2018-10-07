@@ -31,7 +31,8 @@
                         <br>
                         <br>
                         <button class="btn" ng-click="login()">Connect Spotify</button>
-                        <h6 style="text-align: center; position: relative; vertical-align: bottom;">By connecting spotify you are accepting <br> their Terms & Conditions for use</h6>
+                        <h6 style="text-align: center; position: relative; vertical-align: bottom;">By connecting
+                            spotify you are accepting <br> their Terms & Conditions for use</h6>
                     </div>
                 </div>
             </div>
@@ -39,18 +40,20 @@
     </div>
 
     <div class="wrapper" ng-if="isLoggedIn == true">
+        <div class="sidebar" id="sidebar">
+            <i class="fa fa-bars" id="collapse-button" onclick="toggleSidebar()"></i>
+            <h1>User Profile Information</h1>
+        </div>
         <div class="container-fluid">
-            <div class="sidebar">
-
-            </div>
             <div class="content">
                 <div class="main">
-
+                    <h1>Main View</h1>
                 </div>
                 <div class="bottombar">
-
+                    <h1>music Controls</h1>
                 </div>
             </div>
+
         </div>
 
     </div>
@@ -72,14 +75,18 @@
 
     <script type="text/javascript">
 
+        function toggleSidebar() {
+            var element = document.getElementById("sidebar");
 
+            element.classList.toggle("active");
+        }
 
 
 
 
 
     </script>
-    
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
