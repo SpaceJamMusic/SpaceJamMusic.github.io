@@ -39,24 +39,10 @@
         </div>
     </div>
 
-    <div class="wrapper" ng-if="isLoggedIn == true">
-        <div class="sidebar" id="sidebar">
-            <i class="fa fa-bars" id="collapse-button" onclick="toggleSidebar()"></i>
-            <h1>User Profile Information</h1>
-        </div>
-        <div class="container-fluid">
-            <div class="content">
-                <div class="main">
-                    <h1>Main View</h1>
-                </div>
-                <div class="bottombar">
-                    <h1>music Controls</h1>
-                </div>
-            </div>
-
-        </div>
-
+    <div ng-if="isLoggedIn == true">
+        <div ng-include="main.html"></div>
     </div>
+    
 
 
 
@@ -72,7 +58,7 @@
 
 
 
-    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+   
     <script type="text/javascript">
 
         function toggleSidebar() {
@@ -82,6 +68,7 @@
         }
 
         
+
 
 
 
