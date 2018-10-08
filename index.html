@@ -15,9 +15,9 @@
 </head>
 
 
-<body ng-app="SpaceJam" ng-controller="MainController">
-    <div class="logInView" ng-if="isLoggedIn == false">
-        <div class="container-fluid">
+<body ng-app="SpaceJam" ng-controller="AppController">
+    <div class="logInView" ng-controller="LoginController" ng-show="showLogin">
+        <div class="container-fluid" >
             <div class="row">
                 <div class="col-lg-12">
                     <div class="login-section">
@@ -39,10 +39,10 @@
         </div>
     </div>
 
-    <div class="wrapper" ng-if="isLoggedIn == true">
+    <div class="wrapper" ng-show="showPlayer">
         <div class="sidebar" id="sidebar">
             <i class="fa fa-bars" id="collapse-button" onclick="toggleSidebar()"></i>
-            <h1>User Profile Information</h1>
+            <h1>User Information</h1>
         </div>
         <div class="container-fluid">
             <div class="content">
@@ -50,6 +50,7 @@
                     <h1>Main View</h1>
                 </div>
                 <div class="bottombar">
+                    <i class="fas fa-play"></i>
                     <h1>music Controls</h1>
                 </div>
             </div>
@@ -89,8 +90,11 @@
         crossorigin="anonymous"></script>
 </body>
 
-<!--Controllers-->
-<script src="js/main.controller.js"></script>
+<!--Angular References-->
+<script src="js/app.js"></script>
+<script src="js/services/api.js"></script>
+<script src="js/services/auth.js"></script>
+<script src="js/controllers/login.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 

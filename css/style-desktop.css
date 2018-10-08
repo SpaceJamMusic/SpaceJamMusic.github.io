@@ -24,7 +24,7 @@ body {
 .login-section {
     height: 500px;
     color: #1560b9;
-    margin-top: 20%;
+    margin-top: 10%;
     padding: 30px;
     margin-left: 35%;
     text-align: center;
@@ -80,6 +80,7 @@ body {
 
 .main {
     background-color: #E0E0E0;
+    text-align: center;
     width: 100%;
     height: 90%;
 }
