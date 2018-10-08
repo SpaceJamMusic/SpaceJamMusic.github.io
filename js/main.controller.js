@@ -6,18 +6,42 @@ angular.module('SpaceJam', ['spotify'])
     })
     .controller('MainController', ['$scope', 'Spotify', function($scope, Spotify) {
 
-        $scope.isLoggedIn = false;
+        $scope.isLoggedIn = true;
         $scope.token = '';
         
         $scope.login = function() {
             Spotify.login().then(function(data) {
-                
-                $scope.token = data;
+                window.onSpotifyWebPlaybackSDKReady = () => {
+                    //const token = angular.element(document.querySelector('[ng-controller="MainController"]')).scope().token;
+                    const token = data;
+
+                    const player = new Spotify.Player({
+                        name: 'Space Jam Player',
+                        getOAuthToken: cb => { cb(token); }
+                    });
+        
+                    player.addListener('initialization_error', ({ message }) => { console.error(message); });
+                    player.addListener('authentication_error', ({ message }) => { console.error(message); });
+                    player.addListener('account_error', ({ message }) => { console.error(message); });
+                    player.addListener('playback_error', ({ message }) => { console.error(message); });
+        
+                    player.addListener('player_state_changed', state => { console.log(state); });
+                    player.addListener('ready', ({ device_id }) => {
+                        console.log('Ready with Device ID', device_id);
+                    });
+        
+                    player.addListener('not_ready', ({ device_id }) => {
+                        console.log('Device ID has gone offline', device_id);
+                    });
+        
+                    player.connect();
+        
+                }
                 $scope.isLoggedIn = true;
-                toggleSidebar();
             }, function() {
                 console.log("Did Not Log In");
             })
-        }     
+            //toggleSidebar();
+        }
 
     }])
