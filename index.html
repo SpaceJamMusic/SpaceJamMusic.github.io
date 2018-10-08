@@ -15,9 +15,9 @@
 </head>
 
 
-<body ng-app="SpaceJam"">
-    <div class="logInView" ng-controller="LoginController" >
-        <div class="container-fluid" ng-if="isLoggedIn == false">
+<body ng-app="SpaceJam" ng-controller="AppController">
+    <div class="logInView" ng-controller="LoginController" ng-show="showLogin">
+        <div class="container-fluid" >
             <div class="row">
                 <div class="col-lg-12">
                     <div class="login-section">
@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <div class="wrapper" ng-if="isLoggedIn == true">
+    <div class="wrapper" ng-show="showPlayer">
         <div class="sidebar" id="sidebar">
             <i class="fa fa-bars" id="collapse-button" onclick="toggleSidebar()"></i>
             <h1>User Profile Information</h1>
@@ -50,6 +50,7 @@
                     <h1>Main View</h1>
                 </div>
                 <div class="bottombar">
+                    <i class="fas fa-play"></i>
                     <h1>music Controls</h1>
                 </div>
             </div>

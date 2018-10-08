@@ -2,6 +2,18 @@
     var app = angular.module('SpaceJam', []);
 
     app.controller('AppController', function($scope, Auth, API, $location) {
+        console.log('in AppController');
+
+        function checkUser(redirectToLogin) {
+            // API.getMe().then(function(userInfo) {
+            //     if(redirectToLogin) {
+            //         $scope.$emit('login');
+            //     }
+            // }, function(err) {
+            //     $scope.showPlayer = false;
+            //     $scope.showLogin = true;
+            // });
+        }
 
         window.addEventListener("message", function(event) {
             var hash = JSON.parse(event.data);
@@ -12,7 +24,17 @@
         }, false);
 
         $scope.isLoggedIn = (Auth.getAccessToken() != '');
-        
+        //$scope.showPlayer = $scope.isLoggedIn;
+        $scope.showPlayer = true;
+        //$scope.showLogin = !$scope.isLoggedIn;
+        $scope.showLogin = false;          
 
+        $scope.$on('login', function() {
+            $scope.showPlayer = true;
+            $scope.showLogin = false;
+        })
+
+
+        checkUser();
     })
 })();

@@ -6,7 +6,7 @@
         var REDIRECT_URI = '';
 
         if (location.host == 'localhost:8000') {
-            CLIENT_ID = '557c763fcfc94d678e06392be801319e';
+            CLIENT_ID = 'f9258774c64747c089bd429bc119c35e';
             REDIRECT_URI = 'http://localhost:8000/callback.html';
         } else {
             CLIENT_ID = '557c763fcfc94d678e06392be801319e';
@@ -40,7 +40,6 @@
 
                 var w = window.open(url,
                     'Spotify',
-                    'Spotify',
 						'menubar=no,location=no,resizable=no,scrollbars=no,status=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left
                 );
             },
@@ -50,6 +49,7 @@
                     return;
                 }
                 var token = localStorage.getItem('pa_token', '');
+                console.log(token);
                 return token;
             },
             setAccessToken: function(token, expires_in) {

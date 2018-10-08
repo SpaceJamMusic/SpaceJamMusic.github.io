@@ -5,6 +5,21 @@
         var baseUrl = 'https://api.spotify.com/v1';
 
         return {
+            getMe: function() {
+                $http.get(baseUrl + '/me', {
+                    headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+                }).success(function(r) {
+                    console.log('got userinfo', r);
+                    ret.resolve(r);
+                }).error(function(err) {
+                    console.log('failed to get userinfo', err);
+                    ret.reject(err);
+                });
+                return ret.promise;
+            },
+            
             getTrack: function(trackid) {
                 var ret = $q.defer();
 
