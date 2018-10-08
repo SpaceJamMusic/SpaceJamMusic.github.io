@@ -6,17 +6,18 @@
 
         return {
             getMe: function() {
+                var ret = $q.defer();
                 $http.get(baseUrl + '/me', {
-                    headers: {
+					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
-                }).success(function(r) {
-                    console.log('got userinfo', r);
-                    ret.resolve(r);
-                }).error(function(err) {
-                    console.log('failed to get userinfo', err);
-                    ret.reject(err);
-                });
+				}).then(function(r) {
+					console.log('got userinfo', r);
+					ret.resolve(r);
+				}, function(err) {
+					console.log('failed to get userinfo', err);
+					ret.reject(err);
+				});
                 return ret.promise;
             },
             
