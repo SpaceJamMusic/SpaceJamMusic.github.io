@@ -83,7 +83,7 @@
 
         window.onSpotifyWebPlaybackSDKReady = () => {
             const token = angular.element(document.querySelector('[ng-controller="MainController"]')).scope().token;
-
+            console.log(angular.element(document.querySelector('[ng-controller="MainController"]')).scope().token);
             const player = new Spotify.Player({
                 name: 'Space Jam Player',
                 getOAuthToken: cb => { cb(token); }
