@@ -81,7 +81,7 @@
             element.classList.toggle("active");
         }
 
-        window.onSpotifyWebPlaybackSDKReady = () => {
+        if (angular.element(document.querySelector('[ng-controller="MainController"]')).scope().isLoggedIn == true) {
             const token = angular.element(document.querySelector('[ng-controller="MainController"]')).scope().token;
             console.log(angular.element(document.querySelector('[ng-controller="MainController"]')).scope().token);
             const player = new Spotify.Player({
