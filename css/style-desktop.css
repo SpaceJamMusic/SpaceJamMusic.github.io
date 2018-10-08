@@ -1,0 +1,89 @@
+@font-face {
+    font-family: "RobotoThin";
+    src: url("../css/fonts/roboto/Roboto-Thin.woff") format('woff');
+}
+body {
+    font-family: RobotoThin;
+    overflow: hidden;
+    background-color: #FFF;
+}
+
+.container-fluid {
+    padding: 0;
+    margin: 0;
+    
+}
+
+.logInView {
+    overflow: hidden;
+    background: rgb(58,198,199);
+    background: linear-gradient(180deg, rgba(58,198,199,1) 17%, rgba(21,96,185,1) 88%);
+    height: 100vh;
+}
+
+.login-section {
+    height: 500px;
+    color: #1560b9;
+    margin-top: 10%;
+    padding: 30px;
+    margin-left: 35%;
+    text-align: center;
+    margin-right: 35%;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2);
+    background-color: #FFF;
+}
+
+.btn {
+    width: 100%;
+    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .2), 0 1px 8px 0 rgba(0, 0, 0, .12);
+    background-color: #1560b9;
+    color: #FFF;
+    padding: 5px;
+    border-radius: 0;
+    font-size: 17px;
+}
+
+.wrapper {
+    color: #000;
+    display: flex;
+    background-color: #FFF;
+    height: 100vh;
+    
+}
+
+#collapse-button {
+    font-size: 35px;
+    margin-top: 0px;
+    margin-left: 290px;
+    cursor: pointer;
+}
+
+.sidebar {
+    color: #FFF;
+    transition: all 1s;
+    padding: 10px;
+    background: rgb(58,198,199);
+    background: linear-gradient(180deg, rgba(58,198,199,1) 17%, rgba(21,96,185,1) 88%);
+    width: 350px;
+    height: 100vh;
+}
+
+.sidebar.active {
+    transition: all 1s;
+    margin-left: -290px;
+}
+
+.content { 
+    width: 100%;
+    height: 100vh;
+}
+
+.main {
+    background-color: #E0E0E0;
+    width: 100%;
+    height: 90%;
+}
+
+.bottombar {
+    height: 10%;
+}

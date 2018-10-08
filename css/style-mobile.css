@@ -1,3 +1,11 @@
 @media (max-width: 768px) {
-    
+    .sidebar {
+        transition: all 1s;
+        margin-left: -290px;
+    }
+
+    .sidebar.active {
+        transition: all 1s;
+        margin-left: 0px;
+    }
 }

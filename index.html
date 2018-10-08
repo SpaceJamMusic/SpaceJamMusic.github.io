@@ -1,31 +1,100 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <link type="text/css" rel="stylesheet" href="css/lib/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" 
-            integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" 
-                crossorigin="anonymous">
-    <title>Space Jam</title>
-    <meta name="viewport" content="width=device-width, intial-scale=1.0"/>
-    <script src="js/lib/angularjs/angular.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/alasql@0.4"></script>
 
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+    <title>Space Jam</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alasql@0.4"></script>
+    <script src="js/lib/node_modules/angular-spotify/src/angular-spotify.js"></script>
+    <link rel="stylesheet" href="css/style-desktop.css">
+    <link rel="stylesheet" href="css/style-mobile.css">
 </head>
 
 
-<body> 
+<body ng-app="SpaceJam"">
+    <div class="logInView" ng-controller="LoginController" >
+        <div class="container-fluid" ng-if="isLoggedIn == false">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="login-section">
+                        <h2><b>Welcome to SpaceJam</b></h2>
+                        <br>
+                        <br>
+                        <br>
+                        <h4>Please Log into your Spotify Account</h4>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <button class="btn" ng-click="login()">Connect Spotify</button>
+                        <h6 style="text-align: center; position: relative; vertical-align: bottom;">By connecting
+                            spotify you are accepting <br> their Terms & Conditions for use</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper" ng-if="isLoggedIn == true">
+        <div class="sidebar" id="sidebar">
+            <i class="fa fa-bars" id="collapse-button" onclick="toggleSidebar()"></i>
+            <h1>User Profile Information</h1>
+        </div>
+        <div class="container-fluid">
+            <div class="content">
+                <div class="main">
+                    <h1>Main View</h1>
+                </div>
+                <div class="bottombar">
+                    <h1>music Controls</h1>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <script type="text/javascript">
-    
+
+        function toggleSidebar() {
+            var element = document.getElementById("sidebar");
+
+            element.classList.toggle("active");
+        }
     </script>
-    <script src="js/lib/bootstrap/bootstrap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 </body>
 
-<!--Angular-->
+<!--Angular References-->
 <script src="js/app.js"></script>
-
-<!--Controllers-->
-
+<script src="js/services/api.js"></script>
+<script src="js/services/auth.js"></script>
+<script src="js/controllers/login.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
 </html>
