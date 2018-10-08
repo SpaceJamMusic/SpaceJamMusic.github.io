@@ -81,11 +81,11 @@
             element.classList.toggle("active");
         }
 
-        var token = angular.element(document.querySelector('[ng-controller="MainController"]')).scope().token;
+        var apiToken = angular.element(document.querySelector('[ng-controller="MainController"]')).scope().token;
 
         window.onSpotifyWebPlaybackSDKReady = () => {
 
-            if (token == '') {
+            if (this.apiToken == '') {
                 onSpotifyWebPlaybackSDKReady();
             } else {
                 const token = token;

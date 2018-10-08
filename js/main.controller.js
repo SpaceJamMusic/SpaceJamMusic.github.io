@@ -6,7 +6,7 @@ angular.module('SpaceJam', ['spotify'])
     })
     .controller('MainController', ['$scope', 'Spotify', function($scope, Spotify) {
 
-        $scope.isLoggedIn = true;
+        $scope.isLoggedIn = false;
         $scope.token = '';
         
         $scope.login = function() {
