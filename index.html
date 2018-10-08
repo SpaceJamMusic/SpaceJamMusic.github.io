@@ -82,7 +82,7 @@
         }
 
         window.onSpotifyWebPlaybackSDKReady = () => {
-            const token = $('[ng-controller="MainController"]').scope().token;
+            const token = angular.element(document.querySelector('[ng-controller="MainController"]')).scope().token;
 
             const player = new Spotify.Player({
                 name: 'Space Jam Player',
@@ -103,7 +103,7 @@
                 console.log('Device ID has gone offline', device_id);
             });
 
-            plater.connect();
+            player.connect();
 
         }
 
