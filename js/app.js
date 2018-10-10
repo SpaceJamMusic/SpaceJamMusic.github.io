@@ -28,11 +28,17 @@
         $scope.isLoggedIn = (Auth.getAccessToken() != '');
         $scope.showPlayer = $scope.isLoggedIn;
         $scope.showLogin = !$scope.isLoggedIn;        
-        $scope.user = Auth.getUsername();
+        
         
         $scope.$on('login', function() {
             $scope.showPlayer = true;
             $scope.showLogin = false;
+            $scope.user = Auth.getUsername();
+        })
+
+        $scope.$on('logout', function() {
+            $scope.showPlayer = false;
+            $scope.showLogin = true;
         })
 
 
