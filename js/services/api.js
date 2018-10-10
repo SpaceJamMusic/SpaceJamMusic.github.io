@@ -12,7 +12,7 @@
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
 				}).then(function(r) {
-					console.log('got userinfo', r);
+                    console.log('got userinfo', r);
 					ret.resolve(r);
 				}, function(err) {
 					console.log('failed to get userinfo', err);

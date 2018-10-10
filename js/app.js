@@ -6,6 +6,7 @@
 
         function checkUser(redirectToLogin) {
             API.getMe().then(function(userInfo) {
+                Auth.setUsername(userInfo.display_name);
                 if(redirectToLogin) {
                     $scope.$emit('login');
                 }
@@ -16,6 +17,7 @@
         }
 
         window.addEventListener("message", function(event) {
+            console.log('got postmessage', event);
             var hash = JSON.parse(event.data);
             if (hash.type == 'access_token') {
                 Auth.setAccessToken(hash.access_token, hash.expires_in || 60);
@@ -26,7 +28,8 @@
         $scope.isLoggedIn = (Auth.getAccessToken() != '');
         $scope.showPlayer = $scope.isLoggedIn;
         $scope.showLogin = !$scope.isLoggedIn;        
-
+        $scope.user = Auth.getUsername();
+        
         $scope.$on('login', function() {
             $scope.showPlayer = true;
             $scope.showLogin = false;
