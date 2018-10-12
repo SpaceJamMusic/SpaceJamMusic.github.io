@@ -1,4 +1,8 @@
 (function() {
+    //Serves as the Login and User authetication Controller
+    //Opens up the login page for Spotify and allows the user to either create a spotify account or loginto existing account
+    //Sets and Gets the username and acesstoken for the application 
+
     var module = angular.module('SpaceJam');
 
     module.factory('Auth', function() {

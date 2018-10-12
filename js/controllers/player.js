@@ -1,4 +1,8 @@
 (function() {
+    //Serves as the Player Controller
+    //Logs the user out of spotify
+    //Instantiates the site as spotify player
+
     var module = angular.module('SpaceJam');
 
     module.controller('PlayerController', function($scope, $rootScope, Auth, API, Playback, $location) {

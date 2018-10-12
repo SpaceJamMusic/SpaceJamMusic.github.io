@@ -1,4 +1,9 @@
 (function () {
+    //Serves as the main controller for the application
+    //Connects Directly to the Auth Controller and the API Controller  
+    //Controls whether the user is logged in or not
+    //Verifies the User is logged in correctly and/or needs to relogin due to timeout
+
     var app = angular.module('SpaceJam', []);
 
     app.controller('AppController', function($scope, Auth, API, $location) {
