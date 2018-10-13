@@ -4,6 +4,12 @@
     //Controls whether the user is logged in or not
     //Verifies the User is logged in correctly and/or needs to relogin due to timeout
 
+    /*
+    Function List:
+
+    
+    */
+
     var app = angular.module('SpaceJam', []);
 
     app.controller('AppController', function($scope, Auth, API, $location) {
