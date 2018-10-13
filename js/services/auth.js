@@ -61,12 +61,11 @@
                 localStorage.setItem('pa_expires', (new Date()).getTime() + expires_in);
             },
             getUsername: function() {
-                var username = localStorage.getItem('pa_username', '');
+                var username = localStorage.getItem('username', '');
                 return username;
             },
             setUsername: function(username) {
-                console.log(username);
-                localStorage.setItem('pa_username', username);
+                localStorage.setItem('username', String(username));
             }
         }
     })

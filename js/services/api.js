@@ -17,6 +17,7 @@
 					}
 				}).then(function(r) {
                     console.log('got userinfo', r);
+                    Auth.setUsername(r.data.display_name)
 					ret.resolve(r);
 				}, function(err) {
 					console.log('failed to get userinfo', err);

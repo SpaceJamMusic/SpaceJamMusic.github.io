@@ -9,7 +9,6 @@
 
     
     */
-
     var app = angular.module('SpaceJam', []);
 
     app.controller('AppController', function($scope, Auth, API, $location) {
@@ -17,7 +16,7 @@
 
         function checkUser(redirectToLogin) {
             API.getMe().then(function(userInfo) {
-                Auth.setUsername(userInfo.display_name);
+                //Auth.setUsername(userInfo.display_name);
                 if(redirectToLogin) {
                     $scope.$emit('login');
                 }
@@ -36,6 +35,7 @@
             }
         }, false);
 
+
         $scope.isLoggedIn = (Auth.getAccessToken() != '');
         $scope.showPlayer = $scope.isLoggedIn;
         $scope.showLogin = !$scope.isLoggedIn;        
@@ -44,7 +44,6 @@
         $scope.$on('login', function() {
             $scope.showPlayer = true;
             $scope.showLogin = false;
-            $scope.user = Auth.getUsername();
         })
 
         $scope.$on('logout', function() {
