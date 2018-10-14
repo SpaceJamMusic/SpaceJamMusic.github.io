@@ -8,4 +8,12 @@
         transition: all 1s;
         margin-left: 0px;
     }
+
+    .main {
+        height: 80%;
+    }
+
+    .bottombar {
+        height: 20%;
+    }
 }
