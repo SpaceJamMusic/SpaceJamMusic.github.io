@@ -30,7 +30,7 @@
         }
 
         function disableTick() {
-            if (ticktime != 0) {
+            if (ticktimer != 0) {
                 $interval.cancel(ticktimer);
             }
         }
@@ -76,13 +76,13 @@
                 _progress = 0;
                 var trackid = trackuri.split(':')[2];
 
-                autdiotag.src='';
+                audiotag.src='';
                 audiotag.play();
                 audiotag.pause();
 
                 API.getTrack(trackid).then(function(trackdata) {
                     console.log('playback got track', trackdata);
-                    createAndPlayAudio(trackdata.preview_url, function()  {
+                    createAndPlayAudio(trackdata.data.preview_url, function()  {
                         _trackdata = trackdata;
                         _progress = 0;
                         $rootScope.$emit('playerchanged');
