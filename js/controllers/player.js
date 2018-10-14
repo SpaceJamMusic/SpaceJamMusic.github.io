@@ -7,7 +7,8 @@
 
     module.controller('PlayerController', function($scope, $rootScope, Auth, API, Playback, $location) {
         console.log('In PlayerController');
-        //$scope.profileUsername = Auth.getUsername();
+
+        $scope.profileUsername = Auth.getUsername();
 
         $rootScope.$on('login', function() {
             console.log("login");

@@ -24,7 +24,8 @@ body {
 }
 
 .login-section {
-    margin: 50px 75px;
+    margin: 50px 75px; 
+    
     height: 500px;
     color: #c518e9;
     padding: 30px;
@@ -63,11 +64,13 @@ body {
     color: #FFF;
     transition: all 1s;
     padding: 10px;
-    /* background: rgb(58,198,199);
-    background: linear-gradient(180deg, rgba(58,198,199,1) 17%, rgba(21,96,185,1) 88%); */
+    z-index: 9999;
+    text-align: center;
+    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .2);
     background: rgb(197,24,233);
     background: linear-gradient(180deg, rgba(197,24,233,1) 27%, rgba(122,15,175,1) 53%, rgba(81,22,156,1) 77%);
     width: 350px;
+    border: 0;
     height: 100vh;
 }
 
@@ -82,12 +85,60 @@ body {
 }
 
 .main {
-    background-color: #E0E0E0;
+    background-color: #FFF;
     text-align: center;
     width: 100%;
-    height: 90%;
+    height: 88%;
+}
+
+.mainbar {
+    width: 100%;
+    display: flex;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2);
+    background-color: #c518e9;
+    height: 55px;
+    padding: 0px;
+}
+
+#title {
+    color: #FFF;
+    text-align: center;
+    margin: 5px 100px;
+}
+
+#view-control {
+    font-size: 30px;
+    cursor: pointer;
+    color: #FFF;
+    margin: 10px 20px;
 }
 
 .bottombar {
-    height: 10%;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12), 0 3px 5px -1px rgba(0, 0, 0, .2);
+    height: 12%;
+    background-color: #51169c;
 }
+
+#bottombar-content {
+    width: 100%;
+    padding: 20px;
+}
+
+.music-controls { 
+    margin-top: 10px;
+    text-align: center;
+}
+
+#control {
+    color: #FFF;
+    margin: 10px;
+    transition: all .5s;
+    cursor: pointer;
+}
+
+#control:hover {
+    color: #c518e9;  
+    font-size: 35px;
+    transition: all .5s;
+}
+

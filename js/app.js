@@ -16,7 +16,6 @@
 
         function checkUser(redirectToLogin) {
             API.getMe().then(function(userInfo) {
-                //Auth.setUsername(userInfo.display_name);
                 if(redirectToLogin) {
                     $scope.$emit('login');
                 }
