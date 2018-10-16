@@ -43,8 +43,31 @@
     <div class="wrapper" ng-controller="PlayerController" ng-show="showPlayer">
         <div class="sidebar" id="sidebar">
             <i class="fa fa-bars" id="collapse-button" onclick="toggleSidebar()"></i>
-            <h1>{{ profileUsername }}</h1>
-            <a ng-click="logout()"><i style="font-size: 30px; cursor: pointer;" class="fas fa-sign-out-alt"></i></a>
+            <div class="sidebar-header" id="sidebar-header">
+                
+                <h1>{{ profileUsername }}</h1>
+                <h3>Music Points: </h3>
+                <hr style="background-color: #FFF;">
+            </div>
+            <div class="nearby-songs" id="nearby-songs">
+
+            </div>
+            
+            <div class="additional" id="additional">
+                <hr style="background-color: #FFF;">
+                <i class="fas fa-cog" style="font-size: 30px; cursor: pointer; margin: 10px;">
+                    <h6 style="margin-top: 5px;">Settings</h6>
+                </i>
+                <i class="fas fa-question" style="font-size: 30px; cursor: pointer; margin: 10px;">
+                    <h6 style="margin-top: 5px;">Help</h6>
+                </i>
+                <a ng-click="logout()">
+                    <i style="font-size: 30px; cursor: pointer; margin: 10px;" class="fas fa-sign-out-alt">
+                        <h6 style="margin-top: 5px;">Logout</h6>
+                    </i>
+                </a>
+            </div>
+            
         </div>
         <div class="container-fluid">
             <div class="content">
@@ -59,7 +82,7 @@
                 </div>
 
 
-                <div class="bottombar">
+                <div class="bottombar" id="bottombar">
                     <div class="container-fluid" id="bottombar-content">
                         <div class="row">
                             <div class="col-lg-12">
@@ -71,18 +94,20 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-3">
-                                <div class="music-info">
-                                    <h5>{{ trackInfo.name }}</h5>
-                                    <h6>{{ trackInfo.artists[0].name }}</h6>
-                                </div>
-                            </div>
-                            <div class="col-lg-9">
+                            <div class="col-lg-3"></div>
+                            <div class="col-lg-3 col-sm-6">
                                 <div class="music-controls">
-
                                     <i id="control" class="fas fa-thumbs-up" style="font-size: 25px"></i>
                                     <i id="control" ng-click="play(trackInfo.uri)" class="fas fa-play" style="font-size: 35px;"></i>
                                     <i id="control" class="fas fa-thumbs-down" style="font-size: 25px;"></i>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="music-info">
+                                    <h5>{{ trackInfo.name }}</h5>
+                                    <h6>{{ trackInfo.artists[0].name }}</h6>
+                                    <h6>Posted By: </h6>
                                 </div>
                             </div>
                         </div>
@@ -111,9 +136,11 @@
     <script type="text/javascript">
 
         function toggleSidebar() {
-            var element = document.getElementById("sidebar");
-
-            element.classList.toggle("active");
+            var sidebar = document.getElementById("sidebar").classList.toggle("active");
+            var bottombar = document.getElementById("bottombar").classList.toggle("active");
+            var sidebarHeader = document.getElementById('sidebar-header').classList.toggle("active");
+            var nearbySongs = document.getElementById('nearby-songs').classList.toggle("active");
+            var additional = document.getElementById('additional').classList.toggle("active");
         }
     </script>
 
