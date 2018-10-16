@@ -1,4 +1,4 @@
-3(function() {
+(function() {
     //Serves the API Controller, where the website directly makes request to the Spotify API
     //Gets the user information and the song/track information
 
