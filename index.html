@@ -98,15 +98,16 @@
                             <div class="col-lg-3 col-sm-6">
                                 <div class="music-controls">
                                     <i id="control" class="fas fa-thumbs-up" style="font-size: 25px"></i>
-                                    <i id="control" ng-click="play(trackInfo.uri)" class="fas fa-play" style="font-size: 35px;"></i>
+                                    <i id="control" ng-if="play" ng-click="play(trackInfo.items[0].track.uri)" class="fas fa-play" style="font-size: 35px;"></i>
+                                    <i id="control" ng-if="!play" ng-click="pause()" class="fas fa-pause style="font-size: 35px;""></i>
                                     <i id="control" class="fas fa-thumbs-down" style="font-size: 25px;"></i>
                                 </div>
 
                             </div>
                             <div class="col-lg-3 col-sm-6">
                                 <div class="music-info">
-                                    <h5>{{ trackInfo.name }}</h5>
-                                    <h6>{{ trackInfo.artists[0].name }}</h6>
+                                    <h5>{{ trackInfo.items[0].track.name }}</h5>
+                                    <h6>{{ trackInfo.items[0].track.artists[0].name }}</h6>
                                     <h6>Posted By: </h6>
                                 </div>
                             </div>

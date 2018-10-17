@@ -90,6 +90,14 @@
                         enableTick();
                     });
                 });
+            },
+            pause: function() {
+                if (_track != '') {
+                    _playing = false;
+                    audiotag.pause();
+                    $rootScope.$emit('playerchanged');
+                    disableTick();
+                }
             }
         }
     })

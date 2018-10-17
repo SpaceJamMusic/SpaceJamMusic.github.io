@@ -50,6 +50,19 @@
                     ret.resolve(r);
                 });
                 return ret.promise;
+            },
+
+            getMyTracks: function() {
+                var ret = $q.defer();
+                $http.get(baseUrl + "/me/tracks", {
+                    headers: {
+                        'Authorization':'Bearer ' + Auth.getAccessToken()
+                    }
+                }).then(function(r) {
+                    console.log('got user tracks', r);
+                    ret.resolve(r);
+                });
+                return ret.promise;
             }
         }
     })
