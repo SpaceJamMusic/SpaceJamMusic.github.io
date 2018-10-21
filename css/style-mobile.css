@@ -14,11 +14,21 @@
     }
 
     .bottombar {
-        height: 150px;
+        height: 100px;
         width: calc(100% - 50px);
     }
 
     .bottombar.active {
         width: calc(100% - 340px);
+    }
+
+    .sidebar-header.active, .nearby-songs.active, .additional.active {
+        opacity: 1;
+        transition: all 1s;
+    }
+
+    .sidebar-header, .nearby-songs, .additional {
+        opacity: 0;
+        transition: all 1s;
     }
 }

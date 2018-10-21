@@ -63,6 +63,19 @@
                     ret.resolve(r);
                 });
                 return ret.promise;
+            },
+
+            getSearchResults: function(query) {
+                var ret = $q.defer();
+                $http.get(baseUrl + '/search?type=track,artist,album&q=' + encodeURIComponent(query) + '&market=from_token',{
+                    headers: {
+                        'Authorization': 'Bearer ' + Auth.getAccessToken()
+                    }
+                }).then(function(r) {
+                    console.log('got search results', r);
+                    ret.resolve(r);
+                });
+                return ret.promise;
             }
         }
     })

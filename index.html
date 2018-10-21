@@ -44,7 +44,7 @@
         <div class="sidebar" id="sidebar">
             <i class="fa fa-bars" id="collapse-button" onclick="toggleSidebar()"></i>
             <div class="sidebar-header" id="sidebar-header">
-                
+
                 <h1>{{ profileUsername }}</h1>
                 <h3>Music Points: </h3>
                 <hr style="background-color: #FFF;">
@@ -52,7 +52,7 @@
             <div class="nearby-songs" id="nearby-songs">
 
             </div>
-            
+
             <div class="additional" id="additional">
                 <hr style="background-color: #FFF;">
                 <i class="fas fa-cog" style="font-size: 30px; cursor: pointer; margin: 10px;">
@@ -67,7 +67,7 @@
                     </i>
                 </a>
             </div>
-            
+
         </div>
         <div class="container-fluid">
             <div class="content">
@@ -75,43 +75,74 @@
 
                 <div class="main">
                     <div class="mainbar">
-                        <i id="view-control" class="fas fa-map"></i>
-                        <i id="view-control" class="fas fa-search"></i>
+                        <i id="view-control" ng-click="changeview('map')" class="fas fa-map"></i>
+                        <i id="view-control" ng-click="changeview('search')" class="fas fa-search"></i>
                         <h1 id="title">SPACE JAM</h1>
                     </div>
+                    <div ng-if="mapview" class="map-view">
+                        <div id="map"></div>
+                    </div>
+                    <div ng-if="!mapview" class="search-view" ng-controller="SearchController">
+
+                        <div class="form-group">
+                            <h2>Search For Songs</h2>
+                            <label for="searchTrack">Search By Track/Song, Artist, or Album</label>
+                            <input ng-model="query" ng-change="search()" type="text" class="form-control" id="searchTrack"
+                                placeholder="Enter Track, Artist, or Album">
+                        </div>
+                        <div class="tracks">
+                            <div class="track-items" ng-repeat="track in tracks.items">
+                                <div class="track-info">
+                                    <h4><b>{{ track.name }}</b></h4>
+                                    <h5>{{ track.artists[0].name }}</h5>
+                                    <div class="track-options">
+                                        <!-- <i id="search-control" ng-click="play(track.uri)" class="fas fa-play" style="font-size: 35px;">
+                                            <h6 style="margin-top: 5px;">Play</h6>
+                                        </i> -->
+                                        <i id="search-control" class="fas fa-shopping-cart" style="font-size: 35px;">
+                                            <h6 style="margin-top: 5px;">Points: {{ track.popularity * 50 }}</h6>
+                                        </i>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
                 </div>
 
 
                 <div class="bottombar" id="bottombar">
-                    <div class="container-fluid" id="bottombar-content">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 25%; background-color: #c518e9;"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3"></div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="music-controls">
-                                    <i id="control" class="fas fa-thumbs-up" style="font-size: 25px"></i>
-                                    <i id="control" ng-if="play" ng-click="play(trackInfo.items[0].track.uri)" class="fas fa-play" style="font-size: 35px;"></i>
-                                    <i id="control" ng-if="!play" ng-click="pause()" class="fas fa-pause style="font-size: 35px;""></i>
-                                    <i id="control" class="fas fa-thumbs-down" style="font-size: 25px;"></i>
-                                </div>
+                    <div class="music-info">
+                        <h5>{{ trackInfo.data.name }}</h5>
+                        <h6>{{ trackInfo.data.artists[0].name }}</h6>
+                        <h6>{{ poster }}</h6>
+                    </div>
 
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="music-info">
-                                    <h5>{{ trackInfo.items[0].track.name }}</h5>
-                                    <h6>{{ trackInfo.items[0].track.artists[0].name }}</h6>
-                                    <h6>Posted By: </h6>
-                                </div>
-                            </div>
+                    <div class="track-controls">
+                        <div class="thumb-up">
+                            <i id="control" class="fas fa-thumbs-up" style="font-size: 25px"></i>
                         </div>
+
+                        <div class="play-btn">
+                            <i id="control" ng-hide="play" ng-click="resume()" class="fas fa-play" style="font-size: 35px;"></i>
+                            <i id="control" ng-show="play" ng-click="pause()" class="fas fa-pause" style="font-size: 35px;"></i>
+                        </div>
+
+                        <div class="thumb-down">
+                            <i id="control" class="fas fa-thumbs-down" style="font-size: 25px;"></i>
+                        </div>
+
+
+                    </div>
+                    <div class="seek">
+                        <div class="progress-value">{{ progress | displaytime }}</div>
+                        <div class="slider">
+                            <input type="range" ng-model="progress" min="0" max="{{ duration }}" />
+                        </div>
+                        <div class="duration-value">{{ duration | displaytime }}</div>
                     </div>
                 </div>
             </div>
@@ -142,7 +173,16 @@
             var nearbySongs = document.getElementById('nearby-songs').classList.toggle("active");
             var additional = document.getElementById('additional').classList.toggle("active");
         }
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 29.188249, lng:  -81.049624},
+                zoom: 8
+            });
+        }
     </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkQKEftWGugND96syce_bxVyisiQmQ0-M&callback=initMap" async defer></script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -164,6 +204,10 @@
 <!--Angular Controllers-->
 <script src="js/controllers/login.js"></script>
 <script src="js/controllers/player.js"></script>
+<script src="js/controllers/search.js"></script>
+
+<!--Angular Filters-->
+<script src="js/filters/displaytime.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 

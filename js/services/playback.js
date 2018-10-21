@@ -98,6 +98,23 @@
                     $rootScope.$emit('playerchanged');
                     disableTick();
                 }
+            },
+            resume: function() {
+                if (_track != '') {
+                    _playing = true;
+                    audiotag.play();
+                    $rootScope.$emit('playerchanged');
+                    enableTick();
+                }
+            },
+            getTrackData: function() {
+                return _trackdata;
+            },
+            getProgress: function() {
+                return _progress;
+            },
+            getDuration: function() {
+                return _duration;
             }
         }
     })
