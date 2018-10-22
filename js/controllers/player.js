@@ -5,8 +5,9 @@
 
     var module = angular.module('SpaceJam');
 
-    module.controller('PlayerController', function($scope, $rootScope, Auth, API, Playback, PlayQueue, $location) {
+    module.controller('PlayerController', function($scope, $rootScope, Auth, API, Playback, PlayQueue, $location, $http) {
         console.log('In PlayerController');
+        
 
         //$scope.trackInfo = [];
         $scope.profileUsername = Auth.getUsername();
@@ -40,14 +41,7 @@
         $rootScope.$on('login', function() {
             console.log("login");
             $scope.profileUsername = Auth.getUsername();
-            // API.getTrack("7ckZ58Uo6I6nTrMs1SeimI").then(function(list) {
-            //     console.log('got track', list);
-            //     $scope.trackInfo = list.data;
-            // })
-            // API.getMyTracks().then(function(list) {
-            //     console.log('Got user tracks', list);
-            //     $scope.trackInfo = list.data;
-            // })
+            
         })
 
         $rootScope.$on('playerchanged', function() {

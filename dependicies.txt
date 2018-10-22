@@ -2,3 +2,4 @@ https://github.com/agershun/alasql
 
 https://github.com/agershun/alasql/wiki/Google-Spreadsheets
 
+https://www.crazycodersclub.com/appscript/crud-operation-on-google-spread-sheet-using-google-app-script-html-jquery/
