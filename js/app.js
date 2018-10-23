@@ -14,17 +14,7 @@
     app.controller('AppController', function($scope,$http, Auth, API, $location) {
         console.log('in AppController');
 
-        var script_url = "https://script.google.com/d/1H1ylIvx-vT3vNnlkTDrcphBJ1bqI2LYaBjlU1ENtygUkM_2jeuWjwnZA/edit";
-        var url = script_url + "?action=read";
-        $http.get(url)
-            .then(function(response){
-                console.log(response.data);
-            }).catch(function(error){
-                console.log(error);
-            })
-
-
-
+       
         function checkUser(redirectToLogin) {
             API.getMe().then(function(userInfo) {
                 if(redirectToLogin) {
