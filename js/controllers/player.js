@@ -5,7 +5,7 @@
 
     var module = angular.module('SpaceJam');
 
-    module.controller('PlayerController', function($scope, $rootScope, Auth, API, Playback, PlayQueue, $location, $http) {
+    module.controller('PlayerController', function($scope, $rootScope, Auth, API, Playback, PlayQueue, $location, $http, Database) {
         console.log('In PlayerController');
         
         
@@ -42,7 +42,7 @@
         $rootScope.$on('login', function() {
             console.log("login");
             $scope.profileUsername = Auth.getUsername();
-            
+            Database.checkUser($scope.profileUsername);
         })
 
         $rootScope.$on('playerchanged', function() {
