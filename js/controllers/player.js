@@ -41,8 +41,13 @@
         //7ckZ58Uo6I6nTrMs1SeimI
         $rootScope.$on('login', function() {
             console.log("login");
-            $scope.profileUsername = Auth.getUsername();
+            $scope.profileUsername = Auth.getUsername(); 
+            Database.readUserTbl();
             Database.checkUser($scope.profileUsername);
+        })
+
+        $rootScope.$on('login-done', function(){
+            console.log(Database.getUserData());
         })
 
         $rootScope.$on('playerchanged', function() {

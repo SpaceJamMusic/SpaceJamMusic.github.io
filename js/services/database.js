@@ -29,8 +29,25 @@
                     url: url
                 }).then(function(response) {
                     console.log(response.data);
+                    if (response.data == 'success({"result":"User already exists"})') {
+                        
+                        
+                    } else {
+
+                        
+                    }
                 }).catch(function(error) {
                     console.log(error);
+                })
+            },
+            readUserTbl: function() {
+                var url = tbl_users_script_url + "?action=read";
+
+                $http({
+                    method: 'GET',
+                    url: url
+                }).then(function(response){
+                    console.log(response.data);
                 })
             }
         }
