@@ -15,6 +15,9 @@
         console.log('in AppController');
 
        
+        /**
+         * @param  {boolean} redirectToLogin
+         */
         function checkUser(redirectToLogin) {
             API.getMe().then(function(userInfo) {
                 if(redirectToLogin) {

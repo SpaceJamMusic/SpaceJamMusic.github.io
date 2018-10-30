@@ -9,6 +9,10 @@
         var baseUrl = 'https://api.spotify.com/v1';
 
         return {
+            /**
+             * @description gets the current user
+             * @example API.getMe()
+             */
             getMe: function() {
                 var ret = $q.defer();
                 $http.get(baseUrl + '/me', {
@@ -26,6 +30,11 @@
                 return ret.promise;
             },
             
+            /**
+             * @param  {string} trackid
+             * @description gets track information for a single track
+             * @example API.getTrack('Track Name')
+             */
             getTrack: function(trackid) {
                 var ret = $q.defer();
 
@@ -38,7 +47,11 @@
                 });
                 return ret.promise
             },
-
+            /**
+             * @param  {string[]} trackids
+             * @description gets the information for an array of tracks
+             * @example API.getTracks('Array of Track Names')
+             */
             getTracks: function(trackids) {
                 var ret = $q.defer();
 
@@ -51,7 +64,10 @@
                 });
                 return ret.promise;
             },
-
+            /**
+             * @description gets the current users saved tracks
+             * @example API.getMyTracks()
+             */
             getMyTracks: function() {
                 var ret = $q.defer();
                 $http.get(baseUrl + "/me/tracks", {
@@ -64,7 +80,11 @@
                 });
                 return ret.promise;
             },
-
+            /**
+             * @param  {string} query
+             * @description gets all tracks, artists, albums that match the search query
+             * @example API.getSearchResults('search box text')
+             */
             getSearchResults: function(query) {
                 var ret = $q.defer();
                 $http.get(baseUrl + '/search?type=track,artist,album&q=' + encodeURIComponent(query) + '&market=from_token',{

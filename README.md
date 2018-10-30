@@ -1,6 +1,3 @@
-# SpaceJamMusic.github.io
+To test application go to https://spacejammusic.github.io
 
-## Back-End Software
-### Mock Database
-https://github.com/agershun/alasql
-https://github.com/agershun/alasql/wiki/Google-Spreadsheets
+To view documentation go to docs/index.html

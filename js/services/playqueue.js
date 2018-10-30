@@ -7,6 +7,11 @@
         var _position = 0;
 
         return {
+            /**
+             * @param  {string} trackuri
+             * @description plays the current track url
+             * @example PlayQueue.play(')
+             */
             play: function(trackuri) {
                 console.log('Clear queue and play track', trackuri);
                 _queue = [];

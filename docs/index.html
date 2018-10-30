@@ -1,0 +1,1439 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>  | Documentation</title>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
+  <link href='assets/style.css' type='text/css' rel='stylesheet' />
+  <link href='assets/github.css' type='text/css' rel='stylesheet' />
+  <link href='assets/split.css' type='text/css' rel='stylesheet' />
+</head>
+<body class='documentation m0'>
+    <div class='flex'>
+      <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
+        <div class='py1 px2'>
+          <h3 class='mb0 no-anchor'></h3>
+          <div class='mb1'><code></code></div>
+          <input
+            placeholder='Filter'
+            id='filter-input'
+            class='col12 block input'
+            type='text' />
+          <div id='toc'>
+            <ul class='list-reset h5 py1-ul'>
+              
+                
+                <li><a
+                  href='#getme'
+                  class="">
+                  getMe
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#gettrack'
+                  class="">
+                  getTrack
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#gettracks'
+                  class="">
+                  getTracks
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getmytracks'
+                  class="">
+                  getMyTracks
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getsearchresults'
+                  class="">
+                  getSearchResults
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getloginurl'
+                  class="">
+                  getLoginURL
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#openlogin'
+                  class="">
+                  openLogin
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getaccesstoken'
+                  class="">
+                  getAccessToken
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setaccesstoken'
+                  class="">
+                  setAccessToken
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getusername'
+                  class="">
+                  getUsername
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setusername'
+                  class="">
+                  setUsername
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getvolume'
+                  class="">
+                  getVolume
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setvolume'
+                  class="">
+                  setVolume
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#startplaying'
+                  class="">
+                  startPlaying
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#pause'
+                  class="">
+                  pause
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#resume'
+                  class="">
+                  resume
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#gettrackdata'
+                  class="">
+                  getTrackData
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getprogress'
+                  class="">
+                  getProgress
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getduration'
+                  class="">
+                  getDuration
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#play'
+                  class="">
+                  play
+                  
+                </a>
+                
+                </li>
+              
+            </ul>
+          </div>
+          <div class='mt1 h6 quiet'>
+            <a href='http://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
+          </div>
+        </div>
+      </div>
+      <div id='split-right' class='relative overflow-auto height-viewport-100'>
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getme'>
+      getMe
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>gets the current user</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getMe()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>API.getMe()</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='gettrack'>
+      getTrack
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>gets track information for a single track</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getTrack(trackid: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>trackid</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>API.getTrack(<span class="hljs-string">'Track Name'</span>)</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='gettracks'>
+      getTracks
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>gets the information for an array of tracks</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getTracks(trackids: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>trackids</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>API.getTracks(<span class="hljs-string">'Array of Track Names'</span>)</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getmytracks'>
+      getMyTracks
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>gets the current users saved tracks</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getMyTracks()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>API.getMyTracks()</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getsearchresults'>
+      getSearchResults
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>gets all tracks, artists, albums that match the search query</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getSearchResults(query: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>query</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>API.getSearchResults(<span class="hljs-string">'search box text'</span>)</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getloginurl'>
+      getLoginURL
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>builds the login url for the spotify api</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getLoginURL(scopes: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>scopes</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Auth.getLoginURL(<span class="hljs-string">'array of spotify scopes'</span>)</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='openlogin'>
+      openLogin
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>opens the spotify login window</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>openLogin()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Auth.openLogin</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getaccesstoken'>
+      getAccessToken
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>gets the existing locally stored access token for the spotify session</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getAccessToken()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Auth.getAccessToken</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setaccesstoken'>
+      setAccessToken
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>sets a new access token and sets the time that the session expires</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>setAccessToken(token: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, expires_in: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>token</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>expires_in</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Auth.setAccessToken(<span class="hljs-string">'spotify api access token'</span>, <span class="hljs-string">'spotify access time expiration'</span>)</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getusername'>
+      getUsername
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>gets the current logged in username out of local storage</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getUsername()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Auth.getUsername()</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setusername'>
+      setUsername
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>sets the current sessions username in local storage</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>setUsername(username: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>username</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Auth.setUsername(<span class="hljs-string">'spotify username'</span>)</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getvolume'>
+      getVolume
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>gets the current volume value</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getVolume()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Playback.getVolume</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setvolume'>
+      setVolume
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>sets the new volume value</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>setVolume(v: int)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>v</span> <code class='quiet'>(int)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Playback.setVolume(<span class="hljs-string">'volume value'</span>)</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='startplaying'>
+      startPlaying
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>starts playing the provided track url</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>startPlaying(trackuri: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>trackuri</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Playback.startPlaying(<span class="hljs-string">'spotify url of track'</span>)</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='pause'>
+      pause
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>pauses the current playing track</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>pause()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Playback.pause()</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='resume'>
+      resume
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>resumes the current playing track</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>resume()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Playback.resume()</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='gettrackdata'>
+      getTrackData
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>gets the current tracks associated data</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getTrackData()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Playback.getTrackData()</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getprogress'>
+      getProgress
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>gets the playback progress of the current playing song</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getProgress()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Playback.getProgress()</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getduration'>
+      getDuration
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>gets the playback duration of the current playing song</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getDuration()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Playback.getDuration()</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='play'>
+      play
+    </h3>
+    
+    
+  </div>
+  
+
+  
+ 
+  
+    <div class='pre p1 fill-light mt0'>play(trackuri: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>trackuri</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+      </div>
+    </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/split.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>

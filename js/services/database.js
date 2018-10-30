@@ -29,13 +29,7 @@
                     url: url
                 }).then(function(response) {
                     console.log(response.data);
-                    if (response.data == 'success({"result":"User already exists"})') {
-                        
-                        
-                    } else {
-
-                        
-                    }
+                    
                 }).catch(function(error) {
                     console.log(error);
                 })
