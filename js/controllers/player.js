@@ -7,8 +7,7 @@
 
     module.controller('PlayerController', function($scope, $rootScope, Auth, API, Playback, PlayQueue, $location, $http, Database) {
         console.log('In PlayerController');
-        
-        
+
 
         //$scope.trackInfo = [];
         $scope.profileUsername = Auth.getUsername();

@@ -28,12 +28,7 @@
                     method: 'GET',
                     url: url
                 }).then(function(response) {
-<<<<<<< HEAD
                     console.log('checkUser response', response.data);
-=======
-                    console.log(response.data);
-                    
->>>>>>> 8237b7eb06433d70a5e2211de02dceefa64af8ba
                 }).catch(function(error) {
                     console.log(error);
                 })

@@ -106,7 +106,9 @@ body {
 }
 
 .nearby-songs {
-    height: calc(100% - 200px);
+    margin-top: 30px;
+    overflow-y: scroll;
+    height: calc(100% - 225px);
     opacity: 1;
     transition: all 1s;
 }
