@@ -42,7 +42,7 @@
         $rootScope.$on('login', function() {
             console.log("login");
             $scope.profileUsername = Auth.getUsername(); 
-            Database.readUserTbl();
+            //Database.readUserTbl();
             Database.checkUser($scope.profileUsername);
         })
 

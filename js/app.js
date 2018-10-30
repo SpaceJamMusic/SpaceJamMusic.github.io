@@ -13,7 +13,6 @@
 
     app.controller('AppController', function($scope,$http, Auth, API, $location, Database) {
         console.log('in AppController');
-
        
         function checkUser(redirectToLogin) {
             API.getMe().then(function(userInfo) {

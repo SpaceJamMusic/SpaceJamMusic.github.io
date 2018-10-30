@@ -17,7 +17,7 @@
         // })
 
         function success() {
-
+            readUserTbl();
         }
 
         return {
@@ -28,14 +28,7 @@
                     method: 'GET',
                     url: url
                 }).then(function(response) {
-                    console.log(response.data);
-                    if (response.data == 'success({"result":"User already exists"})') {
-                        
-                        
-                    } else {
-
-                        
-                    }
+                    console.log('checkUser response', response.data);
                 }).catch(function(error) {
                     console.log(error);
                 })
@@ -47,7 +40,7 @@
                     method: 'GET',
                     url: url
                 }).then(function(response){
-                    console.log(response.data);
+                    console.log(response.data.records);
                 })
             }
         }
