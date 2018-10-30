@@ -61,13 +61,27 @@
         }
         
         return {
+            /**
+             * @description gets the current volume value
+             * @example Playback.getVolume
+             */
             getVolume: function() {
                 return _volume;
             },
+            /**
+             * @param  {int} v
+             * @description sets the new volume value
+             * @example Playback.setVolume('volume value')
+             */
             setVolume: function(v) {
                 _volume = v;
                 audiotag.volume = _volume / 100.0;
             },
+            /**
+             * @param  {string} trackuri
+             * @description starts playing the provided track url
+             * @example Playback.startPlaying('spotify url of track')
+             */
             startPlaying: function(trackuri) {
                 console.log('Playback::startPlaying', trackuri);
                 _track = trackuri;
@@ -91,6 +105,11 @@
                     });
                 });
             },
+            /**
+             * @description pauses the current playing track
+             * @example Playback.pause()
+             * @emits 'playerchanged'
+             */
             pause: function() {
                 if (_track != '') {
                     _playing = false;
@@ -99,6 +118,11 @@
                     disableTick();
                 }
             },
+            /**
+             * @description resumes the current playing track
+             * @example Playback.resume()
+             * @emits 'playerchanged
+             */
             resume: function() {
                 if (_track != '') {
                     _playing = true;
@@ -107,12 +131,24 @@
                     enableTick();
                 }
             },
+            /**
+             * @description gets the current tracks associated data
+             * @example Playback.getTrackData()
+             */
             getTrackData: function() {
                 return _trackdata;
             },
+            /**
+             * @description gets the playback progress of the current playing song
+             * @example Playback.getProgress()
+             */
             getProgress: function() {
                 return _progress;
             },
+            /**
+             * @description gets the playback duration of the current playing song
+             * @example Playback.getDuration()
+             */
             getDuration: function() {
                 return _duration;
             }

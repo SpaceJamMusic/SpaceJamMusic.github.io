@@ -8,7 +8,6 @@
         crossorigin="anonymous">
     <title>Space Jam</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
-    <script src="js/lib/node_modules/angular-spotify/src/angular-spotify.js"></script>
     <link rel="stylesheet" href="css/style-desktop.css">
     <link rel="stylesheet" href="css/style-mobile.css">
 </head>
@@ -173,15 +172,37 @@
             var additional = document.getElementById('additional').classList.toggle("active");
         }
 
+        var locations = {
+            location1: {
+                center: {
+                    lat: 29.187928,
+                    lng: -81.050409
+                }
+            }
+        }
+
         function initMap() {
-            // map = new google.maps.Map(document.getElementById('map'), {
-            //     center: {lat: 29.188249, lng:  -81.049624},
-            //     zoom: 8
-            // });
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 29.188249, lng:  -81.049624},
+                zoom: 17.5
+            });
+
+            for (var location in locations) {
+                var locationRadius = new google.maps.Circle({
+                    strokeColor: '#7d08b6',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: '#c518e9',
+                    fillOpacity: 0.35,
+                    map: map,
+                    center: locations[location].center,
+                    radius: 40
+                });
+            }
         }
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkQKEftWGugND96syce_bxVyisiQmQ0-M&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU2FyHaBYcS7Hwywd5ky7QDOV2btqcTD8&callback=initMap" async defer></script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

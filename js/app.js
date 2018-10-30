@@ -14,6 +14,9 @@
     app.controller('AppController', function($scope,$http, Auth, API, $location, Database) {
         console.log('in AppController');
        
+        /**
+         * @param  {boolean} redirectToLogin
+         */
         function checkUser(redirectToLogin) {
             API.getMe().then(function(userInfo) {
                 if(redirectToLogin) {
