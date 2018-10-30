@@ -172,11 +172,33 @@
             var additional = document.getElementById('additional').classList.toggle("active");
         }
 
+        var locations = {
+            location1: {
+                center: {
+                    lat: 29.187928,
+                    lng: -81.050409
+                }
+            }
+        }
+
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: 29.188249, lng:  -81.049624},
                 zoom: 17.5
             });
+
+            for (var location in locations) {
+                var locationRadius = new google.maps.Circle({
+                    strokeColor: '#7d08b6',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: '#c518e9',
+                    fillOpacity: 0.35,
+                    map: map,
+                    center: locations[location].center,
+                    radius: 40
+                });
+            }
         }
     </script>
 
