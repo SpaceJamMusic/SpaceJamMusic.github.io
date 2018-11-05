@@ -200,6 +200,26 @@ hr {
     margin-top: 10px;
 }
 
+.profile-view {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    text-align: center;
+}
+
+.profile-content {
+    display: flex;
+    width: 100%;
+}
+
+.posted-songs {
+    background-color: lightblue;
+}
+
+.collected-songs {
+    background-color: lightgreen;
+}
+
 .bottom-bar {
     position: absolute;
     transition: all 1s;

@@ -44,8 +44,8 @@
 
         <div class="sidebar" id="sidebar">
             <div class="sidebar-content">
-                <h3>{{ profileUsername }}</h3>
-                <h4>MSS: {{ points }}</h4>
+                <h2 style="cursor: pointer;" ng-click="changeview('profile')">{{ userData.USERNAME }}</h2>
+                <h4>MSS: {{ userData.POINTS }}</h4>
                 <hr>
                 <div class="sidebar-nearby-songs">
 
@@ -68,10 +68,22 @@
         </div>
 
         <div class="content" id="content">
-            <div ng-if="mapview" class="map-view">
+            <div ng-if="view == 'profile'" class="profile-view">
+                <h1 style="margin-top: 10px;">{{ userData.USERNAME }}</h1>
+                <h2>MSS: {{ userData.POINTS }}</h2>
+                <div class="profile-content">
+                    <div class="posted-songs">
+
+                    </div>
+                    <div class="collected-songs">
+
+                    </div>
+                </div>
+            </div>
+            <div ng-if="view == 'map'" class="map-view">
                 <div id="map" style="width:100%; height:100%;"></div>
             </div>
-            <div ng-if="!mapview" class="search-view" ng-controller="SearchController">
+            <div ng-if="view == 'search'" class="search-view" ng-controller="SearchController">
                 <div class="form-group">
                     <label for="searchTrack" style="font-size: 20px;">Search By Track/Song, Artist, or Album</label>
                     <input ng-model="query" ng-change="search()" type="text" class="form-control" id="searchTrack"
@@ -87,7 +99,8 @@
                             <!-- <i id="search-control" ng-click="play(track.uri)" class="fas fa-play" style="font-size: 35px;">
                                         <h6 style="margin-top: 5px;">Play</h6>
                                     </i> -->
-                            <i id="search-control" class="fas fa-shopping-cart" style="font-size: 35px;">
+
+                            <i id="search-control" class="fas fa-shopping-cart" style="font-size: 35px;" ng-click="buyTrack(track.name, track.id, track.artists[0].name, track.popularity)">
                                 <h6 style="margin-top: 5px;">Points: {{ track.popularity * 50 }}</h6>
                             </i>
                         </div>

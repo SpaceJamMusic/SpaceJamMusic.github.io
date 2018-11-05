@@ -12,8 +12,9 @@
         //$scope.trackInfo = [];
         $scope.profileUsername = Auth.getUsername();
         $scope.play = false;
-        $scope.mapview = true;
+        $scope.view = "map";
         $scope.duration = 0;
+        $scope.userData;
 
         $scope.resume = function() {
             Playback.resume();
@@ -26,24 +27,48 @@
         }                                                
 
         $scope.changeview = function(view) {
-            if (view == 'map' && $scope.mapview == true) {
-
-            } else if (view == 'search' && $scope.mapview == false) {
-
+            if (view == 'map' && $scope.view == 'map') {
+            } else if (view == 'search' && $scope.view == 'search') {
+            } else if (view == 'profile' && $scope.view == 'profile') {
             } else {
-                $scope.mapview = !$scope.mapview;
+                $scope.view = view
             }
             
         }
 
-        
         //7ckZ58Uo6I6nTrMs1SeimI
         $rootScope.$on('login', function() {
             console.log("login");
             $scope.profileUsername = Auth.getUsername(); 
             //Database.readUserTbl();
-            Database.checkUser($scope.profileUsername);
+            Database.checkUser($scope.profileUsername).then(function(response) {
+                console.log("current user info", response);
+                $scope.userData = response[0];
+                //console.log($scope.userData);
+            });
         })
+
+        $scope.buyTrack = function(track_name, track_uid, track_artist, track_cost) {
+            //console.log(track_name, track_uid);
+            console.log(track_cost * 50);
+            var cost = track_cost * 50;
+            $scope.profileUsername = Auth.getUsername(); 
+            // Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist).then(function(response) {
+            //     Database.updateUserPoints($scope.profileUsername, cost).then(function(response){
+            //         console.log(response);
+            //     });
+            // });
+
+            Database.updateUserPoints($scope.profileUsername, cost).then(function(response){
+                if (response.data.results == 'success') {
+                    Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist).then(function(response) {
+                        console.log(response);
+                    });
+                } else {
+                    return;
+                }
+            });
+        }
 
         $rootScope.$on('login-done', function(){
             console.log(Database.getUserData());
