@@ -33,9 +33,21 @@
             } else {
                 $scope.view = view
             }
-            
+
+            if (view == 'profile') {
+                $scope.$emit('profile');
+            } 
+
+            console.log(view);
         }
 
+        $rootScope.$emit('profile', function() {
+            Database.readUserTracksTbl().then(function(response) {
+                console.log(response.records);
+                $scope.userTracks = response.records;
+            });
+        });
+        
         //7ckZ58Uo6I6nTrMs1SeimI
         $rootScope.$on('login', function() {
             console.log("login");
@@ -44,23 +56,23 @@
             Database.checkUser($scope.profileUsername).then(function(response) {
                 console.log("current user info", response);
                 $scope.userData = response[0];
+                Database.readUserTracksTbl().then(function(response) {
+                    console.log(response.records);
+                    $scope.userTracks = response.records;
+                });
                 //console.log($scope.userData);
             });
         })
 
         $scope.buyTrack = function(track_name, track_uid, track_artist, track_cost) {
             //console.log(track_name, track_uid);
-            console.log(track_cost * 50);
-            var cost = track_cost * 50;
+            console.log(track_cost * 20);
+            var cost = track_cost * 20;
             $scope.profileUsername = Auth.getUsername(); 
-            // Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist).then(function(response) {
-            //     Database.updateUserPoints($scope.profileUsername, cost).then(function(response){
-            //         console.log(response);
-            //     });
-            // });
 
             Database.updateUserPoints($scope.profileUsername, cost).then(function(response){
-                if (response.data.results == 'success') {
+                console.log(response);
+                if (response.result == 'success') {
                     Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist).then(function(response) {
                         console.log(response);
                     });

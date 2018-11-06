@@ -62,6 +62,19 @@
                     console.log(error);
                 })
             },
+            readUserTracksTbl: function() {
+                var url = tbl_users_tracks_script_url + "?action=read";
+
+                return $http({
+                    method: "GET",
+                    url: url
+                }).then(function(response) {
+                    //console.log(response.data);
+                    return response.data;
+                }).catch(function(error) {
+                    console.log(error);
+                })
+            },
             readUserTbl: function() {
                 var url = tbl_users_script_url + "?action=read";
                 $http({

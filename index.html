@@ -69,14 +69,20 @@
 
         <div class="content" id="content">
             <div ng-if="view == 'profile'" class="profile-view">
-                <h1 style="margin-top: 10px;">{{ userData.USERNAME }}</h1>
-                <h2>MSS: {{ userData.POINTS }}</h2>
+                <div class="profile-header">
+                    <h2 style="margin-top: 10px;">{{ userData.USERNAME }}</h2>
+                    <h3>MSS: {{ userData.POINTS }}</h3>
+                </div>
                 <div class="profile-content">
                     <div class="posted-songs">
+                        <div class="posted-item">
 
+                        </div>
                     </div>
                     <div class="collected-songs">
-
+                        <div class="collected-item" ng-repeat="track in userTracks" ng-if="track.USERNAME == userData.USERNAME">
+                            <h2>{{ track.TRACK_NAME }}</h2>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -101,7 +107,7 @@
                                     </i> -->
 
                             <i id="search-control" class="fas fa-shopping-cart" style="font-size: 35px;" ng-click="buyTrack(track.name, track.id, track.artists[0].name, track.popularity)">
-                                <h6 style="margin-top: 5px;">Points: {{ track.popularity * 50 }}</h6>
+                                <h6 style="margin-top: 5px;">Points: {{ track.popularity * 20 }}</h6>
                             </i>
                         </div>
                     </div>
