@@ -82,12 +82,15 @@
                     <div class="collected-songs">
                         <h3>Song Collection</h3>
                         <div class="collected-item" ng-repeat="track in userTracks" ng-if="track.USERNAME == userData.USERNAME">
-                            <h4>{{ track.TRACK_NAME }}</h4>
-                            <h5>{{ track.TRACK_ARTIST }}</h5>
-                            <i id="search-control" ng-click="play(track.uri)" class="fas fa-play" style="font-size: 35px;">
+                            <div class="collected-item-info">
+                                <h4>{{ track.TRACK_NAME }}</h4>
+                                <h5>{{ track.TRACK_ARTIST }}</h5>
+                            </div>
+                            <i id="collected-play" ng-click="play(track.uri)" class="fas fa-play" style="font-size: 35px;">
                                 <h6 style="margin-top: 5px;">Play</h6>
                             </i>
                         </div>
+                        <br>
                     </div>
                 </div>
             </div>
