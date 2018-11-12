@@ -51,7 +51,7 @@
             },
             addTrackUser: function(username, track_name, track_id, track_artist) {
                 var url = tbl_users_tracks_script_url + "?callback=success&username=" + username + "&track_name=" + track_name + "&track_id=" + track_id + "&track_artist=" + track_artist + "&action=insert";
-                //console.log(url);
+                console.log(url);
                 return $http({
                     method: 'GET',
                     url: url
@@ -61,6 +61,18 @@
                 }).catch(function(error){
                     console.log(error);
                 })
+            },
+            deleteUserTrack: function(username, track_id) {
+                var url = tbl_users_tracks_script_url + "?callback=success&username=" + username + "&track_id=" + track_id + "&action=delete";
+
+                return $http({
+                    method: 'GET',
+                    url: url
+                }).then(function(result){
+                    return response.data;
+                }).catch(function(error){
+                    console.log(error);
+                }) 
             },
             readUserTracksTbl: function() {
                 var url = tbl_users_tracks_script_url + "?action=read";

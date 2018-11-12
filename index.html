@@ -115,7 +115,7 @@
                                     </i> -->
 
                             <i id="search-control" class="fas fa-shopping-cart" style="font-size: 35px;" ng-click="buyTrack(track.name, track.id, track.artists[0].name, track.popularity)">
-                                <h6 style="margin-top: 5px;">Points: {{ track.popularity * 20 }}</h6>
+                                <h6 style="margin-top: 5px;">Points: {{ track.popularity * 40 }}</h6>
                             </i>
                         </div>
                     </div>
@@ -247,6 +247,7 @@
 <script src="js/services/auth.js"></script>
 <script src="js/services/playqueue.js"></script>
 <script src="js/services/database.js"></script>
+<script src="js/services/location.js"></script>
 
 <!--Angular Controllers-->
 <script src="js/controllers/login.js"></script>

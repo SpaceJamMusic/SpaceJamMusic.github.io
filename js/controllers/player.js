@@ -5,7 +5,7 @@
 
     var module = angular.module('SpaceJam');
 
-    module.controller('PlayerController', function($scope, $rootScope, Auth, API, Playback, PlayQueue, $location, $http, Database) {
+    module.controller('PlayerController', function($scope, $rootScope, Auth, Playback, Database, Location) {
         console.log('In PlayerController');
 
 
@@ -24,7 +24,16 @@
         $scope.pause = function() {
             Playback.pause();
             $scope.play = false;
-        }                                                
+        }                                    
+        
+        setInterval(function() {
+            Location.getLocale().then(function(response) {
+                console.log(response);
+            });
+        }, 15000)
+        Location.getLocale().then(function(response) {
+            console.log(response);
+        });
 
         $scope.changeview = function(view) {
             if (view == 'map' && $scope.view == 'map') {
@@ -35,18 +44,15 @@
             }
 
             if (view == 'profile') {
-                $scope.$emit('profile');
+                Database.readUserTracksTbl().then(function(response) {
+                    console.log(response.records);
+                    $scope.userTracks = response.records;
+                });
             } 
 
             console.log(view);
         }
 
-        $rootScope.$emit('profile', function() {
-            Database.readUserTracksTbl().then(function(response) {
-                console.log(response.records);
-                $scope.userTracks = response.records;
-            });
-        });
         
         //7ckZ58Uo6I6nTrMs1SeimI
         $rootScope.$on('login', function() {
@@ -66,18 +72,23 @@
 
         $scope.buyTrack = function(track_name, track_uid, track_artist, track_cost) {
             //console.log(track_name, track_uid);
-            console.log(track_cost * 20);
-            var cost = track_cost * 20;
+            console.log(track_cost * 40);
+            var cost = track_cost * 40;
             $scope.profileUsername = Auth.getUsername(); 
 
-            Database.updateUserPoints($scope.profileUsername, cost).then(function(response){
-                console.log(response);
-                if (response.result == 'success') {
-                    Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist).then(function(response) {
-                        console.log(response);
+            Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist).then(function(response) {
+                if (response.result == 'exists') {
+                    console.log('exists');
+                } else if (response.result == 'Inserted') {
+                    Database.updateUserPoints($scope.profileUsername, cost).then(function(response) {
+                        if (response.result == 'success') {
+ 
+                        } else if (response.result == 'failure') {
+                            Database.deleteUserTrack($scope.profileUsername,track_uid).then(function(response){
+                                console.log("not enough points to get song");
+                            });
+                        }
                     });
-                } else {
-                    return;
                 }
             });
         }
