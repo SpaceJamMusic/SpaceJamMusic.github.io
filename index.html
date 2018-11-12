@@ -34,7 +34,7 @@
     </div>
 
 
-    <div class="container-fluid" ng-controller="PlayerController" ng-show="showPlayer">
+    <div class="container-fluid" id="player" ng-controller="PlayerController" ng-show="showPlayer">
         <div class="top-bar">
             <i class="fa fa-bars" id="collapse-button" onclick="toggleSidebar()"></i>
             <i id="view-control" onmouseout="initMap()" ng-click="changeview('map')" class="fas fa-map"></i>
@@ -204,10 +204,9 @@
                 }
             }
         }
-
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 29.188249, lng: -81.049624 },
+                center: angular.element(document.getElementById('player')).scope().location,
                 zoom: 17.5,
                 disableDefaultUI: true
             });

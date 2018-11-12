@@ -27,12 +27,17 @@
         }                                    
         
         setInterval(function() {
-            Location.getLocale().then(function(response) {
-                console.log(response);
+            Location.requestLocale().then(function(response) {
+                //console.log(response);
+                Location.setLocale(response.lon, response.lat);
+                $scope.location = Location.getLocale();
+                console.log($scope.location);
             });
         }, 15000)
-        Location.getLocale().then(function(response) {
-            console.log(response);
+        Location.requestLocale().then(function(response) {
+            Location.setLocale(response.lon, response.lat);
+            $scope.location = Location.getLocale();
+            console.log($scope.location);
         });
 
         $scope.changeview = function(view) {
