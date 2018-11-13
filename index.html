@@ -211,6 +211,12 @@
                 disableDefaultUI: true
             });
 
+            var marker = new google.maps.Marker({
+                position: angular.element(document.getElementById('player')).scope().location,
+                map: map,
+                title: 'My Location'
+            });
+
             for (var location in locations) {
                 var locationRadius = new google.maps.Circle({
                     strokeColor: '#7d08b6',
