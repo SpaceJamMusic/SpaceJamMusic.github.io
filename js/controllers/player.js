@@ -16,6 +16,8 @@
         $scope.duration = 0;
         $scope.userData;
 
+        $scope.currentLocation = {};
+
         $scope.resume = function() {
             Playback.resume();
             $scope.play = true;
@@ -25,15 +27,7 @@
             Playback.pause();
             $scope.play = false;
         }                                    
-        
-        // setInterval(function() {
-        //     Location.requestLocale().then(function(response) {
-        //         //console.log(response);
-        //         Location.setLocale(response.lon, response.lat);
-        //         $scope.location = Location.getLocale();
-        //         console.log($scope.location);
-        //     });
-        // }, 15000)
+
         $scope.changeview = function(view) {
             if (view == 'map' && $scope.view == 'map') {
             } else if (view == 'search' && $scope.view == 'search') {
@@ -67,6 +61,8 @@
                 });
                 //console.log($scope.userData);
             });
+
+            console.log($scope.currentLocation);
         })
 
         $scope.buyTrack = function(track_name, track_uid, track_artist, track_cost) {

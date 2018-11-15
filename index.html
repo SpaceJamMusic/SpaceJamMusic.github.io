@@ -218,7 +218,8 @@
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
                     };
-
+                    console.log(pos);
+                    angular.element(document.getElementById('player')).scope().currentLocation = pos;
                     infoWindow.setPosition(pos);
                     infoWindow.setContent('Location Found');
                     infoWindow.open(map);
