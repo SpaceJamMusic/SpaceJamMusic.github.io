@@ -2,7 +2,7 @@
     var module = angular.module('SpaceJam');
 
     module.factory('Location', function($http) {
-        var url = "https://ip-api.com/json";
+        var url = "http://ip-api.com/json";
 
         return {
             requestLocale: function() {
