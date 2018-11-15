@@ -26,14 +26,14 @@
             $scope.play = false;
         }                                    
         
-        setInterval(function() {
-            Location.requestLocale().then(function(response) {
-                //console.log(response);
-                Location.setLocale(response.lon, response.lat);
-                $scope.location = Location.getLocale();
-                console.log($scope.location);
-            });
-        }, 15000)
+        // setInterval(function() {
+        //     Location.requestLocale().then(function(response) {
+        //         //console.log(response);
+        //         Location.setLocale(response.lon, response.lat);
+        //         $scope.location = Location.getLocale();
+        //         console.log($scope.location);
+        //     });
+        // }, 15000)
         $scope.changeview = function(view) {
             if (view == 'map' && $scope.view == 'map') {
             } else if (view == 'search' && $scope.view == 'search') {

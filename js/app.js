@@ -37,11 +37,11 @@
             }
         }, false);
 
-        Location.requestLocale().then(function(response) {
-            Location.setLocale(response.lon, response.lat);
-            $scope.location = Location.getLocale();
-            console.log($scope.location);
-        });
+        // Location.requestLocale().then(function(response) {
+        //     Location.setLocale(response.lon, response.lat);
+        //     $scope.location = Location.getLocale();
+        //     console.log($scope.location);
+        // });
         $scope.isLoggedIn = (Auth.getAccessToken() != '');
         $scope.showPlayer = $scope.isLoggedIn;
         $scope.showLogin = !$scope.isLoggedIn;        
