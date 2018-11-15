@@ -34,12 +34,6 @@
                 console.log($scope.location);
             });
         }, 15000)
-        Location.requestLocale().then(function(response) {
-            Location.setLocale(response.lon, response.lat);
-            $scope.location = Location.getLocale();
-            console.log($scope.location);
-        });
-
         $scope.changeview = function(view) {
             if (view == 'map' && $scope.view == 'map') {
             } else if (view == 'search' && $scope.view == 'search') {
