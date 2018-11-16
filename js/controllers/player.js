@@ -79,13 +79,14 @@
             var lng = $scope.currentLocation.lng;
             var track_name = $scope.selectedTrack;
             var tracksArray = $scope.userTracks;
+            console.log(tracksArray);
             for (i = 0; i < tracksArray.length; i++) {
 
                 if (tracksArray[i].TRACK_NAME == track_name) {
                     var track_id = tracksArray[i].TRACK_ID;
                 }
             }
-            var track_id = $scope.userTracks.TRACK_ID;
+            
 
             Database.postTrack(username, lat , lng, track_name, track_id);
         }
