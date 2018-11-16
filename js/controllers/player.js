@@ -109,5 +109,14 @@
             Auth.setAccessToken('', 0);
             $scope.$emit('logout');
         }
+
+
+        $scope.upVote = function(track_name, track_uid, track_artist) {
+            Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist);
+            Database.updateUserPoints($scope.profileUsername, -500);
+
+
+        }
     });
 })();
+
