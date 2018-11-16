@@ -39,7 +39,7 @@
             <i class="fa fa-bars" id="collapse-button" onclick="toggleSidebar()"></i>
             <i id="view-control" onmouseout="initMap()" ng-click="changeview('map')" class="fas fa-map"></i>
             <i id="view-control" ng-click="changeview('search')" class="fas fa-search"></i>
-            <i id="view-control" class="fas fa-map-pin" data-toggle="modal" data-target="#postSongModal"></i>
+            <i id="view-control" class="fas fa-map-pin" data-toggle="modal" data-target="#postSongModal" ng-click="reset()"></i>
             <h1>Space Jam</h1>
         </div>
 
@@ -78,18 +78,17 @@
                         </div>
                         <div class="modal-body">
                             <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown
-                                    Example
+                                <button id="dropdown" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                    <span id="dropdown-text">{{ selectedTrack }}</span>
                                     <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
-                                    <span><li><a href="#">HTML</a></li></span>
-                                    <li><a href="#">CSS</a></li>
-                                    <li><a href="#">JavaScript</a></li>
+                                    <span ng-repeat="track in userTracks" ng-if="track.USERNAME == userData.USERNAME"><li><a class="dropdown-item" href="#" ng-click="selectTrack(track.TRACK_NAME)">{{ track.TRACK_NAME }}</a></li></span>
                                 </ul>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-btn">Cancel</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-btn" ng-click="postTrack()">Post</button>
                         </div>
                     </div>
                 </div>
