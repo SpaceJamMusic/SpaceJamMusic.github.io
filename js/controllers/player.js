@@ -41,6 +41,11 @@
                     console.log(response.records);
                     $scope.userTracks = response.records;
                 });
+
+                Database.readPostedTracks().then(function(response) {
+                    console.log(response.records);
+                    $scope.userPostedTracks = response.records;
+                })
             } 
 
             console.log(view);

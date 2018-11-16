@@ -109,6 +109,18 @@
                 }).catch(function(error){
                     console.error(error);
                 })
+            },
+            readPostedTracks: function() {
+                var url = tbl_location_tracks_script_url + "?action=read";
+
+                return $http({
+                    method: 'GET',
+                    url: url
+                }).then(function(response){
+                    return response;
+                }).catch(function(error){
+                    console.error(error);
+                })
             }
         }
     });
