@@ -65,6 +65,31 @@
             console.log($scope.currentLocation);
         })
 
+        $scope.selectedTrack = 'Select Track';
+        $scope.selectTrack = function(track) {
+            $scope.selectedTrack = track;
+        }
+        $scope.reset = function() {
+            $scope.selectedTrack = 'Select Track';
+        }
+
+        $scope.postTrack = function() {
+            var username = $scope.userData.USERNAME
+            var lat = $scope.currentLocation.lat;
+            var lng = $scope.currentLocation.lng;
+            var track_name = $scope.selectedTrack;
+            var tracksArray = $scope.userTracks;
+            for (i = 0; i < tracksArray.length; i++) {
+
+                if (tracksArray[i].TRACK_NAME == track_name) {
+                    var track_id = tracksArray[i].TRACK_ID;
+                }
+            }
+            var track_id = $scope.userTracks.TRACK_ID;
+
+            Database.postTrack(username, lat , lng, track_name, track_id);
+        }
+
         $scope.buyTrack = function(track_name, track_uid, track_artist, track_cost) {
             //console.log(track_name, track_uid);
             console.log(track_cost * 40);
