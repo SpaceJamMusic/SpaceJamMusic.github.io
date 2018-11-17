@@ -62,6 +62,7 @@
                 });
                 //console.log($scope.userData);
             });
+            
         })
 
         $scope.buyTrack = function(track_name, track_uid, track_artist, track_cost) {

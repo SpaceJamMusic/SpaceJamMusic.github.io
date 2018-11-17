@@ -238,9 +238,9 @@ hr {
 .collected-item {
     color: #FFF;
     background-color: rgba(122,15,175,.7);
-    padding: 3px;
+    padding: 0px;
     display: inline-flex;
-    height: 100px;
+    height: 85px;
     margin: auto;
     width: 90%;
     margin-bottom: 10px;
