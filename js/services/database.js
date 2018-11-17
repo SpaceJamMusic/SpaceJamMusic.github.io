@@ -117,7 +117,7 @@
                     method: 'GET',
                     url: url
                 }).then(function(response){
-                    return response;
+                    return response.data.records;
                 }).catch(function(error){
                     console.error(error);
                 })
