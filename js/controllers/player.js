@@ -94,6 +94,7 @@
             
 
             Database.postTrack(username, lat , lng, track_name, track_id);
+            $rootScope.$emit('changed');
         }
 
         $scope.buyTrack = function(track_name, track_uid, track_artist, track_cost) {
@@ -117,6 +118,8 @@
                     });
                 }
             });
+
+            $rootScope.$emit('changed');
         }
 
         $rootScope.$on('login-done', function(){
@@ -145,7 +148,7 @@
         $scope.upVote = function(track_name, track_uid, track_artist) {
             Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist);
             Database.updateUserPoints($scope.profileUsername, -500);
-
+            $rootScope.$emit('changed');
 
         }
     });
