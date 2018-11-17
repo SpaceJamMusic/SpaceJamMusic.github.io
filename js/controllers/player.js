@@ -5,7 +5,7 @@
 
     var module = angular.module('SpaceJam');
 
-    module.controller('PlayerController', function($scope, $rootScope, Auth, Playback, Database, Location) {
+    module.controller('PlayerController', function($scope, $rootScope, Auth, Playback, Database) {
         console.log('In PlayerController');
 
 
@@ -103,13 +103,17 @@
             var cost = track_cost * 40;
             $scope.profileUsername = Auth.getUsername(); 
 
-            Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist).then(function(response) {
-                if (response.result == 'exists') {
-                    console.log('exists');
-                } else if (response.result == 'Inserted') {
+            Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist).then(function(response) {           
+                if (response.data.result == "exists") {
+                } else if (response.data.result == "Inserted") {
                     Database.updateUserPoints($scope.profileUsername, cost).then(function(response) {
                         if (response.result == 'success') {
- 
+                            console.log(response.points);
+                            $scope.userData.POINTS = response.points;
+                            Database.readUserTracksTbl().then(function(response) {
+                                console.log(response.records);
+                                $scope.userTracks = response.records;
+                            });
                         } else if (response.result == 'failure') {
                             Database.deleteUserTrack($scope.profileUsername,track_uid).then(function(response){
                                 console.log("not enough points to get song");
@@ -147,10 +151,16 @@
 
         $scope.upVote = function(track_name, track_uid, track_artist) {
             Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist);
-            Database.updateUserPoints($scope.profileUsername, -500);
-            $rootScope.$emit('changed');
+            Database.updateUserPoints($scope.profileUsername, -500).then(function(response){
+                $scope.userData.POINTS = response.points;
+            })
+            //$rootScope.$emit('changed');
 
         }
+
+        // $rootScope.$on('changed', function() {
+
+        // })
     });
 })();
 

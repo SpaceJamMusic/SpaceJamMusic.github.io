@@ -56,8 +56,8 @@
                     method: 'GET',
                     url: url
                 }).then(function(response){
-                    console.log(response.data);
-                    return response.data;
+                    //console.log(response.data);
+                    return response;
                 }).catch(function(error){
                     console.log(error);
                 })

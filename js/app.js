@@ -11,7 +11,7 @@
     */
     var app = angular.module('SpaceJam', []);
 
-    app.controller('AppController', function($scope,$http, Auth, API, $location, Database, Location) {
+    app.controller('AppController', function($scope,$http, Auth, API, $location, Database) {
         console.log('in AppController');
        
         /**
