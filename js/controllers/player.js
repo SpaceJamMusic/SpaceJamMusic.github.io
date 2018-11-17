@@ -5,7 +5,7 @@
 
     var module = angular.module('SpaceJam');
 
-    module.controller('PlayerController', function($scope, $rootScope, Auth, API, Playback, PlayQueue, $location, $http, Database) {
+    module.controller('PlayerController', function($scope, $rootScope, Auth, Playback, Database, Location) {
         console.log('In PlayerController');
 
 
@@ -16,6 +16,8 @@
         $scope.duration = 0;
         $scope.userData;
 
+        $scope.currentLocation = {};
+
         $scope.resume = function() {
             Playback.resume();
             $scope.play = true;
@@ -24,7 +26,7 @@
         $scope.pause = function() {
             Playback.pause();
             $scope.play = false;
-        }                                                
+        }                                    
 
         $scope.changeview = function(view) {
             if (view == 'map' && $scope.view == 'map') {
@@ -35,18 +37,20 @@
             }
 
             if (view == 'profile') {
-                $scope.$emit('profile');
+                Database.readUserTracksTbl().then(function(response) {
+                    console.log(response.records);
+                    $scope.userTracks = response.records;
+                });
+
+                Database.readPostedTracks().then(function(response) {
+                    console.log(response.records);
+                    $scope.userPostedTracks = response.records;
+                })
             } 
 
             console.log(view);
         }
 
-        $rootScope.$emit('profile', function() {
-            Database.readUserTracksTbl().then(function(response) {
-                console.log(response.records);
-                $scope.userTracks = response.records;
-            });
-        });
         
         //7ckZ58Uo6I6nTrMs1SeimI
         $rootScope.$on('login', function() {
@@ -62,23 +66,55 @@
                 });
                 //console.log($scope.userData);
             });
-            
+
+            console.log($scope.currentLocation);
         })
+
+        $scope.selectedTrack = 'Select Track';
+        $scope.selectTrack = function(track) {
+            $scope.selectedTrack = track;
+        }
+        $scope.reset = function() {
+            $scope.selectedTrack = 'Select Track';
+        }
+
+        $scope.postTrack = function() {
+            var username = $scope.userData.USERNAME
+            var lat = $scope.currentLocation.lat;
+            var lng = $scope.currentLocation.lng;
+            var track_name = $scope.selectedTrack;
+            var tracksArray = $scope.userTracks;
+            console.log(tracksArray);
+            for (i = 0; i < tracksArray.length; i++) {
+
+                if (tracksArray[i].TRACK_NAME == track_name) {
+                    var track_id = tracksArray[i].TRACK_ID;
+                }
+            }
+            
+
+            Database.postTrack(username, lat , lng, track_name, track_id);
+        }
 
         $scope.buyTrack = function(track_name, track_uid, track_artist, track_cost) {
             //console.log(track_name, track_uid);
-            console.log(track_cost * 20);
-            var cost = track_cost * 20;
+            console.log(track_cost * 40);
+            var cost = track_cost * 40;
             $scope.profileUsername = Auth.getUsername(); 
 
-            Database.updateUserPoints($scope.profileUsername, cost).then(function(response){
-                console.log(response);
-                if (response.result == 'success') {
-                    Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist).then(function(response) {
-                        console.log(response);
+            Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist).then(function(response) {
+                if (response.result == 'exists') {
+                    console.log('exists');
+                } else if (response.result == 'Inserted') {
+                    Database.updateUserPoints($scope.profileUsername, cost).then(function(response) {
+                        if (response.result == 'success') {
+ 
+                        } else if (response.result == 'failure') {
+                            Database.deleteUserTrack($scope.profileUsername,track_uid).then(function(response){
+                                console.log("not enough points to get song");
+                            });
+                        }
                     });
-                } else {
-                    return;
                 }
             });
         }
@@ -104,5 +140,14 @@
             Auth.setAccessToken('', 0);
             $scope.$emit('logout');
         }
+
+
+        $scope.upVote = function(track_name, track_uid, track_artist) {
+            Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist);
+            Database.updateUserPoints($scope.profileUsername, -500);
+
+
+        }
     });
 })();
+

@@ -8,10 +8,8 @@
         crossorigin="anonymous">
     <title>Space Jam</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
-
-    <script src="https://rawgithub.com/arunisrael/angularjs-geolocation/master/dist/angularjs-geolocation.min.js"></script>
-
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles-desktop.css">
+    <link rel="stylesheet" href="css/style-mobile.css">
 </head>
 
 <body ng-app="SpaceJam" ng-controller="AppController">
@@ -28,7 +26,7 @@
                 <br>
                 <br>
                 <br>
-                <button class="btn" id="login-btn" ng-click="login()">Connect Spotify</button>
+                <button class="btn" id="login-btn" onclick="initMap()" ng-click="login()">Connect Spotify</button>
                 <h6 style="text-align: center; position: relative; vertical-align: bottom;">By connecting
                     spotify you are accepting <br> their <a target="_blank" href="https://www.spotify.com/us/legal/end-user-agreement/">Terms
                         & Conditions</a> for use</h6>
@@ -37,11 +35,12 @@
     </div>
 
 
-    <div class="container-fluid" ng-controller="PlayerController" ng-show="showPlayer">
+    <div class="container-fluid" id="player" ng-controller="PlayerController" ng-show="showPlayer">
         <div class="top-bar">
             <i class="fa fa-bars" id="collapse-button" onclick="toggleSidebar()"></i>
             <i id="view-control" onmouseout="initMap()" ng-click="changeview('map')" class="fas fa-map"></i>
             <i id="view-control" ng-click="changeview('search')" class="fas fa-search"></i>
+            <i id="view-control" class="fas fa-map-pin" data-toggle="modal" data-target="#postSongModal" ng-click="reset()"></i>
             <h1>Space Jam</h1>
         </div>
 
@@ -71,6 +70,30 @@
         </div>
 
         <div class="content" id="content">
+            <div class="modal fade" id="postSongModal" role="dialog">
+                <div class="modal-dialog modal-dialog-centered">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4>Post Track To Current Location</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="dropdown">
+                                <button id="dropdown" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                    <span id="dropdown-text">{{ selectedTrack }}</span>
+                                    <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <span ng-repeat="track in userTracks" ng-if="track.USERNAME == userData.USERNAME"><li><a class="dropdown-item" href="#" ng-click="selectTrack(track.TRACK_NAME)">{{ track.TRACK_NAME }}</a></li></span>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-btn">Cancel</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-btn" ng-click="postTrack(selectedTrack)">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div ng-if="view == 'profile'" class="profile-view">
                 <div class="profile-header">
                     <h2 style="margin-top: 10px;">{{ userData.USERNAME }}</h2>
@@ -118,7 +141,7 @@
                                     </i> -->
 
                             <i id="search-control" class="fas fa-shopping-cart" style="font-size: 35px;" ng-click="buyTrack(track.name, track.id, track.artists[0].name, track.popularity)">
-                                <h6 style="margin-top: 5px;">Points: {{ track.popularity * 20 }}</h6>
+                                <h6 style="margin-top: 5px;">Points: {{ track.popularity * 40 }}</h6>
                             </i>
                         </div>
                     </div>
@@ -134,7 +157,7 @@
             <h6 class="poster">Posted by: {{ poster }}</h6>
             <div class="track-controls">
                 <div class="thumb-up">
-                    <i id="control" class="fas fa-thumbs-up" style="font-size: 25px"></i>
+                    <i id="control" class="fas fa-thumbs-up" style="font-size: 25px" ng-click="()"></i>
                 </div>
 
                 <div class="play-btn">
@@ -207,26 +230,60 @@
                 }
             }
         }
-
         function initMap() {
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 29.188249, lng: -81.049624 },
-                zoom: 17.5,
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 40.653458, lng: -100.405642 },
+                zoom: 5,
                 disableDefaultUI: true
             });
+            var infoWindow = new google.maps.InfoWindow;
 
-            for (var location in locations) {
-                var locationRadius = new google.maps.Circle({
-                    strokeColor: '#7d08b6',
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: '#c518e9',
-                    fillOpacity: 0.35,
-                    map: map,
-                    center: locations[location].center,
-                    radius: 40
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    console.log(pos);
+                    angular.element(document.getElementById('player')).scope().currentLocation = pos;
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent('Location Found');
+                    infoWindow.open(map);
+                    map.setCenter(pos);
+                    map.setZoom(17.5);
+                }, function () {
+                    handleLocationError(true, infoWindow, map.getCenter());
                 });
+            } else {
+                handleLocationError(false, infoWindow, map.getCenter());
             }
+
+
+
+            // var marker = new google.maps.Marker({
+            //     position: angular.element(document.getElementById('player')).scope().location,
+            //     map: map,
+            //     title: 'My Location'
+            // });
+
+            // for (var location in locations) {
+            //     var locationRadius = new google.maps.Circle({
+            //         strokeColor: '#7d08b6',
+            //         strokeOpacity: 0.8,
+            //         strokeWeight: 2,
+            //         fillColor: '#c518e9',
+            //         fillOpacity: 0.35,
+            //         map: map,
+            //         center: locations[location].center,
+            //         radius: 40
+            //     });
+            // }
+        }
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ? 'Geolocation faild' : 'no gelocation');
+            infoWindow.open(map);
         }
     </script>
 
@@ -250,6 +307,7 @@
 <script src="js/services/auth.js"></script>
 <script src="js/services/playqueue.js"></script>
 <script src="js/services/database.js"></script>
+<script src="js/services/location.js"></script>
 
 <!--Angular Controllers-->
 <script src="js/controllers/login.js"></script>

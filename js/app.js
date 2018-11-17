@@ -11,7 +11,7 @@
     */
     var app = angular.module('SpaceJam', []);
 
-    app.controller('AppController', function($scope,$http, Auth, API, $location, Database) {
+    app.controller('AppController', function($scope,$http, Auth, API, $location, Database, Location) {
         console.log('in AppController');
        
         /**
@@ -37,7 +37,11 @@
             }
         }, false);
 
-
+        // Location.requestLocale().then(function(response) {
+        //     Location.setLocale(response.lon, response.lat);
+        //     $scope.location = Location.getLocale();
+        //     console.log($scope.location);
+        // });
         $scope.isLoggedIn = (Auth.getAccessToken() != '');
         $scope.showPlayer = $scope.isLoggedIn;
         $scope.showLogin = !$scope.isLoggedIn;        
