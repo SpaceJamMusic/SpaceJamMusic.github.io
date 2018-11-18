@@ -188,6 +188,12 @@ input[type=text]:not(.browser-default) {
 #media {
     bottom: 100px;
 }
+
+#profile-view {
+    text-align: center;
+    width: 100%;
+    height: calc(100vh - 116px);
+}
 </style>
 
 <body ng-app="SpaceJam" ng-controller="AppController">
@@ -216,7 +222,7 @@ input[type=text]:not(.browser-default) {
     <section id="content" id="player" ng-controller="PlayerController" ng-show="showPlayer" onshow="initMap()">
         <nav class="nav-extended z-depth-2">
             <div class="nav-wrapper">
-                <a href="#" class="brand-logo">SpaceJam</a>
+                <a href="#" class="brand-logo">SpaceJam - {{ userData.USERNAME}}: {{ userData.POINTS }}</a>
                 <a href="#" data-activates="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <!-- <li><a href="#profile-view"><i class="material-icons">person</i></a></li> -->
@@ -270,43 +276,59 @@ input[type=text]:not(.browser-default) {
         </div>
 
         <div id="profile-view" class="col s12">
+            <div class="card" id="input-card" style="padding: 0px;">
+                <div class="card-content">
+                    <p style="font-size: 38px; margin: 0;">{{ userData.USERNAME }}</p>
+                    <p style="font-size: 32px; margin: 0;">MSS: {{ userData.POINTS }}</p>
+                </div>
+            </div>
 
-        </div>
+            <div class="tracks" style="max-height: calc(100vh - 280px);">
+                <div class="card" id="track-card" ng-repeat="track in userTracks" ng-if="track.USERNAME == userData.USERNAME">
+                    <div class="card-content">
+                        <span class="card-title">{{ track.TRACK_NAME }}</span>
+                        <p style="font-size: 19px">{{ track.TRACK_ARTIST }}</p>
+                    </div>
+                    <div class="card-action">
+                        <a class="waves-effect waves-light btn"><i class="material-icons">play_arrow</i></a>
+                    </div>
+                </div>
+            </div>
 
 
-        <div class="fixed-action-btn" id="media">
-            <a class="btn-floating btn-large">
-                <i class="large material-icons">music_note</i>
-            </a>
-            <ul>
-                <li>{{ trackInfo.data.name }}</li>
-                <li>{{ trackInfo.data.artists[0].name }}</li>
-                <li>Posted by: {{ poster }}</li>
-                <li><a class="btn-floating" style="background-color: rgba(197,24,233,1);"><i class="material-icons">thumb_up</i></a></li>
-                <li><a class="btn-floating" style="background-color: rgba(122,15,175,1);"><i class="material-icons">thumb_down</i></a></li>
-                <li><a class="btn-floating" style="background-color: rgba(81,22,156,1)"><i class="material-icons">play_arrow</i></a></li>
+            <div class="fixed-action-btn" id="media">
+                <a class="btn-floating btn-large">
+                    <i class="large material-icons">music_note</i>
+                </a>
+                <ul>
+                    <li>{{ trackInfo.data.name }}</li>
+                    <li>{{ trackInfo.data.artists[0].name }}</li>
+                    <li>Posted by: {{ poster }}</li>
+                    <li><a class="btn-floating" style="background-color: rgba(197,24,233,1);"><i class="material-icons">thumb_up</i></a></li>
+                    <li><a class="btn-floating" style="background-color: rgba(122,15,175,1);"><i class="material-icons">thumb_down</i></a></li>
+                    <li><a class="btn-floating" style="background-color: rgba(81,22,156,1)"><i class="material-icons">play_arrow</i></a></li>
+                </ul>
+            </div>
+
+            <div id="post-modal" class="modal">
+                <div class="modal-content">
+                    <span style="font-size: 22px; color: #c518e9;">Post Track To Current Location</span>
+                    <a class="dropdown-button btn" href="#" data-activates="dropdown-tracks">{{ selectedTrack }}</a>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="modal-close waves-effect btn-flat">Cancel</a>
+                    <a href="#" class="modal-close waves-effect btn-flat" ng-click="postTrack(selectedTrack)">Post</a>
+                </div>
+            </div>
+            <ul id='dropdown-tracks' class='dropdown-content'>
+                <li ng-repeat="track in userTracks" ng-if="track.USERNAME == userData.USERNAME"><a ng-click="selectTrack(track.TRACK_NAME)">{{
+                        track.TRACK_NAME }}</a></li>
             </ul>
-        </div>
-
-        <div id="post-modal" class="modal">
-            <div class="modal-content">
-                <span style="font-size: 22px; color: #c518e9;">Post Track To Current Location</span>
-                <a class="dropdown-button btn" href="#" data-activates="dropdown-tracks">{{ selectedTrack }}</a>
+            <div class="fixed-action-btn">
+                <a class="btn-floating btn-large waves-effect waves-light" href="#post-modal">
+                    <i class="large material-icons">add</i>
+                </a>
             </div>
-            <div class="modal-footer">
-                <a href="#" class="modal-close waves-effect btn-flat">Cancel</a>
-                <a href="#" class="modal-close waves-effect btn-flat" ng-click="postTrack(selectedTrack)">Post</a>
-            </div>
-        </div>
-        <ul id='dropdown-tracks' class='dropdown-content'>
-            <li ng-repeat="track in userTracks" ng-if="track.USERNAME == userData.USERNAME"><a ng-click="selectTrack(track.TRACK_NAME)">{{
-                    track.TRACK_NAME }}</a></li>
-        </ul>
-        <div class="fixed-action-btn">
-            <a class="btn-floating btn-large waves-effect waves-light" href="#post-modal">
-                <i class="large material-icons">add</i>
-            </a>
-        </div>
     </section>
 
 
