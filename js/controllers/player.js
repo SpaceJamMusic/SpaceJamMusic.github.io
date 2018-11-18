@@ -63,16 +63,20 @@
                 Database.readUserTracksTbl().then(function(response) {
                     console.log(response.records);
                     $scope.userTracks = response.records;
-                    Database.readPostedTracks().then(function(response) {
-                        console.log(response);
-                        $scope.postedTracks = response;
-                    });
+                    $scope.getPostedTracks();
                 });
                 //console.log($scope.userData);
             });
 
             console.log($scope.currentLocation);
         })
+
+        $scope.getPostedTracks = function() {
+            Database.readPostedTracks().then(function(response) {
+                console.log(response);
+                $scope.postedTracks = response;
+            });
+        }
 
         $scope.selectedTrack = 'Select Track';
         $scope.selectTrack = function(track) {
@@ -99,6 +103,7 @@
 
             Database.postTrack(username, lat , lng, track_name, track_id);
             $rootScope.$emit('changed');
+            $scope.getPostedTracks();
         }
 
         $scope.buyTrack = function(track_name, track_uid, track_artist, track_cost) {

@@ -2,182 +2,282 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-        crossorigin="anonymous">
+    <!-- Compiled and minified CSS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
         crossorigin="anonymous">
+
     <title>Space Jam</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
-    <link rel="stylesheet" href="css/styles-desktop.css">
-    <link rel="stylesheet" href="css/style-mobile.css">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
+<style>
+    @font-face {
+    font-family: "RobotoThin";
+    src: url("../css/fonts/roboto/Roboto-Thin.woff") format('woff');
+}
+    
+body {
+    font-family: RobotoThin;
+    overflow: hidden;
+    background-color: #FFF;
+}
+
+::-webkit-scrollbar {
+    width: 3px;  /* rem[ove scrollbar space */
+    border-radius: 0px;
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+
+::-webkit-scrollbar-thumb {
+    /* background-color: #00ACC1 !important; */
+    border-radius: 0px;
+    background-color: #c518e9;
+}
+
+.nav-extended {
+    z-index: 999;
+    background-color: rgba(197,24,233,.7);
+}
+
+.brand-logo {
+    margin-left: 10px;
+}
+
+#map-view {
+    margin-top: 4px;
+    z-index: 0;
+    width: 100%;
+    height: calc(100vh - 116px);
+}
+
+#map {
+    height: 600px;
+    width: 100%;
+}
+
+#login-view {
+    height: 100vh;
+}
+
+.login {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    background: #FFF;
+    background: linear-gradient(180deg, rgba(197,24,233,.7) 27%, rgba(122,15,175,.7) 53%, rgba(81,22,156,.7) 77%);
+}
+
+.card {
+    margin-top: 150px;
+}
+
+.card-content {
+    color: #c518e9;
+}
+    
+.card-action {
+    color: #c518e9;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
+    color:#c518e9;
+    margin-right: 0;
+    text-transform: none;
+}
+
+.btn {
+    background-color: rgba(197,24,233,.7);
+    width: 70%;
+}
+
+.btn:hover {
+    background-color: rgba(122,15,175,.7);
+}
+
+.search-view {
+    height: calc(100vh - 116px);
+    
+}
+
+#input-card {
+    margin: auto;
+    margin-top: 15px;
+    color: #FFF;
+    z-index: 99;
+    background-color: whitesmoke;
+    width: 90%;
+    padding: 15px;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly])+label {
+    color: #c518e9;   
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]), input.valid[type=text]:not(.browser-default) {
+    border-bottom: 1px solid #c518e9;
+}
+
+input[type=text]:not(.browser-default) {
+    color: #c518e9;
+}
+
+.tracks {
+    margin: auto;
+    color: #FFF;
+    width: 100%;
+    max-height: calc(100vh - 240px);
+    overflow-y: auto;
+}
+
+#track-card {
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 85%;
+    background-color: whitesmoke;
+    text-align: center;
+}
+
+.btn-floating {
+    background-color: rgba(81,22,156,1);
+}
+
+.btn-floating:hover {
+    background-color: rgba(197,24,233,1);
+}
+
+.modal-content {
+    text-align: center;
+    display: block;
+    height: 250px;
+}
+
+.modal {
+    border-radius: 0;
+    height: 300px;
+    overflow: hidden;
+}
+
+.dropdown-content {
+    z-index: 999;
+    height: 200px;
+    overflow-y: scroll;
+}
+
+.dropdown-content li a {
+    color: #c518e9;
+}
+
+.modal-footer {
+    text-align: center;
+}
+</style>
+
 <body ng-app="SpaceJam" ng-controller="AppController">
-
-    <div class="container-fluid" ng-controller="LoginController" ng-show="showLogin">
+    <section id="login-view" ng-controller="LoginController" ng-show="showLogin">
         <div class="login">
-            <div class="login-section">
-                <h2><b>Welcome to SpaceJam</b></h2>
-                <br>
-                <br>
-                <br>
-                <h4>Please Log into your Spotify Account</h4>
-                <br>
-                <br>
-                <br>
-                <br>
-                <button class="btn" id="login-btn" onclick="initMap()" ng-click="login()">Connect Spotify</button>
-                <h6 style="text-align: center; position: relative; vertical-align: bottom;">By connecting
-                    spotify you are accepting <br> their <a target="_blank" href="https://www.spotify.com/us/legal/end-user-agreement/">Terms
-                        & Conditions</a> for use</h6>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="container-fluid" id="player" ng-controller="PlayerController" ng-show="showPlayer">
-        <div class="top-bar">
-            <i class="fa fa-bars" id="collapse-button" onclick="toggleSidebar()"></i>
-            <i id="view-control" onmouseout="initMap()" ng-click="changeview('map')" class="fas fa-map"></i>
-            <i id="view-control" ng-click="changeview('search')" class="fas fa-search"></i>
-            <i id="view-control" class="fas fa-map-pin" data-toggle="modal" data-target="#postSongModal" ng-click="reset()"></i>
-            <h1>Space Jam</h1>
-        </div>
-
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-content">
-                <h2 style="cursor: pointer;" ng-click="changeview('profile')">{{ userData.USERNAME }}</h2>
-                <h4>MSS: {{ userData.POINTS }}</h4>
-                <hr>
-                <div class="sidebar-nearby-songs">
-
-                </div>
-                <hr>
-                <div class="options">
-                    <i class="fas fa-cog" style="font-size: 30px; cursor: pointer; margin: 10px;">
-                        <h6 style="margin-top: 5px;">Settings</h6>
-                    </i>
-                    <i class="fas fa-question" style="font-size: 30px; cursor: pointer; margin: 10px;">
-                        <h6 style="margin-top: 5px;">Help</h6>
-                    </i>
-                    <a ng-click="logout()">
-                        <i style="font-size: 30px; cursor: pointer; margin: 10px;" class="fas fa-sign-out-alt">
-                            <h6 style="margin-top: 5px;">Logout</h6>
-                        </i>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="content" id="content">
-            <div class="modal fade" id="postSongModal" role="dialog">
-                <div class="modal-dialog modal-dialog-centered">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4>Post Track To Current Location</h4>
+            <div class="row">
+                <div class="col s12 l12 m12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Welcome To SpaceJam</span>
+                            <!-- <p>Please Log into your Spotify Account</p> -->
+                            <a class="waves-effect waves-light btn" onclick="initMap()" ng-click="login()">Connect
+                                Spotify</a>
                         </div>
-                        <div class="modal-body">
-                            <div class="dropdown">
-                                <button id="dropdown" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                                    <span id="dropdown-text">{{ selectedTrack }}</span>
-                                    <span class="caret"></span></button>
-                                <ul class="dropdown-menu">
-                                    <span ng-repeat="track in userTracks" ng-if="track.USERNAME == userData.USERNAME"><li><a class="dropdown-item" href="#" ng-click="selectTrack(track.TRACK_NAME)">{{ track.TRACK_NAME }}</a></li></span>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-btn">Cancel</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-btn" ng-click="postTrack(selectedTrack)">Post</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div ng-if="view == 'profile'" class="profile-view">
-                <div class="profile-header">
-                    <h2 style="margin-top: 10px;">{{ userData.USERNAME }}</h2>
-                    <h3>MSS: {{ userData.POINTS }}</h3>
-                </div>
-                <div class="profile-content">
-                    <div class="posted-songs">
-                        <div class="posted-item">
-
-                        </div>
-                    </div>
-                    <div class="collected-songs">
-                        <h3>Song Collection</h3>
-                        <div class="collected-item" ng-repeat="track in userTracks" ng-if="track.USERNAME == userData.USERNAME">
-                            <div class="collected-item-info">
-                                <h4>{{ track.TRACK_NAME }}</h4>
-                                <h5>{{ track.TRACK_ARTIST }}</h5>
-                            </div>
-                            <i id="collected-play" ng-click="play(track.uri)" class="fas fa-play" style="font-size: 35px;">
-                                <h6 style="margin-top: 5px;">Play</h6>
-                            </i>
-                        </div>
-                        <br>
-                    </div>
-                </div>
-            </div>
-            <div ng-if="view == 'map'" class="map-view">
-                <div id="map" style="width:100%; height:100%;"></div>
-            </div>
-            <div ng-if="view == 'search'" class="search-view" ng-controller="SearchController">
-                <div class="form-group">
-                    <label for="searchTrack" style="font-size: 20px;">Search By Track/Song, Artist, or Album</label>
-                    <input ng-model="query" ng-change="search()" type="text" class="form-control" id="searchTrack"
-                        placeholder="Enter Track, Artist, or Album">
-                </div>
-                <div class="tracks">
-                    <div class="track-items" ng-repeat="track in tracks.items">
-                        <div class="track-info">
-                            <h5><b>{{ track.name }}</b></h5>
-                            <h5>{{ track.artists[0].name }}</h5>
-                        </div>
-                        <div class="track-options">
-                            <!-- <i id="search-control" ng-click="play(track.uri)" class="fas fa-play" style="font-size: 35px;">
-                                        <h6 style="margin-top: 5px;">Play</h6>
-                                    </i> -->
-
-                            <i id="search-control" class="fas fa-shopping-cart" style="font-size: 35px;" ng-click="buyTrack(track.name, track.id, track.artists[0].name, track.popularity)">
-                                <h6 style="margin-top: 5px;">Points: {{ track.popularity * 40 }}</h6>
-                            </i>
+                        <div class="card-action">
+                            <p style="text-align: center; position: relative; vertical-align: bottom;">By connecting
+                                spotify you are accepting <br> their <a target="_blank" href="https://www.spotify.com/us/legal/end-user-agreement/"><i>Terms
+                                        & Conditions</i></a> for use</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="bottom-bar" id="bottom-bar">
-            <div class="music-info">
-                <h5>{{ trackInfo.data.name }}</h5>
-                <h6>{{ trackInfo.data.artists[0].name }}</h6>
+    <section id="content" id="player" ng-controller="PlayerController" ng-show="showPlayer" onshow="initMap()">
+        <nav class="nav-extended z-depth-2">
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">SpaceJam</a>
+                <a href="#" data-activates="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="#"><i class="material-icons">person</i></a></li>
+                    <li><a href="#"><i class="material-icons">help</i></a></li>
+                    <li><a href="#"><i class="material-icons" ng-click="logout()">logout</i></a></li>
+                </ul>
             </div>
-            <h6 class="poster">Posted by: {{ poster }}</h6>
-            <div class="track-controls">
-                <div class="thumb-up">
-                    <i id="control" class="fas fa-thumbs-up" style="font-size: 25px" ng-click="upVote(track_name, track_uid, track_artist)"></i>
-                </div>
-
-                <div class="play-btn">
-                    <i id="control" ng-hide="play" ng-click="resume()" class="fas fa-play" style="font-size: 35px;"></i>
-                    <i id="control" ng-show="play" ng-click="pause()" class="fas fa-pause" style="font-size: 35px;"></i>
-                </div>
-
-                <div class="thumb-down">
-                    <i id="control" class="fas fa-thumbs-down" style="font-size: 25px;"></i>
-                </div>
+            <div class="nav-content">
+                <ul class="tabs tabs-transparent">
+                    <li class="tab"><a href="#map-view" class="active" onmouseout="initMap()"><i class="material-icons">map</i></a></li>
+                    <li class="tab"><a href="#search-view"><i class="material-icons">search</i></a></li>
+                </ul>
             </div>
-            <div class="seek">
-                <div class="progress-value">{{ progress | displaytime }}</div>
-                <div class="slider">
-                    <input type="range" ng-model="progress" min="0" max="{{ duration }}" />
-                </div>
-                <div class="duration-value">{{ duration | displaytime }}</div>
+        </nav>
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="#"><i class="material-icons">person</i>Profile</a></li>
+            <li><a href="#"><i class="material-icons">help</i>Help</a></li>
+            <li><a href="#" ng-click="logout()"><i class="material-icons">logout</i>Logout</a></li>
+        </ul>
+
+        <div id="map-view" class="col l12 s12">
+            <div id="map" style="width:100%; height:100%;">
+
             </div>
         </div>
-    </div>
+        <div id="search-view" class="col s12" ng-controller="SearchController">
+            <div class="card" id="input-card">
+                <div class="input-field col s12 l6 m6">
+                    <input id="last_name" type="text" class="validate" ng-model="query" ng-change="search()">
+                    <label for="last_name">Search by Artist, Track, or Album</label>
+                </div>
+            </div>
+
+            <div class="tracks">
+                <div class="card" id="track-card" ng-repeat="track in tracks.items">
+                    <div class="card-content">
+                        <span class="card-title">{{ track.name }}</span>
+                        <p style="font-size: 19px;">{{ track.artists[0].name }}</p>
+                        <p style="font-size: 16px;">{{ track.album.name }}</p>
+                        <p>Cost: {{ track.popularity * 40 }}</p>
+                    </div>
+                    <div class="card-action">
+                        <a class="waves-effect waves-light btn"><i class="material-icons">shopping_cart</i></a>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div id="post-modal" class="modal">
+            <div class="modal-content">
+                <span style="font-size: 22px; color: #c518e9;">Post Track To Current Location</span>
+                <a class="dropdown-button btn" href="#" data-activates="dropdown-tracks">{{ selectedTrack }}</a>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="modal-close waves-effect btn-flat">Cancel</a>
+                <a href="#" class="modal-close waves-effect btn-flat" ng-click="postTrack(selectedTrack)">Post</a>
+            </div>
+        </div>
+        <ul id='dropdown-tracks' class='dropdown-content'>
+            <li ng-repeat="track in userTracks" ng-if="track.USERNAME == userData.USERNAME"><a ng-click="selectTrack(track.TRACK_NAME)">{{
+                    track.TRACK_NAME }}</a></li>
+        </ul>
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large waves-effect waves-light" href="#post-modal">
+                <i class="large material-icons">add</i>
+            </a>
+        </div>
+    </section>
 
 
 
@@ -212,19 +312,21 @@
 
 
 
-    <script type="text/javascript">
-        function toggleSidebar() {
-            var sidebar = document.getElementById("sidebar").classList.toggle("active");
-            var bottombar = document.getElementById("bottom-bar").classList.toggle("active");
-            var content = document.getElementById('content').classList.toggle('active');
-            // var sidebarHeader = document.getElementById('sidebar-header').classList.toggle("active");
-            // var nearbySongs = document.getElementById('nearby-songs').classList.toggle("active");
-            // var additional = document.getElementById('additional').classList.toggle("active");
-        }
 
-        
+
+
+
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script>
+        // window.setInterval(function () {
+        //     initMap();
+        // }, 15000);
 
         function initMap() {
+            angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().getPostedTracks();
             var map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: 40.653458, lng: -100.405642 },
                 zoom: 5,
@@ -239,10 +341,14 @@
                         lng: position.coords.longitude
                     };
                     console.log(pos);
-                    angular.element(document.getElementById('player')).scope().currentLocation = pos;
-                    infoWindow.setPosition(pos);
-                    infoWindow.setContent('Location Found');
-                    infoWindow.open(map);
+                    angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().currentLocation = pos;
+                    //infoWindow.setPosition(pos);
+                    //infoWindow.setContent('Location Found');
+                    //infoWindow.open(map);
+                    var marker = new google.maps.Marker({
+                        position: pos,
+                        map: map
+                    });
                     map.setCenter(pos);
                     map.setZoom(17.5);
                 }, function () {
@@ -252,14 +358,8 @@
                 handleLocationError(false, infoWindow, map.getCenter());
             }
 
-            var locations = angular.element(document.getElementById('player')).scope().postedTracks;
+            var locations = angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().postedTracks;
             console.log(locations);
-
-            // var marker = new google.maps.Marker({
-            //     position: angular.element(document.getElementById('player')).scope().location,
-            //     map: map,
-            //     title: 'My Location'
-            // });
 
             for (var location in locations) {
                 var locationRadius = new google.maps.Circle({
@@ -270,10 +370,30 @@
                     fillOpacity: 0.35,
                     map: map,
                     center: { lat: locations[location].LATITUDE, lng: locations[location].LONGITUDE },
-                    radius: 40
+                    radius: 80
                 });
             }
         }
+
+        $(document).ready(function () {
+            $('.sidenav-trigger').sideNav();
+
+            $('.modal').modal();
+            $('.dropdown-button').dropdown();
+        });
+
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar").classList.toggle("active");
+            var bottombar = document.getElementById("bottom-bar").classList.toggle("active");
+            var content = document.getElementById('content').classList.toggle('active');
+            // var sidebarHeader = document.getElementById('sidebar-header').classList.toggle("active");
+            // var nearbySongs = document.getElementById('nearby-songs').classList.toggle("active");
+            // var additional = document.getElementById('additional').classList.toggle("active");
+        }
+
+
+
+
 
         function handleLocationError(browserHasGeolocation, infoWindow, pos) {
             infoWindow.setPosition(pos);
@@ -281,19 +401,11 @@
             infoWindow.open(map);
         }
     </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU2FyHaBYcS7Hwywd5ky7QDOV2btqcTD8&callback=initMap"></script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU2FyHaBYcS7Hwywd5ky7QDOV2btqcTD8&callback=initMap"
-        async defer></script>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
 </body>
 
-<!--Angular References-->
 <script src="js/app.js"></script>
 
 <!--Angular Services-->
@@ -310,7 +422,5 @@
 
 <!--Angular Filters-->
 <script src="js/filters/displaytime.js"></script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 </html>
