@@ -51,7 +51,7 @@
             console.log(view);
         }
 
-        $scope.postedLocations = {};
+        $scope.postedLocations = [];
         //7ckZ58Uo6I6nTrMs1SeimI
         $rootScope.$on('login', function() {
             console.log("login");
@@ -64,22 +64,8 @@
                     console.log(response.records);
                     $scope.userTracks = response.records;
                     Database.readPostedTracks().then(function(response) {
-                       console.log(response);
-                       $scope.postedTracks = response;
-
-                       for (i = 0; i < $scope.postedTracks.length; i++) {
-                            if ($scope.postedLocations.contains(Math.floor($scope.postedTracks.LATITUDE)) && $scope.postedLocations.contains(Math.floor($scope.postedTracks.LONGITUDE))) {
-
-                            } else {
-                                $scope.postedLocations.push({
-                                    "lat": Math.floor($scope.postedTracks[i].LATITUDE),
-                                    "lng": Math.floor($scope.postedTracks[i].LONGITUDE)
-                                });
-                            }
-                       }
-
-                       console.log($scope.postedLocations);
-
+                        console.log(response);
+                        $scope.postedTracks = response;
                     });
                 });
                 //console.log($scope.userData);
@@ -174,6 +160,14 @@
             })
             //$rootScope.$emit('changed');
 
+        }
+
+        function isEmpty(obj) {
+            for(var key in obj) {
+                if(obj.hasOwnProperty(key))
+                    return false;
+            }
+            return true;
         }
 
         // $rootScope.$on('changed', function() {
