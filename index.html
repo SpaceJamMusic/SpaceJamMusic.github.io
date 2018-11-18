@@ -294,41 +294,42 @@ input[type=text]:not(.browser-default) {
                     </div>
                 </div>
             </div>
+        </div>
 
 
-            <div class="fixed-action-btn" id="media">
-                <a class="btn-floating btn-large">
-                    <i class="large material-icons">music_note</i>
-                </a>
-                <ul>
-                    <li>{{ trackInfo.data.name }}</li>
-                    <li>{{ trackInfo.data.artists[0].name }}</li>
-                    <li>Posted by: {{ poster }}</li>
-                    <li><a class="btn-floating" style="background-color: rgba(197,24,233,1);"><i class="material-icons">thumb_up</i></a></li>
-                    <li><a class="btn-floating" style="background-color: rgba(122,15,175,1);"><i class="material-icons">thumb_down</i></a></li>
-                    <li><a class="btn-floating" style="background-color: rgba(81,22,156,1)"><i class="material-icons">play_arrow</i></a></li>
-                </ul>
-            </div>
-
-            <div id="post-modal" class="modal">
-                <div class="modal-content">
-                    <span style="font-size: 22px; color: #c518e9;">Post Track To Current Location</span>
-                    <a class="dropdown-button btn" href="#" data-activates="dropdown-tracks">{{ selectedTrack }}</a>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="modal-close waves-effect btn-flat">Cancel</a>
-                    <a href="#" class="modal-close waves-effect btn-flat" ng-click="postTrack(selectedTrack)">Post</a>
-                </div>
-            </div>
-            <ul id='dropdown-tracks' class='dropdown-content'>
-                <li ng-repeat="track in userTracks" ng-if="track.USERNAME == userData.USERNAME"><a ng-click="selectTrack(track.TRACK_NAME)">{{
-                        track.TRACK_NAME }}</a></li>
+        <div class="fixed-action-btn" id="media">
+            <a class="btn-floating btn-large">
+                <i class="large material-icons">music_note</i>
+            </a>
+            <ul>
+                <li>{{ trackInfo.data.name }}</li>
+                <li>{{ trackInfo.data.artists[0].name }}</li>
+                <li>Posted by: {{ poster }}</li>
+                <li><a class="btn-floating" style="background-color: rgba(197,24,233,1);"><i class="material-icons">thumb_up</i></a></li>
+                <li><a class="btn-floating" style="background-color: rgba(122,15,175,1);"><i class="material-icons">thumb_down</i></a></li>
+                <li><a class="btn-floating" style="background-color: rgba(81,22,156,1)"><i class="material-icons">play_arrow</i></a></li>
             </ul>
-            <div class="fixed-action-btn">
-                <a class="btn-floating btn-large waves-effect waves-light" href="#post-modal">
-                    <i class="large material-icons">add</i>
-                </a>
+        </div>
+
+        <div id="post-modal" class="modal">
+            <div class="modal-content">
+                <span style="font-size: 22px; color: #c518e9;">Post Track To Current Location</span>
+                <a class="dropdown-button btn" href="#" data-activates="dropdown-tracks">{{ selectedTrack }}</a>
             </div>
+            <div class="modal-footer">
+                <a href="#" class="modal-close waves-effect btn-flat">Cancel</a>
+                <a href="#" class="modal-close waves-effect btn-flat" ng-click="postTrack(selectedTrack)">Post</a>
+            </div>
+        </div>
+        <ul id='dropdown-tracks' class='dropdown-content'>
+            <li ng-repeat="track in userTracks" ng-if="track.USERNAME == userData.USERNAME"><a ng-click="selectTrack(track.TRACK_NAME)">{{
+                    track.TRACK_NAME }}</a></li>
+        </ul>
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large waves-effect waves-light" href="#post-modal">
+                <i class="large material-icons">add</i>
+            </a>
+        </div>
     </section>
 
 
