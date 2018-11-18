@@ -4,6 +4,7 @@
 <head>
     <!-- Compiled and minified CSS -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
     <!-- Compiled and minified JavaScript -->
@@ -72,6 +73,10 @@ body {
     text-align: center;
     background: #FFF;
     background: linear-gradient(180deg, rgba(197,24,233,.7) 27%, rgba(122,15,175,.7) 53%, rgba(81,22,156,.7) 77%);
+}
+
+.content {
+    background-color: #FFF;
 }
 
 .card {
@@ -143,6 +148,7 @@ input[type=text]:not(.browser-default) {
     width: 85%;
     background-color: whitesmoke;
     text-align: center;
+    transition: all 1s;
 }
 
 .btn-floating {
@@ -178,6 +184,10 @@ input[type=text]:not(.browser-default) {
 .modal-footer {
     text-align: center;
 }
+
+#media {
+    bottom: 100px;
+}
 </style>
 
 <body ng-app="SpaceJam" ng-controller="AppController">
@@ -209,7 +219,7 @@ input[type=text]:not(.browser-default) {
                 <a href="#" class="brand-logo">SpaceJam</a>
                 <a href="#" data-activates="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="#"><i class="material-icons">person</i></a></li>
+                    <!-- <li><a href="#profile-view"><i class="material-icons">person</i></a></li> -->
                     <li><a href="#"><i class="material-icons">help</i></a></li>
                     <li><a href="#"><i class="material-icons" ng-click="logout()">logout</i></a></li>
                 </ul>
@@ -218,11 +228,12 @@ input[type=text]:not(.browser-default) {
                 <ul class="tabs tabs-transparent">
                     <li class="tab"><a href="#map-view" class="active" onmouseout="initMap()"><i class="material-icons">map</i></a></li>
                     <li class="tab"><a href="#search-view"><i class="material-icons">search</i></a></li>
+                    <li class="tab"><a href="#profile-view"><i class="material-icons">person</i></a></li>
                 </ul>
             </div>
         </nav>
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="#"><i class="material-icons">person</i>Profile</a></li>
+            <!-- <li><a href="#"><i class="material-icons">person</i>Profile</a></li> -->
             <li><a href="#"><i class="material-icons">help</i>Help</a></li>
             <li><a href="#" ng-click="logout()"><i class="material-icons">logout</i>Logout</a></li>
         </ul>
@@ -249,7 +260,8 @@ input[type=text]:not(.browser-default) {
                         <p>Cost: {{ track.popularity * 40 }}</p>
                     </div>
                     <div class="card-action">
-                        <a class="waves-effect waves-light btn"><i class="material-icons">shopping_cart</i></a>
+                        <a class="waves-effect waves-light btn" ng-click="buyTrack(track.name, track.id, track.artists[0].name, track.popularity)"><i
+                                class="material-icons">shopping_cart</i></a>
 
                     </div>
                 </div>
@@ -257,6 +269,24 @@ input[type=text]:not(.browser-default) {
 
         </div>
 
+        <div id="profile-view" class="col s12">
+
+        </div>
+
+
+        <div class="fixed-action-btn" id="media">
+            <a class="btn-floating btn-large">
+                <i class="large material-icons">music_note</i>
+            </a>
+            <ul>
+                <li>{{ trackInfo.data.name }}</li>
+                <li>{{ trackInfo.data.artists[0].name }}</li>
+                <li>Posted by: {{ poster }}</li>
+                <li><a class="btn-floating" style="background-color: rgba(197,24,233,1);"><i class="material-icons">thumb_up</i></a></li>
+                <li><a class="btn-floating" style="background-color: rgba(122,15,175,1);"><i class="material-icons">thumb_down</i></a></li>
+                <li><a class="btn-floating" style="background-color: rgba(81,22,156,1)"><i class="material-icons">play_arrow</i></a></li>
+            </ul>
+        </div>
 
         <div id="post-modal" class="modal">
             <div class="modal-content">
@@ -318,18 +348,20 @@ input[type=text]:not(.browser-default) {
 
 
 
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
+    <!-- <script src="js/materialize.js"></script> -->
     <script>
         // window.setInterval(function () {
         //     initMap();
         // }, 15000);
-
         function initMap() {
             angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().getPostedTracks();
             var map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: 40.653458, lng: -100.405642 },
-                zoom: 5,
+                zoom: 6,
                 disableDefaultUI: true
             });
             var infoWindow = new google.maps.InfoWindow;
@@ -370,7 +402,7 @@ input[type=text]:not(.browser-default) {
                     fillOpacity: 0.35,
                     map: map,
                     center: { lat: locations[location].LATITUDE, lng: locations[location].LONGITUDE },
-                    radius: 80
+                    radius: 100
                 });
             }
         }
