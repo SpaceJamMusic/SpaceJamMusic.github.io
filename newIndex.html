@@ -71,7 +71,9 @@ body {
         <li><a href="#"><i class="material-icons">logout</i>Logout</a></li>
     </ul>
 
-    <div id="map-view" class="col s12">map</div>
+    <div id="map-view" class="col s12">
+        <div id="map" style="width:100%; height:100%;"></div>
+    </div>
     <div id="test2" class="col s12">Test 2</div>
 
 
@@ -131,56 +133,56 @@ body {
 
 
 
-        // function initMap() {
-        //     var map = new google.maps.Map(document.getElementById('map'), {
-        //         center: { lat: 40.653458, lng: -100.405642 },
-        //         zoom: 5,
-        //         disableDefaultUI: true
-        //     });
-        //     var infoWindow = new google.maps.InfoWindow;
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 40.653458, lng: -100.405642 },
+                zoom: 5,
+                disableDefaultUI: true
+            });
+            // var infoWindow = new google.maps.InfoWindow;
 
-        //     if (navigator.geolocation) {
-        //         navigator.geolocation.getCurrentPosition(function (position) {
-        //             var pos = {
-        //                 lat: position.coords.latitude,
-        //                 lng: position.coords.longitude
-        //             };
-        //             console.log(pos);
-        //             angular.element(document.getElementById('player')).scope().currentLocation = pos;
-        //             infoWindow.setPosition(pos);
-        //             infoWindow.setContent('Location Found');
-        //             infoWindow.open(map);
-        //             map.setCenter(pos);
-        //             map.setZoom(17.5);
-        //         }, function () {
-        //             handleLocationError(true, infoWindow, map.getCenter());
-        //         });
-        //     } else {
-        //         handleLocationError(false, infoWindow, map.getCenter());
-        //     }
+            // if (navigator.geolocation) {
+            //     navigator.geolocation.getCurrentPosition(function (position) {
+            //         var pos = {
+            //             lat: position.coords.latitude,
+            //             lng: position.coords.longitude
+            //         };
+            //         console.log(pos);
+            //         angular.element(document.getElementById('player')).scope().currentLocation = pos;
+            //         infoWindow.setPosition(pos);
+            //         infoWindow.setContent('Location Found');
+            //         infoWindow.open(map);
+            //         map.setCenter(pos);
+            //         map.setZoom(17.5);
+            //     }, function () {
+            //         handleLocationError(true, infoWindow, map.getCenter());
+            //     });
+            // } else {
+            //     handleLocationError(false, infoWindow, map.getCenter());
+            // }
 
-        //     var locations = angular.element(document.getElementById('player')).scope().postedTracks;
-        //     console.log(locations);
+            // var locations = angular.element(document.getElementById('player')).scope().postedTracks;
+            // console.log(locations);
 
-        //     // var marker = new google.maps.Marker({
-        //     //     position: angular.element(document.getElementById('player')).scope().location,
-        //     //     map: map,
-        //     //     title: 'My Location'
-        //     // });
+            // // var marker = new google.maps.Marker({
+            // //     position: angular.element(document.getElementById('player')).scope().location,
+            // //     map: map,
+            // //     title: 'My Location'
+            // // });
 
-        //     for (var location in locations) {
-        //         var locationRadius = new google.maps.Circle({
-        //             strokeColor: '#7d08b6',
-        //             strokeOpacity: 0.8,
-        //             strokeWeight: 2,
-        //             fillColor: '#c518e9',
-        //             fillOpacity: 0.35,
-        //             map: map,
-        //             center: { lat: locations[location].LATITUDE, lng: locations[location].LONGITUDE },
-        //             radius: 40
-        //         });
-        //     }
-        // }
+            // for (var location in locations) {
+            //     var locationRadius = new google.maps.Circle({
+            //         strokeColor: '#7d08b6',
+            //         strokeOpacity: 0.8,
+            //         strokeWeight: 2,
+            //         fillColor: '#c518e9',
+            //         fillOpacity: 0.35,
+            //         map: map,
+            //         center: { lat: locations[location].LATITUDE, lng: locations[location].LONGITUDE },
+            //         radius: 40
+            //     });
+            // }
+        }
 
         function handleLocationError(browserHasGeolocation, infoWindow, pos) {
             infoWindow.setPosition(pos);
@@ -188,8 +190,8 @@ body {
             infoWindow.open(map);
         }
     </script>
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU2FyHaBYcS7Hwywd5ky7QDOV2btqcTD8&callback=initMap"
-        async defer></script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU2FyHaBYcS7Hwywd5ky7QDOV2btqcTD8&callback=initMap"
+        async defer></script>
 
 
 </body>
