@@ -82,17 +82,17 @@
              * @description starts playing the provided track url
              * @example Playback.startPlaying('spotify url of track')
              */
-            startPlaying: function(trackuri) {
-                console.log('Playback::startPlaying', trackuri);
-                _track = trackuri;
+            startPlaying: function(trackid) {
+                console.log('Playback::startPlaying', trackid);
+                _track = trackid;
                 _trackdata = null;
                 _playing = true;
                 _progress = 0;
-                var trackid = trackuri.split(':')[2];
+                //var trackid = trackuri.split(':')[2];
 
                 audiotag.src='';
-                audiotag.play();
-                audiotag.pause();
+                //audiotag.play();
+                //audiotag.pause();
 
                 API.getTrack(trackid).then(function(trackdata) {
                     console.log('playback got track', trackdata);

@@ -5,7 +5,7 @@
 
     var module = angular.module('SpaceJam');
 
-    module.controller('PlayerController', function($scope, $rootScope, Auth, Playback, Database) {
+    module.controller('PlayerController', function($scope, $rootScope, Auth, Playback, Database, PlayQueue) {
         console.log('In PlayerController');
 
 
@@ -75,6 +75,8 @@
             Database.readPostedTracks().then(function(response) {
                 console.log(response);
                 $scope.postedTracks = response;
+
+                
             });
         }
 
@@ -84,6 +86,12 @@
         }
         $scope.reset = function() {
             $scope.selectedTrack = 'Select Track';
+        }
+
+        $scope.play = function(trackid) {
+            console.log(trackid)
+            PlayQueue.play(trackid);
+            $scope.play = true;
         }
 
         $scope.postTrack = function() {

@@ -37,7 +37,6 @@
              */
             getTrack: function(trackid) {
                 var ret = $q.defer();
-
                 $http.get(baseUrl + '/tracks/' + encodeURIComponent(trackid), {
                     headers: {
                         'Authorization': 'Bearer ' + Auth.getAccessToken() 

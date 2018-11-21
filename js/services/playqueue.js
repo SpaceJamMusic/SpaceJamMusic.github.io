@@ -12,13 +12,13 @@
              * @description plays the current track url
              * @example PlayQueue.play(')
              */
-            play: function(trackuri) {
-                console.log('Clear queue and play track', trackuri);
+            play: function(trackid) {
+                console.log('Clear queue and play track', trackid);
                 _queue = [];
-                _queue.push(trackuri);
+                _queue.push(trackid);
                 _position = 0;
                 $rootScope.$emit('playqueuechanged');
-                Playback.startPlaying(trackuri);
+                Playback.startPlaying(trackid);
             }
         }
     });
