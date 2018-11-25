@@ -11,8 +11,7 @@
 
         //$scope.trackInfo = [];
         $scope.profileUsername = Auth.getUsername();
-        $scope.play = false;
-        $scope.view = "map";
+        $scope.playing = false;
         $scope.duration = 0;
         $scope.userData;
 
@@ -20,12 +19,12 @@
 
         $scope.resume = function() {
             Playback.resume();
-            $scope.play = true;
+            $scope.playing = true;
         }
  
         $scope.pause = function() {
             Playback.pause();
-            $scope.play = false;
+            $scope.playing = false;
         }                                    
 
         $scope.changeview = function(view) {
