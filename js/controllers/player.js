@@ -5,7 +5,7 @@
 
     var module = angular.module('SpaceJam');
 
-    module.controller('PlayerController', function($scope, $rootScope, Auth, Playback, Database, PlayQueue) {
+    module.controller('PlayerController', function($scope, $rootScope, Auth, Playback, Database, PlayQueue, Location) {
         console.log('In PlayerController');
 
 
@@ -74,8 +74,7 @@
             Database.readPostedTracks().then(function(response) {
                 console.log(response);
                 $scope.postedTracks = response;
-
-                
+                Location.getDistance(response[0].LATITUDE, response[0].LONGITUDE, $scope.currentLocation.lat, $scope.currentLocation.lng);
             });
         }
 
