@@ -63,6 +63,8 @@
                     console.log(response.records);
                     $scope.userTracks = response.records;
                     $scope.getPostedTracks();
+                    //initMap("distance", $scope.currentLocation.lat, $scope.currentLocation.lng, $scope.postedTracks[0].LATITUDE, $scope.postedTracks[0].LONGITUDE);
+
                 });
                 //console.log($scope.userData);
             });
@@ -72,9 +74,21 @@
 
         $scope.getPostedTracks = function() {
             Database.readPostedTracks().then(function(response) {
-                console.log(response);
                 $scope.postedTracks = response;
-                Location.getDistance(response[0].LATITUDE, response[0].LONGITUDE, $scope.currentLocation.lat, $scope.currentLocation.lng);
+                console.log('Got Posted Tracks', $scope.postedTracks);
+                initMap("distance", $scope.currentLocation.lat, $scope.currentLocation.lng, $scope.postedTracks);
+                // $scope.tracksNear = {};
+                // for (i = 0; i < $scope.postedTracks.length; i++) {
+                //     console.log($scope.currentLocation);
+                //     var distance = initMap("distance", $scope.currentLocation.lat, $scope.currentLocation.lng, response[i].LATITUDE, response[i].LONGITUDE)
+                //     console.log("Distance", distance);
+                //     if (distance < "500 m" || distance < "0.5 km") {
+                //         $scope.tracksNear.push($scope.postedTracks[i]);
+                //     }
+                // }
+                //console.log("Tracks Near Location: ", $scope.tracksNear);
+                //initMap("distance", $scope.currentLocation.lat, $scope.currentLocation.lng, response[0].LATITUDE, response[0].LONGITUDE);
+                //Location.getDistance(response[0].LATITUDE, response[0].LONGITUDE, $scope.currentLocation.lat, $scope.currentLocation.lng);
             });
         }
 

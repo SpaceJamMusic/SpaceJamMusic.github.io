@@ -43,8 +43,12 @@ body {
 }
 
 .nav-extended {
-    z-index: 999;
+    z-index: 99999;
     background-color: rgba(197,24,233,.7);
+}
+
+.nav-content {
+    z-index: 999;
 }
 
 .brand-logo {
@@ -52,15 +56,16 @@ body {
 }
 
 #map-view {
-    margin-top: 4px;
-    z-index: 0;
+    margin-top: 0px;
+    z-index: -1;
     width: 100%;
-    height: calc(100vh - 116px);
+    height: calc(100vh - 110px);
 }
 
 #map {
     height: 600px;
     width: 100%;
+    z-index: 0;
 }
 
 #login-view {
@@ -153,6 +158,7 @@ input[type=text]:not(.browser-default) {
 
 .btn-floating {
     background-color: rgba(81,22,156,1);
+
 }
 
 .btn-floating:hover {
@@ -194,6 +200,13 @@ input[type=text]:not(.browser-default) {
     width: 100%;
     height: calc(100vh - 116px);
 }
+
+#music-info {
+    background-color: rgba(255, 255, 255, .9);
+    border-radius: 10px;
+    width: 130px;
+    margin-left: -70px;
+}
 </style>
 
 <body ng-app="SpaceJam" ng-controller="AppController">
@@ -205,7 +218,7 @@ input[type=text]:not(.browser-default) {
                         <div class="card-content">
                             <span class="card-title">Welcome To SpaceJam</span>
                             <!-- <p>Please Log into your Spotify Account</p> -->
-                            <a class="waves-effect waves-light btn" onclick="initMap()" ng-click="login()">Connect
+                            <a class="waves-effect waves-light btn" onclick="initMap('reload', 0, 0, 0, 0)" ng-click="login()">Connect
                                 Spotify</a>
                         </div>
                         <div class="card-action">
@@ -232,7 +245,8 @@ input[type=text]:not(.browser-default) {
             </div>
             <div class="nav-content">
                 <ul class="tabs tabs-transparent">
-                    <li class="tab"><a href="#map-view" class="active" onmouseout="initMap()"><i class="material-icons">map</i></a></li>
+                    <li class="tab"><a href="#map-view" class="active" onmouseout="initMap('reload', 0, 0, 0, 0)"><i
+                                class="material-icons">map</i></a></li>
                     <li class="tab"><a href="#search-view"><i class="material-icons">search</i></a></li>
                     <li class="tab"><a href="#profile-view"><i class="material-icons">person</i></a></li>
                 </ul>
@@ -244,7 +258,7 @@ input[type=text]:not(.browser-default) {
             <li><a href="#" ng-click="logout()"><i class="material-icons">logout</i>Logout</a></li>
         </ul>
 
-        <div id="map-view" class="col l12 s12">
+        <div id="map-view" class="col l12 s12 z-depth-1">
             <div id="map" style="width:100%; height:100%;">
 
             </div>
@@ -297,11 +311,11 @@ input[type=text]:not(.browser-default) {
         </div>
 
 
-        <div class="fixed-action-btn" id="media">
+        <div class="fixed-action-btn click-to-toggle" id="media">
             <a class="btn-floating btn-large">
                 <i class="large material-icons">music_note</i>
             </a>
-            <ul>
+            <ul id="music-info">
                 <li>{{ trackInfo.data.name }}</li>
                 <li>{{ trackInfo.data.artists[0].name }}</li>
                 <li>Posted by: {{ poster }}</li>
@@ -380,55 +394,154 @@ input[type=text]:not(.browser-default) {
         // window.setInterval(function () {
         //     initMap();
         // }, 15000);
-        function initMap() {
-            angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().getPostedTracks();
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 40.653458, lng: -100.405642 },
-                zoom: 6,
-                disableDefaultUI: true
-            });
-            var infoWindow = new google.maps.InfoWindow;
 
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    var pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    console.log(pos);
-                    angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().currentLocation = pos;
-                    //infoWindow.setPosition(pos);
-                    //infoWindow.setContent('Location Found');
-                    //infoWindow.open(map);
-                    var marker = new google.maps.Marker({
-                        position: pos,
-                        map: map
-                    });
-                    map.setCenter(pos);
-                    map.setZoom(17.5);
-                }, function () {
-                    handleLocationError(true, infoWindow, map.getCenter());
-                });
-            } else {
-                handleLocationError(false, infoWindow, map.getCenter());
-            }
-
-            var locations = angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().postedTracks;
-            console.log(locations);
-
-            for (var location in locations) {
-                var locationRadius = new google.maps.Circle({
-                    strokeColor: '#7d08b6',
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: '#c518e9',
-                    fillOpacity: 0.35,
-                    map: map,
-                    center: { lat: locations[location].LATITUDE, lng: locations[location].LONGITUDE },
-                    radius: 100
-                });
-            }
+        function test() {
+            console.log('test function worked');
         }
+
+        // function getDistance(user_lat, user_lng, track_lat, track_lng) {
+        //     var distanceService = new google.maps.DistanceMatrixService();
+        //     distanceService.getDistanceMatrix(
+        //         {
+        //             origins: [user_lat, user_lng],
+        //             destinations: [track_lat, track_lng],
+        //         }, callback
+        //     );
+        // }
+
+
+        initAction = "reload";
+        function initMap(action, user_lat, user_lng, track_coords) {
+            if (action == 'reload' || initAction == 'reload') {
+                console.log('in action');
+                angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().getPostedTracks();
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    center: { lat: 40.653458, lng: -100.405642 },
+                    zoom: 6,
+                    disableDefaultUI: true
+                });
+                var infoWindow = new google.maps.InfoWindow;
+
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        var pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        console.log(pos);
+                        angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().currentLocation = pos;
+                        //infoWindow.setPosition(pos);
+                        //infoWindow.setContent('Location Found');
+                        //infoWindow.open(map);
+                        var marker = new google.maps.Marker({
+                            position: pos,
+                            map: map
+                        });
+                        map.setCenter(pos);
+                        map.setZoom(17.5);
+                    }, function () {
+                        handleLocationError(true, infoWindow, map.getCenter());
+                    });
+                } else {
+                    handleLocationError(false, infoWindow, map.getCenter());
+                }
+
+                var locations = angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().postedTracks;
+                console.log(locations);
+
+                for (var location in locations) {
+                    var locationRadius = new google.maps.Circle({
+                        strokeColor: '#7d08b6',
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: '#c518e9',
+                        fillOpacity: 0.35,
+                        map: map,
+                        center: { lat: locations[location].LATITUDE, lng: locations[location].LONGITUDE },
+                        radius: 100
+                    });
+                }
+                initAction = '';
+            } else if (action == 'distance') {
+                console.log(user_lat + " " + user_lng);
+                var distanceService = new google.maps.DistanceMatrixService();
+                console.log(track_coords);
+
+                for (k = 0; k < track_coords.length; k++) {
+                    var origin = new google.maps.LatLng(user_lat, user_lng);
+                    console.log("origin", origin);
+                    var destination = new google.maps.LatLng(track_coords[k].LATITUDE, track_coords[k].LONGITUDE);
+                    console.log("destination", destination);
+
+                    distanceService.getDistanceMatrix({
+                        origins: [origin],
+                        destinations: [destination],
+                        travelMode: 'WALKING'
+                    }, function (response, status) {
+                        if (status == 'OK') {
+                            var origins = response.originAddresses;
+                            var destinations = response.destinationAddresses;
+
+                            for (var i = 0; i < origins.length; i++) {
+                                var results = response.rows[i].elements;
+                                for (var j = 0; j < results.length; j++) {
+                                    var element = results[j];
+                                    var distance = element.distance.text;
+                                }
+                            }
+                        }
+                        console.log("Distance", distance);
+                    });
+                }
+
+
+                // var origin = new google.maps.LatLng(user_lat, user_lng);
+                // var destination = new google.maps.LatLng(track_lat, track_lng);
+                // console.log("origin: " + origin);
+                // console.log("destination: " + destination);
+                // distanceService.getDistanceMatrix({
+                //     origins: [origin],
+                //     destinations: [destination],
+                //     travelMode: 'WALKING'
+                // }, function(response, status) {
+                //     if (status == 'OK') {
+                //         var origins = response.originAddresses;
+                //         var destinations = response.destinationAddresses;
+
+                //         for (var i = 0; i < origins.length; i++) {
+                //             var results = response.rows[i].elements;
+                //             for (var j = 0; j < results.length; j++) {
+                //                 var element = results[j];
+                //                 var distance = element.distance.text;
+                //             }
+                //         }
+                //     }
+                //     console.log("Distance", distance);
+                // });
+            }
+
+        }
+
+        // function callback(response, status) {
+        //     if (status == 'OK') {
+        //         var origins = response.originAddresses;
+        //         var destinations = response.destinationAddresses;
+
+        //         for (var i = 0; i < origins.length; i++) {
+        //             var results = response.rows[i].elements;
+        //             for (var j = 0; j < results.length; j++) {
+        //                 var element = results[j];
+        //                 var distance = element.distance.text;
+        //                 var duration = element.duration.text;
+        //                 var from = origins[i];
+        //                 var to = destinations[j];
+        //             }
+        //         }
+        //         console.log(distance);
+        //         //angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().distance = distance;
+        //         //return distance;
+        //     }
+        // }
 
         $(document).ready(function () {
             $('.sidenav-trigger').sideNav();
