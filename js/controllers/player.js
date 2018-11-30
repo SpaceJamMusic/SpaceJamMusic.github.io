@@ -142,6 +142,7 @@
             $scope.currentTrack = Playback.getTrack();
             $scope.playing = Playback.isPlaying();
             $scope.trackData = Playback.getTrackData();
+            $scope.track = $scope.trackData.data.name;
             console.log("TrackData:", $scope.trackData);
         })
 
@@ -167,8 +168,8 @@
         }
 
 
-        $scope.upVote = function(track_name, track_uid, track_artist) {
-            Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist);
+        $scope.upVote = function(track_name, track_uid, track_artist, track_uri) {
+            Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist, track_uri);
             Database.updateUserPoints($scope.profileUsername, -500).then(function(response){
                 $scope.userData.POINTS = response.points;
             })
