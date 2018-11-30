@@ -131,6 +131,9 @@
                     enableTick();
                 }
             },
+            isPlaying: function() {
+				return _playing;
+			},
             /**
              * @description gets the current tracks associated data
              * @example Playback.getTrackData()
@@ -145,6 +148,9 @@
             getProgress: function() {
                 return _progress;
             },
+            getTrack: function() {
+				return _track;
+			},
             /**
              * @description gets the playback duration of the current playing song
              * @example Playback.getDuration()

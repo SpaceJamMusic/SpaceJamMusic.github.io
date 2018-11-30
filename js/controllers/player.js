@@ -15,6 +15,8 @@
         $scope.duration = 0;
         $scope.userData;
 
+        $scope.tracksNearLocation = {};
+
         $scope.currentLocation = {};
 
         $scope.resume = function() {
@@ -26,29 +28,6 @@
             Playback.pause();
             $scope.playing = false;
         }                                    
-
-        $scope.changeview = function(view) {
-            if (view == 'map' && $scope.view == 'map') {
-            } else if (view == 'search' && $scope.view == 'search') {
-            } else if (view == 'profile' && $scope.view == 'profile') {
-            } else {
-                $scope.view = view
-            }
-
-            if (view == 'profile') {
-                Database.readUserTracksTbl().then(function(response) {
-                    console.log(response.records);
-                    $scope.userTracks = response.records;
-                });
-
-                Database.readPostedTracks().then(function(response) {
-                    console.log(response.records);
-                    $scope.userPostedTracks = response.records;
-                })
-            } 
-
-            console.log(view);
-        }
 
         $scope.postedLocations = [];
         //7ckZ58Uo6I6nTrMs1SeimI
@@ -63,7 +42,6 @@
                     console.log(response.records);
                     $scope.userTracks = response.records;
                     $scope.getPostedTracks();
-                    //initMap("distance", $scope.currentLocation.lat, $scope.currentLocation.lng, $scope.postedTracks[0].LATITUDE, $scope.postedTracks[0].LONGITUDE);
 
                 });
                 //console.log($scope.userData);
@@ -77,18 +55,7 @@
                 $scope.postedTracks = response;
                 console.log('Got Posted Tracks', $scope.postedTracks);
                 initMap("distance", $scope.currentLocation.lat, $scope.currentLocation.lng, $scope.postedTracks);
-                // $scope.tracksNear = {};
-                // for (i = 0; i < $scope.postedTracks.length; i++) {
-                //     console.log($scope.currentLocation);
-                //     var distance = initMap("distance", $scope.currentLocation.lat, $scope.currentLocation.lng, response[i].LATITUDE, response[i].LONGITUDE)
-                //     console.log("Distance", distance);
-                //     if (distance < "500 m" || distance < "0.5 km") {
-                //         $scope.tracksNear.push($scope.postedTracks[i]);
-                //     }
-                // }
-                //console.log("Tracks Near Location: ", $scope.tracksNear);
-                //initMap("distance", $scope.currentLocation.lat, $scope.currentLocation.lng, response[0].LATITUDE, response[0].LONGITUDE);
-                //Location.getDistance(response[0].LATITUDE, response[0].LONGITUDE, $scope.currentLocation.lat, $scope.currentLocation.lng);
+                
             });
         }
 
@@ -117,22 +84,23 @@
 
                 if (tracksArray[i].TRACK_NAME == track_name) {
                     var track_id = tracksArray[i].TRACK_ID;
+                    var track_uri = tracksArray[i].TRACK_URI
                 }
             }
             
 
-            Database.postTrack(username, lat , lng, track_name, track_id);
+            Database.postTrack(username, lat , lng, track_name, track_id, track_uri);
             $rootScope.$emit('changed');
             $scope.getPostedTracks();
         }
 
-        $scope.buyTrack = function(track_name, track_uid, track_artist, track_cost) {
+        $scope.buyTrack = function(track_name, track_uid, track_artist, track_cost, track_uri) {
             //console.log(track_name, track_uid);
             console.log(track_cost * 40);
             var cost = track_cost * 40;
             $scope.profileUsername = Auth.getUsername(); 
 
-            Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist).then(function(response) {           
+            Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist, track_uri).then(function(response) {           
                 if (response.data.result == "exists") {
                 } else if (response.data.result == "Inserted") {
                     Database.updateUserPoints($scope.profileUsername, cost).then(function(response) {
@@ -155,14 +123,35 @@
             $rootScope.$emit('changed');
         }
 
+        $scope.addTracksToQueue = function() {
+            console.log($scope.tracksNearLocation);
+            for (i = 0; i < $scope.tracksNearLocation.length; i++) {
+                //console.log($scope.tracksNearLocation[i].TRACK_URI)
+                PlayQueue.enqueue($scope.tracksNearLocation[i].TRACK_URI);
+            }
+            $scope.trackQueue = PlayQueue.getQueue();
+            PlayQueue.playFrom(0);
+            //console.log("Track queue", PlayQueue.getQueue());
+        }
+
         $rootScope.$on('login-done', function(){
             console.log(Database.getUserData());
         })
 
         $rootScope.$on('playerchanged', function() {
-            $scope.trackInfo = Playback.getTrackData();
-            //console.log($scope.trackInfo);
-            $scope.play = true;
+            $scope.currentTrack = Playback.getTrack();
+            $scope.playing = Playback.isPlaying();
+            $scope.trackData = Playback.getTrackData();
+            console.log("TrackData:", $scope.trackData);
+        })
+
+        $rootScope.$on('endtrack', function() {
+            console.log('PlayerController: endtrack');
+            $scope.currentTrack = Playback.getTrack();
+            $scope.trackData = Playback.getTrackData();
+            $scope.playing = Playback.isPlaying();
+            PlayQueue.next();
+            Playback.startPlaying(PlayQueue.getCurrent());
         })
 
         $rootScope.$on('trackprogress', function() {
@@ -183,8 +172,6 @@
             Database.updateUserPoints($scope.profileUsername, -500).then(function(response){
                 $scope.userData.POINTS = response.points;
             })
-            //$rootScope.$emit('changed');
-
         }
 
         function isEmpty(obj) {
@@ -195,9 +182,6 @@
             return true;
         }
 
-        // $rootScope.$on('changed', function() {
-
-        // })
     });
 })();
 

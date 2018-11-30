@@ -50,8 +50,9 @@
                     console.log('error updating', error);
                 })
             },
-            addTrackUser: function(username, track_name, track_id, track_artist) {
-                var url = tbl_users_tracks_script_url + "?callback=success&username=" + username + "&track_name=" + track_name + "&track_id=" + track_id + "&track_artist=" + track_artist + "&action=insert";
+            addTrackUser: function(username, track_name, track_id, track_artist, track_uri) {
+                console.log(track_uri)
+                var url = tbl_users_tracks_script_url + "?callback=success&username=" + username + "&track_name=" + track_name + "&track_id=" + track_id + "&track_artist=" + track_artist + "&track_uri=" + track_uri + "&action=insert";
                 console.log(url);
                 return $http({
                     method: 'GET',
@@ -97,9 +98,9 @@
                     console.log(response.data.records);
                 })
             },
-            postTrack: function(username, lat, lng, track_name, track_id) {
+            postTrack: function(username, lat, lng, track_name, track_id, track_uri) {
                 console.log(track_name);
-                var url = tbl_location_tracks_script_url +  "?callback=sucess&username=" + username + "&lat=" + lat + "&lng=" + lng + "&track_name=" + track_name + "&track_id=" + track_id + "&action=insert"; 
+                var url = tbl_location_tracks_script_url +  "?callback=sucess&username=" + username + "&lat=" + lat + "&lng=" + lng + "&track_name=" + track_name + "&track_id=" + track_id + "&track_uri=" + track_uri + "&action=insert"; 
                 //console.log(url);
                 $http({
                     method: 'GET',
