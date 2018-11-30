@@ -142,6 +142,11 @@
             $scope.currentTrack = Playback.getTrack();
             $scope.playing = Playback.isPlaying();
             $scope.trackData = Playback.getTrackData();
+            for (i = 0; i < $scope.tracksNearLocation.length; i++) {
+                if ($scope.tracksNearLocation[i].TRACK_URI == $scope.trackData.data.uri) {
+                    $scope.poster = $scope.tracksNearLocation[i].USERNAME;
+                }
+            }
             console.log("TrackData:", $scope.trackData);
         })
 
@@ -168,9 +173,17 @@
 
 
         $scope.upVote = function() {
+            var tracksNearLocation = $scope.tracksNearLocation;
+            //var currentLocation = $scope.currentLocation;
+            
             var trackData = $scope.trackData;
             Database.addTrackUser($scope.profileUsername, trackData.data.name, trackData.data.id, trackData.data.artists[0].name, trackData.data.uri);
-            Database.updateUserPoints($scope.profileUsername, -500).then(function(response){
+            for (i = 0; i < tracksNearLocation.length; i++) {
+                if (tracksNearLocation[i].TRACK_URI == trackData.data.uri) {
+                    $scope.poster = tracksNearLocation[i].USERNAME;
+                }
+            }
+            Database.updateUserPoints($scope.poster, -500).then(function(response){
                 $scope.userData.POINTS = response.points;
             })
         }
