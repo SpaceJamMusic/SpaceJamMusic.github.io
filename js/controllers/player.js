@@ -142,7 +142,6 @@
             $scope.currentTrack = Playback.getTrack();
             $scope.playing = Playback.isPlaying();
             $scope.trackData = Playback.getTrackData();
-            $scope.track = $scope.trackData.data.name;
             console.log("TrackData:", $scope.trackData);
         })
 
