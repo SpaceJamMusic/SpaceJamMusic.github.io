@@ -21,6 +21,7 @@
                 Playback.startPlaying(trackid);
             },
             enqueue: function(trackuri) {
+                console.log('in PlayQueue')
                 console.log("Enqueue track", trackuri);
                 _queue.push(trackuri);
                 $rootScope.$emit('playqueuechanged');
@@ -35,7 +36,7 @@
             playFrom: function(index) {
                 _position = index;
                 $rootScope.$emit('playqueuechanged');
-                Playback.startPlaying(_queue(_position));
+                Playback.startPlaying(_queue[_position]);
             },
             getQueue: function() {
                 return _queue;

@@ -280,7 +280,7 @@ input[type=text]:not(.browser-default) {
                         <p>Cost: {{ track.popularity * 40 }}</p>
                     </div>
                     <div class="card-action">
-                        <a class="waves-effect waves-light btn" ng-click="buyTrack(track.name, track.id, track.artists[0].name, track.popularity)"><i
+                        <a class="waves-effect waves-light btn" ng-click="buyTrack(track.name, track.id, track.artists[0].name, track.popularity, track.uri)"><i
                                 class="material-icons">shopping_cart</i></a>
 
                     </div>
@@ -316,8 +316,8 @@ input[type=text]:not(.browser-default) {
                 <i class="large material-icons">music_note</i>
             </a>
             <ul id="music-info">
-                <li>{{ trackInfo.data.name }}</li>
-                <li>{{ trackInfo.data.artists[0].name }}</li>
+                <li>{{ trackData.data.name }}</li>
+                <li>{{ trackData.data.artists[0].name }}</li>
                 <li>Posted by: {{ poster }}</li>
                 <li><a class="btn-floating" style="background-color: rgba(197,24,233,1);"><i class="material-icons">thumb_up</i></a></li>
                 <li><a class="btn-floating" style="background-color: rgba(122,15,175,1);"><i class="material-icons">thumb_down</i></a></li>
@@ -358,17 +358,6 @@ input[type=text]:not(.browser-default) {
         function test() {
             console.log('test function worked');
         }
-
-        // function getDistance(user_lat, user_lng, track_lat, track_lng) {
-        //     var distanceService = new google.maps.DistanceMatrixService();
-        //     distanceService.getDistanceMatrix(
-        //         {
-        //             origins: [user_lat, user_lng],
-        //             destinations: [track_lat, track_lng],
-        //         }, callback
-        //     );
-        // }
-
 
         initAction = "reload";
         function initMap(action, user_lat, user_lng, tracks) {
@@ -426,7 +415,7 @@ input[type=text]:not(.browser-default) {
                 console.log(user_lat + " " + user_lng);
                 var distanceService = new google.maps.DistanceMatrixService();
                 console.log(tracks);
-                var tracksNear = []
+                //var tracksNearIndex = []
                 var destinations = [];
                 var origin;
 
@@ -436,82 +425,50 @@ input[type=text]:not(.browser-default) {
                     destinations.push(new google.maps.LatLng(tracks[k].LATITUDE, tracks[k].LONGITUDE));
                     //console.log("destination", destination);
                 }
-                console.log(destinations);
+                console.log("List of destinations", destinations);
 
                 distanceService.getDistanceMatrix({
                     origins: [origin],
-                    destinations: [destination],
+                    destinations: destinations,
                     travelMode: 'WALKING'
                 }, function (response, status) {
+                    var tracksNearIndex = [];
                     if (status == 'OK') {
                         var origins = response.originAddresses;
                         var destinations = response.destinationAddresses;
 
                         for (var i = 0; i < origins.length; i++) {
                             var results = response.rows[i].elements;
-                            for (var j = 0; j < results.length; j++) {
+                            for (var j = 0; j < results.length - 1; j++) {
                                 var element = results[j];
                                 var distance = element.distance.text;
+                                var newDistance = parseFloat(distance.split(" ")[0]);
+                                var unit = distance.split(" ")[1];
 
-                                if (distance < "500 m" || distance < "0.5 km") {
-
-                                    tracksNear.push(tracks[k]);
+                                if (newDistance <= 500 && unit == "m") {
+                                    console.log("index: " + j + " distance: " + distance);
+                                    tracksNearIndex.push(j);
+                                } else if (newDistance <= 0.5 && unit == "km") {
+                                    console.log("index: " + j + " distance: " + distance);
+                                    tracksNearIndex.push(j);
                                 }
                             }
                         }
+                        console.log(tracksNearIndex);
                     }
+                    var tracksNear = [];
+                    //console.log(tracksNearIndex);
+                    for (i = 0; i < tracksNearIndex.length; i++) {
+                        tracksNear.push(tracks[tracksNearIndex[i]]);
+                    }
+                    angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().tracksNearLocation = tracksNear;
+                    angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().addTracksToQueue();
 
                 });
-                console.log("tracks near location", tracksNear);
-
-
-                // var origin = new google.maps.LatLng(user_lat, user_lng);
-                // var destination = new google.maps.LatLng(track_lat, track_lng);
-                // console.log("origin: " + origin);
-                // console.log("destination: " + destination);
-                // distanceService.getDistanceMatrix({
-                //     origins: [origin],
-                //     destinations: [destination],
-                //     travelMode: 'WALKING'
-                // }, function(response, status) {
-                //     if (status == 'OK') {
-                //         var origins = response.originAddresses;
-                //         var destinations = response.destinationAddresses;
-
-                //         for (var i = 0; i < origins.length; i++) {
-                //             var results = response.rows[i].elements;
-                //             for (var j = 0; j < results.length; j++) {
-                //                 var element = results[j];
-                //                 var distance = element.distance.text;
-                //             }
-                //         }
-                //     }
-                //     console.log("Distance", distance);
-                // });
+                
             }
 
         }
-
-        // function callback(response, status) {
-        //     if (status == 'OK') {
-        //         var origins = response.originAddresses;
-        //         var destinations = response.destinationAddresses;
-
-        //         for (var i = 0; i < origins.length; i++) {
-        //             var results = response.rows[i].elements;
-        //             for (var j = 0; j < results.length; j++) {
-        //                 var element = results[j];
-        //                 var distance = element.distance.text;
-        //                 var duration = element.duration.text;
-        //                 var from = origins[i];
-        //                 var to = destinations[j];
-        //             }
-        //         }
-        //         console.log(distance);
-        //         //angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().distance = distance;
-        //         //return distance;
-        //     }
-        // }
 
         $(document).ready(function () {
             $('.sidenav-trigger').sideNav();
