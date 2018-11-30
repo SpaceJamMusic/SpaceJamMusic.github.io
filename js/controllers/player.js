@@ -147,6 +147,7 @@
                     $scope.poster = $scope.tracksNearLocation[i].USERNAME;
                 }
             }
+            console.log('posted by:', $scope.poster);
             console.log("TrackData:", $scope.trackData);
         })
 
