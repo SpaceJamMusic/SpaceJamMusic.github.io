@@ -168,8 +168,9 @@
         }
 
 
-        $scope.upVote = function(track_name, track_uid, track_artist, track_uri) {
-            Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist, track_uri);
+        $scope.upVote = function() {
+            var trackData = $scope.trackData;
+            Database.addTrackUser($scope.profileUsername, trackData.data.name, trackData.data.id, trackData.data.artists[0].name, trackData.data.uri);
             Database.updateUserPoints($scope.profileUsername, -500).then(function(response){
                 $scope.userData.POINTS = response.points;
             })
