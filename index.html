@@ -363,7 +363,7 @@ input[type=text]:not(.browser-default) {
         initAction = "reload";
         function initMap(action, user_lat, user_lng, tracks) {
             if (action == 'reload' || initAction == 'reload') {
-                angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().clearQueue();
+                //angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().clearQueue();
                 console.log('in action');
                 angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().getPostedTracks();
                 var map = new google.maps.Map(document.getElementById('map'), {
