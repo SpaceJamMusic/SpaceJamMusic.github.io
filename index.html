@@ -320,9 +320,9 @@ input[type=text]:not(.browser-default) {
                 <li>{{ trackData.data.artists[0].name }}</li>
                 <li>Posted by: {{ poster }}</li>
                 <li><a class="btn-floating" style="background-color: rgba(197,24,233,1);" ng-click="upVote()"><i class="material-icons">thumb_up</i></a></li>
-                <li><a class="btn-floating" style="background-color: rgba(122,15,175,1);"><i class="material-icons">thumb_down</i></a></li>
-                <li><a class="btn-floating" style="background-color: rgba(81,22,156,1)" ng-click="resume()"><i class="material-icons">play_arrow</i></a></li>
-                <li><a class="btn-floating" style="background-color: rgba(81,22,156,1)" ng-click="pause()"><i class="material-icons">pause</i></a></li>
+                <li><a class="btn-floating" style="background-color: rgba(122,15,175,1);" ng-click="next()"><i class="material-icons">thumb_down</i></a></li>
+                <li ng-if="playing == false"><a class="btn-floating" style="background-color: rgba(81,22,156,1)" ng-click="resume()"><i class="material-icons">play_arrow</i></a></li>
+                <li ng-if="playing == true"><a class="btn-floating" style="background-color: rgba(81,22,156,1)" ng-click="pause()"><i class="material-icons">pause</i></a></li>
             </ul>
         </div>
 
@@ -363,6 +363,7 @@ input[type=text]:not(.browser-default) {
         initAction = "reload";
         function initMap(action, user_lat, user_lng, tracks) {
             if (action == 'reload' || initAction == 'reload') {
+                angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().clearQueue();
                 console.log('in action');
                 angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().getPostedTracks();
                 var map = new google.maps.Map(document.getElementById('map'), {
@@ -397,7 +398,7 @@ input[type=text]:not(.browser-default) {
                 }
 
                 var locations = angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().postedTracks;
-                console.log(locations);
+                console.log("List of locations", locations);
 
                 for (var location in locations) {
                     var locationRadius = new google.maps.Circle({
@@ -413,7 +414,7 @@ input[type=text]:not(.browser-default) {
                 }
                 initAction = '';
             } else if (action == 'distance') {
-                console.log(user_lat + " " + user_lng);
+                //console.log(user_lat + " " + user_lng);
                 var distanceService = new google.maps.DistanceMatrixService();
                 console.log(tracks);
                 //var tracksNearIndex = []
@@ -440,12 +441,12 @@ input[type=text]:not(.browser-default) {
 
                         for (var i = 0; i < origins.length; i++) {
                             var results = response.rows[i].elements;
-                            for (var j = 0; j < results.length - 1; j++) {
+                            for (var j = 0; j < results.length; j++) {
                                 var element = results[j];
                                 var distance = element.distance.text;
                                 var newDistance = parseFloat(distance.split(" ")[0]);
                                 var unit = distance.split(" ")[1];
-
+                                console.log(newDistance);
                                 if (newDistance <= 500 && unit == "m") {
                                     console.log("index: " + j + " distance: " + distance);
                                     tracksNearIndex.push(j);
@@ -455,7 +456,7 @@ input[type=text]:not(.browser-default) {
                                 }
                             }
                         }
-                        console.log(tracksNearIndex);
+                        console.log("list of tracks near", tracksNearIndex);
                     }
                     var tracksNear = [];
                     //console.log(tracksNearIndex);

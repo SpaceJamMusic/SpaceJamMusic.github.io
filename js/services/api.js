@@ -64,22 +64,6 @@
                 return ret.promise;
             },
             /**
-             * @description gets the current users saved tracks
-             * @example API.getMyTracks()
-             */
-            getMyTracks: function() {
-                var ret = $q.defer();
-                $http.get(baseUrl + "/me/tracks", {
-                    headers: {
-                        'Authorization':'Bearer ' + Auth.getAccessToken()
-                    }
-                }).then(function(r) {
-                    console.log('got user tracks', r);
-                    ret.resolve(r);
-                });
-                return ret.promise;
-            },
-            /**
              * @param  {string} query
              * @description gets all tracks, artists, albums that match the search query
              * @example API.getSearchResults('search box text')

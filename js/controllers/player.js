@@ -18,12 +18,20 @@
         $scope.tracksNearLocation = {};
 
         $scope.currentLocation = {};
-
+        
+        /**
+         * @description resumes currently playing track
+         * @example resume()
+         */
         $scope.resume = function() {
             Playback.resume();
             $scope.playing = true;
         }
  
+        /**
+         * @description pauses currently playing track
+         * @example pause()
+         */
         $scope.pause = function() {
             Playback.pause();
             $scope.playing = false;
@@ -31,7 +39,11 @@
 
         $scope.postedLocations = [];
         //7ckZ58Uo6I6nTrMs1SeimI
-        $rootScope.$on('login', function() {
+
+        /**
+         * @description on user login, checks user in database, if exists returns points, if does not exits adds user to database
+         */
+        $rootScope.on('login', function() {
             console.log("login");
             $scope.profileUsername = Auth.getUsername(); 
             //Database.readUserTbl();
@@ -50,6 +62,10 @@
             console.log($scope.currentLocation);
         })
 
+        /**
+         * @description gets all of the posted tracks in the database
+         * @example getPostedTracks()
+         */
         $scope.getPostedTracks = function() {
             Database.readPostedTracks().then(function(response) {
                 $scope.postedTracks = response;
@@ -60,6 +76,11 @@
         }
 
         $scope.selectedTrack = 'Select Track';
+        /**
+         * @param  {} track
+         * @description gets the selected track
+         * @example selectTrack('TrackName')
+         */
         $scope.selectTrack = function(track) {
             $scope.selectedTrack = track;
         }
@@ -67,12 +88,16 @@
             $scope.selectedTrack = 'Select Track';
         }
 
-        $scope.play = function(trackid) {
-            console.log(trackid)
+        $scope.play = function(trackuri) {
+            console.log("play:", trackuri)
             PlayQueue.play(trackid);
             $scope.play = true;
         }
 
+        /**
+         * @description takes the users current location and selected song, then adds the song to the location database
+         * @example postTrack()
+         */
         $scope.postTrack = function() {
             var username = $scope.userData.USERNAME
             var lat = $scope.currentLocation.lat;
@@ -94,6 +119,15 @@
             $scope.getPostedTracks();
         }
 
+        /**
+         * @description checks the current users point level to make sure they can buy the track, if they can adds song to database, if they dont doesnt allow user to buy
+         * @example buyTrack('track_name', 'track_id', 'track_artist', 'track_cost', 'track_uri')
+         * @param  {} track_name
+         * @param  {} track_uid
+         * @param  {} track_artist
+         * @param  {} track_cost
+         * @param  {} track_uri
+         */
         $scope.buyTrack = function(track_name, track_uid, track_artist, track_cost, track_uri) {
             //console.log(track_name, track_uid);
             console.log(track_cost * 40);
@@ -123,15 +157,28 @@
             $rootScope.$emit('changed');
         }
 
+        /**
+         * @description adds tracks that are near location to the play queue
+         * @example addTracksToQueue()
+         */
         $scope.addTracksToQueue = function() {
-            console.log($scope.tracksNearLocation);
+            //console.log($scope.tracksNearLocation);
             for (i = 0; i < $scope.tracksNearLocation.length; i++) {
                 //console.log($scope.tracksNearLocation[i].TRACK_URI)
                 PlayQueue.enqueue($scope.tracksNearLocation[i].TRACK_URI);
             }
             $scope.trackQueue = PlayQueue.getQueue();
             PlayQueue.playFrom(0);
-            //console.log("Track queue", PlayQueue.getQueue());
+            console.log("Track queue", PlayQueue.getQueue());
+        }
+
+        $scope.clearQueue = function() {
+            PlayQueue.clear();
+        }
+
+        $scope.next = function() {
+            PlayQueue.next();
+            Playback.startPlaying(PlayQueue.getCurrent());
         }
 
         $rootScope.$on('login-done', function(){

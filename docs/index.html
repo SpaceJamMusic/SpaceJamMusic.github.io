@@ -135,6 +135,86 @@
               
                 
                 <li><a
+                  href='#checkuser'
+                  class="">
+                  checkUser
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#updateuserpoints'
+                  class="">
+                  updateUserPoints
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addtrackuser'
+                  class="">
+                  addTrackUser
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#deleteusertrack'
+                  class="">
+                  deleteUserTrack
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#readusertrackstbl'
+                  class="">
+                  readUserTracksTbl
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#readusertbl'
+                  class="">
+                  readUserTbl
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#posttrack'
+                  class="">
+                  postTrack
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#readpostedtracks'
+                  class="">
+                  readPostedTracks
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#getvolume'
                   class="">
                   getVolume
@@ -218,6 +298,96 @@
                   href='#play'
                   class="">
                   play
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#enqueue'
+                  class="">
+                  enqueue
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#enqueuelist'
+                  class="">
+                  enqueueList
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#playfrom'
+                  class="">
+                  playFrom
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getqueue'
+                  class="">
+                  getQueue
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getposition'
+                  class="">
+                  getPosition
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getcurrent'
+                  class="">
+                  getCurrent
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#clear'
+                  class="">
+                  clear
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#next'
+                  class="">
+                  next
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#prev'
+                  class="">
+                  prev
                   
                 </a>
                 
@@ -918,6 +1088,591 @@
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='checkuser'>
+      checkUser
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>checks if user is in database</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>checkUser(username: any)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>username</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Database.checkUser(username)</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='updateuserpoints'>
+      updateUserPoints
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>updates the points associated with a user</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>updateUserPoints(username: any, points: any)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>username</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>points</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Database.updateUserPoints(username, points)</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addtrackuser'>
+      addTrackUser
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>adds track information to database associated with user</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>addTrackUser(username: any, track_name: any, track_id: any, track_artist: any, track_uri: any)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>username</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>track_name</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>track_id</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>track_artist</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>track_uri</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Database.addTrackUser(username, track_name, track_id, track_artist, track_uri)</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='deleteusertrack'>
+      deleteUserTrack
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>deletes track from database associated to user</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>deleteUserTrack(username: any, track_id: any)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>username</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>track_id</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Database.deleteUserTrack(username, track_id)</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='readusertrackstbl'>
+      readUserTracksTbl
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>reads the tracks that a user owns in their collection</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>readUserTracksTbl()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Database.readUserTracksTbl()</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='readusertbl'>
+      readUserTbl
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>reads the user table to get the users information</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>readUserTbl()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Database.readUserTbl()</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='posttrack'>
+      postTrack
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>posts track to the database based on users location and track information</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>postTrack(username: any, lat: any, lng: any, track_name: any, track_id: any, track_uri: any)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>username</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>lat</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>lng</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>track_name</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>track_id</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>track_uri</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Database.postTrack(username, lat, lng, track_name, track_id, track_uri)</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='readpostedtracks'>
+      readPostedTracks
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>reads all of the tracks that are posted at locations</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>readPostedTracks()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Database.readPostedTracks()</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='getvolume'>
       getVolume
     </h3>
@@ -1384,7 +2139,8 @@
   </div>
   
 
-  
+  <p>plays the current track url</p>
+
  
   
     <div class='pre p1 fill-light mt0'>play(trackuri: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
@@ -1420,6 +2176,537 @@
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>PlayQueue.play(<span class="hljs-string">''</span>)</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='enqueue'>
+      enqueue
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>adds track to play queue</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>enqueue(trackuri: any)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>trackuri</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>PlayQueue.enqueue(<span class="hljs-string">'track'</span>)</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='enqueuelist'>
+      enqueueList
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>adds list of tracks to play queue</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>enqueueList(trackuris: any)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>trackuris</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>PlayQueue.enqueueList</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='playfrom'>
+      playFrom
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>play track from index in queue</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>playFrom(index: any)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>index</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>PlayQueue.playFrom(index)</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getqueue'>
+      getQueue
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>returns the current track queue</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getQueue()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>PlayQueue.getQueue()</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getposition'>
+      getPosition
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>gets the current position in the track queue</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getPosition()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>PlayQueue.getPosition()</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getcurrent'>
+      getCurrent
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>returns the current playing track</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getCurrent()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>PlayQueue.getCurrent()</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='clear'>
+      clear
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>clears the queue of all existing tracks</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>clear()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>PlayQueue.clear()</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='next'>
+      next
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>changes position the next track in the queue</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>next()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>PlayQueue.next()</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='prev'>
+      prev
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>changes position to the previous track in the queue</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>prev()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>PlayQueue.prev()</pre>
+    
   
 
   
