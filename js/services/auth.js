@@ -6,6 +6,7 @@
     var module = angular.module('SpaceJam');
 
     module.factory('Auth', function() {
+        
         var CLIENT_ID = '';
         var REDIRECT_URI = '';
 

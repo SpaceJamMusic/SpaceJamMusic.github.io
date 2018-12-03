@@ -1,78 +1,64 @@
-(function() {
+(function () {
+    //Serves as the Player Controller
+    //Logs the user out of spotify
+    //Instantiates the site as spotify player
 
     var module = angular.module('SpaceJam');
 
-    module.controller('PlayerController', function($scope, $rootScope, Auth, Playback, Database, PlayQueue) {
+    module.controller('PlayerController', function ($scope, $rootScope, Auth, Playback, Database, PlayQueue) {
         
+        console.log('In PlayerController');
 
+        //$scope.trackInfo = [];
         $scope.profileUsername = Auth.getUsername();
-        console.log('In PlayerController: ', $scope.profileUsername);
+        console.log($scope.profileUsername);
         $scope.playing = false;
+        $scope.duration = 0;
         $scope.userData;
 
         $scope.tracksNearLocation = {};
-        $scope.currentLocation = {};
-        $scope.postedLocations = {};
 
-        $scope.resume = function() {
+        $scope.currentLocation = {};
+
+        $scope.resume = function () {
             Playback.resume();
             $scope.playing = true;
         }
 
-        $scope.pause = function() {
+        $scope.pause = function () {
             Playback.pause();
             $scope.playing = false;
         }
 
-        $scope.logout = function() {
-            console.log("Logout");
-            PlayQueue.clear();
-            Auth.setUsername('');
-            Auth.setAccessToken('', 0);
-            $scope.$emit('logout');
-        }
+        $scope.postedLocations = [];
+        //7ckZ58Uo6I6nTrMs1SeimI
 
-        $rootScope.$on('login', function() {
+        $rootScope.$on('login', function () {
+            console.log("login");
             $scope.profileUsername = Auth.getUsername();
-
-            Database.checkUser($scope.profileUsername).then(function(response) {
-                console.log("PlayerController: Current User Info", response);
+            //Database.readUserTbl();
+            Database.checkUser($scope.profileUsername).then(function (response) {
+                console.log("current user info", response);
                 $scope.userData = response[0];
-                Database.readUserTracksTbl().then(function(response) {
-                    console.log('PlayerController: UserTracks', response.records);
+                Database.readUserTracksTbl().then(function (response) {
+                    console.log(response.records);
                     $scope.userTracks = response.records;
                     $scope.getPostedTracks();
-                })
-            })
+
+                });
+                //console.log($scope.userData);
+            });
+
+            console.log($scope.currentLocation);
         })
 
-        $rootScope.$on('playerchanged', function() {
-            $scope.currentTrack = Playback.getTrack();
-            $scope.playing = Playback.isPlaying();
-            $scope.trackData = Playback.getTrackData();
-            for (i = 0; i < $scope.tracksNearLocation.length; i++) {
-                if ($scope.tracksNearLocation[i].TRACK_URI == $scope.trackData.data.uri) {
-                    $scope.poster = $scope.tracksNearLocation[i].USERNAME;
-                }
-            }
-            console.log('PlayerController: poster', $scope.poster);
-            console.log('PlayerController: TrackData', $scope.trackData);
-        })
 
-        $rootScope.$on('endtrack', function() {
-            console.log('PlayerController: endtrack');
-            $scope.currentTrack = Playback.getTrack();
-            $scope.trackData = Playback.getTrackData();
-            $scope.playing = Playback.isPlaying();
-            PlayQueue.next();
-            Playback.startPlaying(PlayQueue.getCurrent());
-        })
-
-        $scope.getPostedTracks = function() {
-            Database.readPostedTracks().then(function(response) {
+        $scope.getPostedTracks = function () {
+            Database.readPostedTracks().then(function (response) {
                 $scope.postedTracks = response;
-                console.log('PlayerController: Got Posted Tracks', $scope.postedTracks);
+                console.log('Got Posted Tracks', $scope.postedTracks);
                 initMap("distance", $scope.currentLocation.lat, $scope.currentLocation.lng, $scope.postedTracks);
+
             });
         }
 
@@ -90,6 +76,7 @@
             PlayQueue.play(trackid);
             $scope.play = true;
         }
+
 
         $scope.postTrack = function () {
             var username = $scope.userData.USERNAME
@@ -161,6 +148,45 @@
             Playback.startPlaying(PlayQueue.getCurrent());
         }
 
+        $rootScope.$on('login-done', function () {
+            console.log(Database.getUserData());
+        })
+
+        $rootScope.$on('playerchanged', function () {
+            $scope.currentTrack = Playback.getTrack();
+            $scope.playing = Playback.isPlaying();
+            $scope.trackData = Playback.getTrackData();
+            for (i = 0; i < $scope.tracksNearLocation.length; i++) {
+                if ($scope.tracksNearLocation[i].TRACK_URI == $scope.trackData.data.uri) {
+                    $scope.poster = $scope.tracksNearLocation[i].USERNAME;
+                }
+            }
+            console.log('posted by:', $scope.poster);
+            console.log("TrackData:", $scope.trackData);
+        })
+
+        $rootScope.$on('endtrack', function () {
+            console.log('PlayerController: endtrack');
+            $scope.currentTrack = Playback.getTrack();
+            $scope.trackData = Playback.getTrackData();
+            $scope.playing = Playback.isPlaying();
+            PlayQueue.next();
+            Playback.startPlaying(PlayQueue.getCurrent());
+        })
+
+        $rootScope.$on('trackprogress', function () {
+            $scope.progress = Playback.getProgress();
+            $scope.duration = Playback.getDuration();
+        })
+
+        $scope.logout = function () {
+            console.log("Logout");
+            Auth.setUsername('');
+            Auth.setAccessToken('', 0);
+            $scope.$emit('logout');
+        }
+
+
         $scope.upVote = function () {
             var tracksNearLocation = $scope.tracksNearLocation;
             //var currentLocation = $scope.currentLocation;
@@ -176,5 +202,7 @@
                 $scope.userData.POINTS = response.points;
             })
         }
+
     });
 })();
+

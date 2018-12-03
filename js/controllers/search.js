@@ -6,6 +6,7 @@
         $scope.albums = [];
         $scope.tracks = [];
         $scope.artists = [];
+        console.log('In SearchController');
 
         $scope.search = function() {
             //console.log('search for', $scope.query);
