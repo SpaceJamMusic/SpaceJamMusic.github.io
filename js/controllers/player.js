@@ -42,6 +42,7 @@
                     console.log('PlayerController: UserTracks', response.records);
                     $scope.userTracks = response.records;
                     $scope.getPostedTracks();
+                    
                 })
             })
         })
@@ -108,6 +109,7 @@
 
 
             Database.postTrack(username, lat, lng, track_name, track_id, track_uri);
+            showSuccessToast('Successfully posted ' + track_name + ' to the location');
             $rootScope.$emit('changed');
             $scope.getPostedTracks();
         }
@@ -120,6 +122,7 @@
 
             Database.addTrackUser($scope.profileUsername, track_name, track_uid, track_artist, track_uri).then(function (response) {
                 if (response.data.result == "exists") {
+                    showErrorToast('Failed to buy track, already in collection');
                 } else if (response.data.result == "Inserted") {
                     Database.updateUserPoints($scope.profileUsername, cost).then(function (response) {
                         if (response.result == 'success') {
@@ -129,10 +132,12 @@
                                 console.log(response.records);
                                 $scope.userTracks = response.records;
                             });
+                            showSuccessToast('Successfully bought ' + track_name + ' by ' + track_artist + ' for ' + cost);
                         } else if (response.result == 'failure') {
                             Database.deleteUserTrack($scope.profileUsername, track_uid).then(function (response) {
                                 console.log("not enough points to get song");
                             });
+                            showErrorToast('Failed to buy Track, not enough points');
                         }
                     });
                 }
@@ -142,7 +147,7 @@
         }
 
         $scope.addTracksToQueue = function () {
-            //console.log($scope.tracksNearLocation);
+            console.log($scope.tracksNearLocation);
             for (i = 0; i < $scope.tracksNearLocation.length; i++) {
                 //console.log($scope.tracksNearLocation[i].TRACK_URI)
                 PlayQueue.enqueue($scope.tracksNearLocation[i].TRACK_URI);
@@ -157,6 +162,7 @@
         }
 
         $scope.next = function () {
+            showSuccessToast('Downvoted track, skipping to next in queue');
             PlayQueue.next();
             Playback.startPlaying(PlayQueue.getCurrent());
         }
@@ -164,17 +170,22 @@
         $scope.upVote = function () {
             var tracksNearLocation = $scope.tracksNearLocation;
             //var currentLocation = $scope.currentLocation;
-
-            var trackData = $scope.trackData;
-            Database.addTrackUser($scope.profileUsername, trackData.data.name, trackData.data.id, trackData.data.artists[0].name, trackData.data.uri);
             for (i = 0; i < tracksNearLocation.length; i++) {
                 if (tracksNearLocation[i].TRACK_URI == trackData.data.uri) {
                     $scope.poster = tracksNearLocation[i].USERNAME;
                 }
             }
-            Database.updateUserPoints($scope.poster, -500).then(function (response) {
-                $scope.userData.POINTS = response.points;
-            })
+            var trackData = $scope.trackData;
+            if ($scope.poster == $scope.profileUsername) {
+                showErrorToast("Can't upvote own posted track");
+            } else {
+                Database.addTrackUser($scope.profileUsername, trackData.data.name, trackData.data.id, trackData.data.artists[0].name, trackData.data.uri);
+
+                Database.updateUserPoints($scope.poster, -500).then(function (response) {
+                    $scope.userData.POINTS = response.points;
+                })
+            }
+            showSuccessToast('Upvoted Track, added track to your collection');
         }
     });
 })();

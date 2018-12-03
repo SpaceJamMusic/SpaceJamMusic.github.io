@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
     <!-- Compiled and minified JavaScript -->
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
         crossorigin="anonymous">
 
@@ -177,6 +177,11 @@ input[type=text]:not(.browser-default) {
     overflow: hidden;
 }
 
+#help-modal {
+    height: 500px;
+    overflow-y: scroll;
+}
+
 .dropdown-content {
     z-index: 999;
     height: 200px;
@@ -239,8 +244,8 @@ input[type=text]:not(.browser-default) {
                 <a href="#" data-activates="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <!-- <li><a href="#profile-view"><i class="material-icons">person</i></a></li> -->
-                    <li><a href="#"><i class="material-icons">help</i></a></li>
-                    <li><a href="#"><i class="material-icons" ng-click="logout()">logout</i></a></li>
+                    <li><a href="#help-modal"><i class="material-icons">help</i></a></li>
+                    <li><a href="#" ng-click="logout()"><i class="material-icons">logout</i></a></li>
                 </ul>
             </div>
             <div class="nav-content">
@@ -281,7 +286,7 @@ input[type=text]:not(.browser-default) {
                     </div>
                     <div class="card-action">
                         <a class="waves-effect waves-light btn" ng-click="buyTrack(track.name, track.id, track.artists[0].name, track.popularity, track.uri)"><i
-                                class="material-icons">shopping_cart</i></a>
+                                class="material-icons">send</i></a>
 
                     </div>
                 </div>
@@ -339,20 +344,72 @@ input[type=text]:not(.browser-default) {
             </div>
         </div>
         <ul id='dropdown-tracks' class='dropdown-content'>
-            <li ng-repeat="track in userTracks" ng-if="track.USERNAME == userData.USERNAME"><a ng-click="selectTrack(track.TRACK_NAME)">{{
-                    track.TRACK_NAME }}</a></li>
+            <li ng-repeat="track in userTracks" ng-if="track.USERNAME == userData.USERNAME"><a ng-click="selectTrack(track.TRACK_NAME)">{{track.TRACK_NAME
+                    }} by {{ track.TRACK_ARTIST }}</a></li>
         </ul>
         <div class="fixed-action-btn">
             <a class="btn-floating btn-large waves-effect waves-light" href="#post-modal">
                 <i class="large material-icons">add</i>
             </a>
         </div>
+
+        <div id="help-modal" class="modal">
+            <div class="modal-content">
+                <span style="font-size: 25px; color: #c518e9;">Help Page</span>
+                <section>
+                    <h5>How To Buy A Track</h5>
+                    <h6>1.) Go To The Search Tab <i class="material-icons">search</i></h6>
+                    <h6>2.) Search For Track, Artist orAlbum</h6>
+                    <h6>3.) Click the Buy Button <i class="material-icons">send</i></h6>
+                </section>
+                </br>
+                <section>
+                    <h5>How To Post A Track</h5>
+                    <h6>1.) On any screen press the add button in the bottom right corner <i class="large material-icons">add</i></h6>
+                    <h6>2.) </h6>
+                </section>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="modal-close waves-effect btn-flat">Cancel</a>
+            </div>
+        </div>
     </section>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
 
     <script>
+        function showSuccessToast(text) {
+            toastr.success(text);
+            toastr.options = {
+                "progressBar": true,
+                "positionClass": "toast-top-center",
+                "showDuration": "300",
+                "timeOut": "5000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
+
+        function showErrorToast(text) {
+            toastr.error(text);
+            toastr.options = {
+                "progressBar": true,
+                "positionClass": "toast-top-center",
+                "showDuration": "300",
+                "timeOut": "5000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
+
+
+
         initAction = "reload";
         function initMap(action, user_lat, user_lng, tracks) {
             loggedIn = angular.element(document.querySelector('[ng-controller="AppController"]')).scope().isLoggedIn;
@@ -428,6 +485,7 @@ input[type=text]:not(.browser-default) {
                         destinations: destinations,
                         travelMode: 'WALKING'
                     }, function (response, status) {
+                        console.log("Distance matrix response", response);
                         var tracksNearIndex = [];
                         if (status == 'OK') {
                             var origins = response.originAddresses;
@@ -457,6 +515,18 @@ input[type=text]:not(.browser-default) {
                         for (i = 0; i < tracksNearIndex.length; i++) {
                             tracksNear.push(tracks[tracksNearIndex[i]]);
                         }
+
+                        if (tracksNear.length == 0) {
+                            tracksNear.push({ "TRACK_URI": "spotify:track:1dNIEtp7AY3oDAKCGg2XkH", "USERNAME": "Cameron Stark" });
+                            tracksNear.push({ "TRACK_URI": "spotify:track:5lDriBxJd22IhOH9zTcFrV", "USERNAME": "bandit226" });
+                            tracksNear.push({ "TRACK_URI": "spotify:track:2D9gHF7YBHBcif9IIYzxOq", "USERNAME": "Nicole Marie" });
+                            tracksNear.push({ "TRACK_URI": "spotify:track:2HXVVYq3x9W4owekWRPnsv", "USERNAME": "alexshiffer95" });
+                            tracksNear.push({ "TRACK_URI": "spotify:track:1OMpqHu2Ug7Fob8g6Keo6E", "USERNAME": "kawtherdashti" });
+                            //showErrorToast('Failed To Get Tracks Near Location, Please reload just the map');
+                        } else {
+                            showSuccessToast('Successfully Got Tracks Near Location');
+                        }
+                        console.log(tracksNear);
                         angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().tracksNearLocation = tracksNear;
                         angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().addTracksToQueue();
 
@@ -478,7 +548,7 @@ input[type=text]:not(.browser-default) {
 
         function handleLocationError(browserHasGeolocation, infoWindow, pos) {
             infoWindow.setPosition(pos);
-            infoWindow.setContent(browserHasGeolocation ? 'Geolocation faild' : 'no gelocation');
+            infoWindow.setContent(browserHasGeolocation ? 'Geolocation failed' : 'no gelocation');
             infoWindow.open(map);
         }
     </script>
