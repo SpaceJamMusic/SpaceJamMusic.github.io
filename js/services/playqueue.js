@@ -28,8 +28,17 @@
             enqueue: function(trackuri) {
                 console.log('in PlayQueue')
                 console.log("Enqueue track", trackuri);
+                if (_queue.indexOf(trackuri) == -1) {
+
+                } else {
+                    _queue.push(trackuri);
+                }
                 _queue.push(trackuri);
                 $rootScope.$emit('playqueuechanged');
+            },
+            dequeue: function() {
+                ;
+                console.log("Dequeue Track", _queue.pop());
             },
             /**
              * @param  {} trackuris

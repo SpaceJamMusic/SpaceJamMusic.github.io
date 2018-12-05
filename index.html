@@ -259,7 +259,7 @@ input[type=text]:not(.browser-default) {
         </nav>
         <ul class="sidenav" id="mobile-demo">
             <!-- <li><a href="#"><i class="material-icons">person</i>Profile</a></li> -->
-            <li><a href="#"><i class="material-icons">help</i>Help</a></li>
+            <li><a href="#help-modal"><i class="material-icons">help</i>Help</a></li>
             <li><a href="#" ng-click="logout()"><i class="material-icons">logout</i>Logout</a></li>
         </ul>
 
@@ -354,19 +354,20 @@ input[type=text]:not(.browser-default) {
         </div>
 
         <div id="help-modal" class="modal">
-            <div class="modal-content">
+            <div class="modal-content" style="height: 425px;">
                 <span style="font-size: 25px; color: #c518e9;">Help Page</span>
                 <section>
                     <h5>How To Buy A Track</h5>
-                    <h6>1.) Go To The Search Tab <i class="material-icons">search</i></h6>
+                    <h6>1.) Go To The Search Tab <i class="material-icons" style="font-size: 18px;">search</i></h6>
                     <h6>2.) Search For Track, Artist orAlbum</h6>
-                    <h6>3.) Click the Buy Button <i class="material-icons">send</i></h6>
+                    <h6>3.) Click the Buy Button <i class="material-icons" style="font-size: 18px;">send</i></h6>
                 </section>
                 </br>
                 <section>
                     <h5>How To Post A Track</h5>
-                    <h6>1.) On any screen press the add button in the bottom right corner <i class="large material-icons">add</i></h6>
-                    <h6>2.) </h6>
+                    <h6>1.) On any screen press the add button in the bottom right corner <i class="large material-icons" style="font-size: 18px;">add</i></h6>
+                    <h6>2.) Select the track from the dropdown</h6>
+                    <h6>3.) Then select Post</h6>
                 </section>
             </div>
             <div class="modal-footer">
@@ -414,6 +415,7 @@ input[type=text]:not(.browser-default) {
         function initMap(action, user_lat, user_lng, tracks) {
             loggedIn = angular.element(document.querySelector('[ng-controller="AppController"]')).scope().isLoggedIn;
             console.log(loggedIn);
+            var position;
             if (loggedIn) {
                 if (action == 'reload' || initAction == 'reload') {
                     angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().clearQueue();
@@ -432,6 +434,7 @@ input[type=text]:not(.browser-default) {
                                 lat: position.coords.latitude,
                                 lng: position.coords.longitude
                             };
+                            position = pos;
                             console.log(pos);
                             angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().currentLocation = pos;
 
@@ -442,9 +445,11 @@ input[type=text]:not(.browser-default) {
                             map.setCenter(pos);
                             map.setZoom(17.5);
                         }, function () {
+                            showSuccessToast("Successfully got your location");
                             handleLocationError(true, infoWindow, map.getCenter());
                         });
                     } else {
+                        showErrorToast("failed to get your location");
                         handleLocationError(false, infoWindow, map.getCenter());
                     }
 
@@ -465,16 +470,21 @@ input[type=text]:not(.browser-default) {
                     }
                     initAction = '';
                 } else if (action == 'distance') {
+                    angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().clearQueue();
                     console.log(user_lat + " " + user_lng);
                     var distanceService = new google.maps.DistanceMatrixService();
                     //console.log(tracks);
                     //var tracksNearIndex = []
                     var destinations = [];
                     var origin;
-
-                    for (k = 0; k < tracks.length; k++) {
+                    var position = angular.element(document.querySelector('[ng-controller="PlayerController"]')).scope().currentLocation;
+                    for (k = 0; k < tracks.length / 3; k++) {
                         origin = new google.maps.LatLng(user_lat, user_lng);
                         //console.log("origin", origin);
+                        //console.log(Math.abs(tracks[2].LATITUDE - position.lat));
+                        // if ( (Math.abs(tracks[k].LATITUDE - position.lat) <= 0.00999999) || (Math.abs(tracks[k].LONGITUDE - position.lng) <= 0.00999999) ) {
+                        //     destinations.push(new google.maps.LatLng(tracks[k].LATITUDE, tracks[k].LONGITUDE));
+                        // }
                         destinations.push(new google.maps.LatLng(tracks[k].LATITUDE, tracks[k].LONGITUDE));
                         //console.log("destination", destination);
                     }
@@ -485,7 +495,7 @@ input[type=text]:not(.browser-default) {
                         destinations: destinations,
                         travelMode: 'WALKING'
                     }, function (response, status) {
-                        console.log("Distance matrix response", response);
+                        console.log("Distance matrix status", status);
                         var tracksNearIndex = [];
                         if (status == 'OK') {
                             var origins = response.originAddresses;

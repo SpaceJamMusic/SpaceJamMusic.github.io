@@ -1,9 +1,9 @@
-(function() {
+(function () {
 
     var module = angular.module('SpaceJam');
 
-    module.controller('PlayerController', function($scope, $rootScope, Auth, Playback, Database, PlayQueue) {
-        
+    module.controller('PlayerController', function ($scope, $rootScope, Auth, Playback, Database, PlayQueue) {
+
 
         $scope.profileUsername = Auth.getUsername();
         console.log('In PlayerController: ', $scope.profileUsername);
@@ -14,17 +14,17 @@
         $scope.currentLocation = {};
         $scope.postedLocations = {};
 
-        $scope.resume = function() {
+        $scope.resume = function () {
             Playback.resume();
             $scope.playing = true;
         }
 
-        $scope.pause = function() {
+        $scope.pause = function () {
             Playback.pause();
             $scope.playing = false;
         }
 
-        $scope.logout = function() {
+        $scope.logout = function () {
             console.log("Logout");
             PlayQueue.clear();
             Auth.setUsername('');
@@ -32,22 +32,22 @@
             $scope.$emit('logout');
         }
 
-        $rootScope.$on('login', function() {
+        $rootScope.$on('login', function () {
             $scope.profileUsername = Auth.getUsername();
 
-            Database.checkUser($scope.profileUsername).then(function(response) {
+            Database.checkUser($scope.profileUsername).then(function (response) {
                 console.log("PlayerController: Current User Info", response);
                 $scope.userData = response[0];
-                Database.readUserTracksTbl().then(function(response) {
+                Database.readUserTracksTbl().then(function (response) {
                     console.log('PlayerController: UserTracks', response.records);
                     $scope.userTracks = response.records;
                     $scope.getPostedTracks();
-                    
+
                 })
             })
         })
 
-        $rootScope.$on('playerchanged', function() {
+        $rootScope.$on('playerchanged', function () {
             $scope.currentTrack = Playback.getTrack();
             $scope.playing = Playback.isPlaying();
             $scope.trackData = Playback.getTrackData();
@@ -60,8 +60,9 @@
             console.log('PlayerController: TrackData', $scope.trackData);
         })
 
-        $rootScope.$on('endtrack', function() {
+        $rootScope.$on('endtrack', function () {
             console.log('PlayerController: endtrack');
+            //PlayQueue.dequeue();
             $scope.currentTrack = Playback.getTrack();
             $scope.trackData = Playback.getTrackData();
             $scope.playing = Playback.isPlaying();
@@ -69,8 +70,8 @@
             Playback.startPlaying(PlayQueue.getCurrent());
         })
 
-        $scope.getPostedTracks = function() {
-            Database.readPostedTracks().then(function(response) {
+        $scope.getPostedTracks = function () {
+            Database.readPostedTracks().then(function (response) {
                 $scope.postedTracks = response;
                 console.log('PlayerController: Got Posted Tracks', $scope.postedTracks);
                 initMap("distance", $scope.currentLocation.lat, $scope.currentLocation.lng, $scope.postedTracks);
@@ -170,22 +171,16 @@
         $scope.upVote = function () {
             var tracksNearLocation = $scope.tracksNearLocation;
             //var currentLocation = $scope.currentLocation;
-            for (i = 0; i < tracksNearLocation.length; i++) {
-                if (tracksNearLocation[i].TRACK_URI == trackData.data.uri) {
-                    $scope.poster = tracksNearLocation[i].USERNAME;
-                }
-            }
-            var trackData = $scope.trackData;
-            if ($scope.poster == $scope.profileUsername) {
-                showErrorToast("Can't upvote own posted track");
-            } else {
-                Database.addTrackUser($scope.profileUsername, trackData.data.name, trackData.data.id, trackData.data.artists[0].name, trackData.data.uri);
 
-                Database.updateUserPoints($scope.poster, -500).then(function (response) {
-                    $scope.userData.POINTS = response.points;
-                })
-            }
+            console.log($scope.poster);
+            var trackData = $scope.trackData;
+            Database.addTrackUser($scope.profileUsername, trackData.data.name, trackData.data.id, trackData.data.artists[0].name, trackData.data.uri);
+
+            Database.updateUserPoints($scope.poster, -500).then(function (response) {
+                $scope.userData.POINTS = response.points;
+            })
             showSuccessToast('Upvoted Track, added track to your collection');
+
         }
     });
 })();
